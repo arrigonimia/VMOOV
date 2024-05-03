@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">EPICarevFM2</string>
+
+    <!-- strings.xml -->
+    <string name="sign_in">
+        Sign In
+    </string>
+
+    <string name="juan_d_az">
+        Juan Rodriguez
+    </string>
+
+    <string name="ciudad">
+        Buenos Aires, Argentina
+    </string>
+
+    <string name="report">
+        Metrics Report
+    </string>
+
+    <string name="contacts">
+        Contacts
+    </string>
+
+    <string name="email_reset"> Please enter your email to reset your password.</string>
+
+    <string name="days_since">
+        Days since your last seizure:
+    </string>
+
+    <string name="duration">
+        Average duration:
+    </string>
+
+    <string name="month">
+        Average seizures per month:
+    </string>
+</resources>

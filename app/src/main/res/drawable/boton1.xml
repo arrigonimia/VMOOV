@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable/button_prim.xml -->
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="131dp"
+    android:height="51dp"
+    android:viewportWidth="131"
+    android:viewportHeight="51"
+    >
+    <group>
+        <clip-path
+            android:pathData="M25.5 0H105.5C119.583 0 131 11.4167 131 25.5C131 39.5833 119.583 51 105.5 51H25.5C11.4167 51 0 39.5833 0 25.5C0 11.4167 11.4167 0 25.5 0Z"
+            />
+        <path
+            android:pathData="M0 0V51H131V0"
+            android:fillColor="#0D99FF"
+            android:text="Sign in"
+            />
+    </group>
+</vector>

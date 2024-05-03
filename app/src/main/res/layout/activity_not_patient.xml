@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6E6E6"
+    android:clipToOutline="true">
+
+    <ImageView
+        android:id="@+id/background3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sign_in_background" />
+
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="355dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/img_logout"
+        android:text="."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/ciudad"
+        android:layout_width="578dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="106dp"
+        android:layout_marginTop="146dp"
+        android:gravity="top"
+        android:lineSpacingExtra="12sp"
+        android:text="@string/ciudad"
+        android:textAppearance="@style/juan_d_az"
+        android:translationY="-5.8sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="107dp"
+        android:layout_marginTop="120dp"
+        android:gravity="top"
+        android:lineSpacingExtra="12sp"
+        android:text="User Name"
+        android:textAppearance="@style/juan_d_az"
+        android:translationY="-5.8sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="56dp"
+        android:layout_height="52dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/usuario_removebg_preview" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewPatients"
+        android:layout_width="318dp"
+        android:layout_height="494dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="204dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="33dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

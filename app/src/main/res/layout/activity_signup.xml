@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Auto layout, variables, and unit scale are not yet supported -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shape_with_"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="#E6E6E6">
+
+    <ImageView
+        android:id="@+id/imageView12"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sign_in_background" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#E6E6E6"
+        android:text="Back"
+        android:textAppearance="@style/botones_inferiores"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/firstname_text"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:background="#FFFFFF"
+        android:hint="First Name" />
+
+    <EditText
+        android:id="@+id/lastname_text"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="180dp"
+        android:background="#FFFFFF"
+        android:hint="Last Name" />
+
+    <EditText
+        android:id="@+id/gender_text"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="260dp"
+        android:background="#FFFFFF"
+        android:hint="Gender" />
+
+    <EditText
+        android:id="@+id/email_text"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="340dp"
+        android:background="#FFFFFF"
+        android:hint="Email" />
+
+    <EditText
+        android:id="@+id/pass_text"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="420dp"
+        android:background="#FFFFFF"
+        android:hint="Password" />
+
+    <EditText
+        android:id="@+id/repass_text"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="500dp"
+        android:background="#FFFFFF"
+        android:hint="Re-enter password" />
+
+    <CheckBox
+        android:id="@+id/checkboxUserType"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="556dp"
+        android:text="I´m a Patient" />
+
+    <Button
+        android:id="@+id/signUp_button"
+        android:layout_width="154dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="122dp"
+        android:layout_marginTop="625dp"
+        android:background="@drawable/boton1"
+        android:text="Sign Up"
+        android:textColor="#FFFFFF"/>
+
+</RelativeLayout>

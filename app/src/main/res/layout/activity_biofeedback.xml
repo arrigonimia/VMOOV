@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shape_with_"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_marginLeft="2dp"
+    android:layout_alignParentTop="true"
+    android:background="#3455A3">
+
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="match_parent"
+        android:layout_height="732dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        app:srcCompat="@drawable/img_biofeedback" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="342dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="130dp"
+        app:srcCompat="@drawable/img_fish" />
+
+    <Button
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="700dp"
+        android:background="#3455A3"
+        android:text="Home"
+        android:textAppearance="@style/botones_inferiores"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="106dp"
+        android:layout_marginTop="700dp"
+        android:background="#3455A3"
+        android:text="Contacts"
+        android:textAppearance="@style/botones_inferiores"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_biofeedback"
+        android:layout_width="110dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="208dp"
+        android:layout_marginTop="700dp"
+        android:background="#3455A3"
+        android:text="Biofeedback"
+        android:textAppearance="@style/botones_inferiores"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/sos"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="330dp"
+        android:layout_marginTop="700dp"
+        android:background="#3455A3"
+        android:text="SOS"
+        android:textAppearance="@style/botones_inferiores"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="123dp"
+        android:background="@color/colorOff"
+        android:text="Coming Soon" />
+</RelativeLayout>
