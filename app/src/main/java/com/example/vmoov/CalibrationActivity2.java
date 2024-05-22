@@ -41,7 +41,7 @@ public class CalibrationActivity2 extends AppCompatActivity {
     private void calibratingNow() {
         statusText.setText("Calibrating now...");
         statusText.setBackgroundColor(Color.YELLOW); // Set a yellow background (you can customize it)
-        // You can also use a Drawable resource as the background.
+        // You can also use a Drawable resource as the background
 
         // Delay for a short moment (e.g., 1 second)
         Handler handler = new Handler();

@@ -16,10 +16,12 @@
 
     <!-- styles.xml -->
     <style name="sign_in">
-        <item name="android:textSize">40sp</item>
-        <item name="android:letterSpacing">-0.02</item>
-        <item name="android:textColor">#1E1E1E</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">#CB6CE6</item>
+        <item name="android:textStyle">bold</item>
     </style>
+
 
     <style name="reset_password">
         <item name="android:textSize">25sp</item>

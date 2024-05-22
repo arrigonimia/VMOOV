@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Cambia el color de fondo del botón aquí -->
+    <solid android:color="#C5C5C5"/> <!-- Color personalizado -->
+    <!-- Configura las esquinas redondeadas aquí -->
+    <corners android:radius="8dp"/> <!-- Menos redondeado, ajusta según sea necesario -->
+</shape>
