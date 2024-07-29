@@ -5,6 +5,17 @@
     android:background="@drawable/fondo"
     android:padding="16dp">
 
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="300dp"
+        android:layout_marginTop="20dp"
+        android:text="Volver"
+        android:textSize="11dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/boton1"
+        />
 
     <TextView
         android:id="@+id/sign_in"
@@ -12,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="114dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="180dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="60dp"
         android:gravity="center"
