@@ -9,263 +9,141 @@
     android:clipToOutline="true"
     android:gravity="center">
 
-
     <ImageView
         android:id="@+id/imageView0"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/background" />
-
+        app:srcCompat="@drawable/fondo"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp"/>
 
     <Button
         android:id="@+id/logout_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="344dp"
+        android:layout_width="133dp"
+        android:layout_height="30dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/img_logout"
-        android:text="."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/ciudad"
-        android:layout_width="578dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="106dp"
-        android:layout_marginTop="146dp"
-        android:gravity="top"
-        android:lineSpacingExtra="12sp"
-        android:text="@string/ciudad"
-        android:textAppearance="@style/juan_d_az"
-        android:translationY="-5.8sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/rounded_corners"
+        android:text="Cerrar sesión"
+        android:textAppearance="@style/cuerpo"
+        app:layout_constraintEnd_toEndOf="@+id/imageView0"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="367dp"
-        android:layout_height="196dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="147dp"
-        android:layout_marginEnd="38dp"
+        android:layout_width="342dp"
+        android:layout_height="109dp"
+        android:layout_marginBottom="4dp"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="@id/guideline4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/widget_metrics" />
+        app:layout_constraintBottom_toTopOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="@+id/imageView0"
+        app:srcCompat="@drawable/fondo_botones_2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="172dp"
-        android:layout_height="99dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="312dp"
-        android:layout_marginEnd="214dp"
-        android:layout_marginBottom="320dp"
+        android:layout_width="185dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="24dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/widget_metrics" />
+        app:layout_constraintBottom_toBottomOf="@+id/duration_value"
+        app:layout_constraintStart_toStartOf="@+id/imageView0"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        app:srcCompat="@drawable/fondo_botones" />
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="170dp"
-        android:layout_height="99dp"
-        android:layout_marginStart="213dp"
-        android:layout_marginTop="312dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="320dp"
+        android:layout_width="185dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="-15dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginBottom="310dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline4"
-        app:layout_constraintHorizontal_bias="0.189"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@id/guideline3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/widget_metrics" />
-
-    <TextView
-        android:id="@+id/user_name_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="107dp"
-        android:layout_marginTop="120dp"
-        android:gravity="top"
-        android:lineSpacingExtra="12sp"
-        android:text="User Name"
-        android:textAppearance="@style/juan_d_az"
-        android:translationY="-5.8sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="56dp"
-        android:layout_height="52dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="120dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/usuario_removebg_preview" />
-
-    <!--    <Button-->
-    <!--        android:id="@+id/sms_button"-->
-    <!--        android:layout_width="182dp"-->
-    <!--        android:layout_height="75dp"-->
-    <!--        android:layout_alignParentLeft="true"-->
-    <!--        android:layout_alignParentTop="true"-->
-    <!--        android:layout_marginLeft="108dp"-->
-    <!--        android:layout_marginTop="520dp"-->
-    <!--        android:text="SMS"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"/>-->
+        app:layout_constraintBottom_toBottomOf="@+id/imageView0"
+        app:layout_constraintEnd_toEndOf="@+id/imageView0"
+        app:layout_constraintStart_toEndOf="@+id/imageView7"
+        app:srcCompat="@drawable/fondo_botones" />
 
     <Button
         android:id="@+id/home"
         android:layout_width="81dp"
         android:layout_height="48dp"
-        android:layout_marginTop="700dp"
-        android:layout_marginEnd="323dp"
-        android:background="#E6E6E6"
-        android:text="Home"
-        android:textAppearance="@style/botones_inferiores"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/button_contacts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="700dp"
-        android:background="#E6E6E6"
-        android:text="Contacts"
-        android:textAppearance="@style/botones_inferiores"
-        android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/home"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_biofeedback"
-        android:layout_width="110dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="700dp"
-        android:layout_marginBottom="15dp"
-        android:background="#E6E6E6"
-        android:text="Biofeedback"
-        android:textAppearance="@style/botones_inferiores"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button_contacts"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/sos"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="700dp"
-        android:background="#E6E6E6"
-        android:text="SOS"
-        android:textAppearance="@style/botones_inferiores"
-        android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/button_biofeedback"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_corners"
+        android:text="Inicio"
+        android:textAppearance="@style/cuerpo"
+        app:layout_constraintStart_toStartOf="@+id/imageView0"
+        app:layout_constraintTop_toBottomOf="@+id/barChart" />
 
     <Button
         android:id="@+id/buttonConnect"
-        android:layout_width="83dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/rounded_button"
-        android:text="Connect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/calibration"
-        android:layout_width="85dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_button"
-        android:text="Calibrate"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonConnect"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="223dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="94dp"
+        android:layout_marginBottom="44dp"
+        android:background="@drawable/rounded_corners"
+        android:text="CONECTAR CASCO"
+        app:layout_constraintBottom_toTopOf="@+id/imageView8"
+        app:layout_constraintStart_toStartOf="@+id/imageView0" />
 
     <TextView
         android:id="@+id/LastSeizure"
         android:layout_width="189dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="111dp"
-        android:layout_marginTop="199dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="@string/days_since"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/last_session"
+        android:textAppearance="@style/boton"
+        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
+        app:layout_constraintTop_toTopOf="@+id/imageView8" />
 
     <TextView
         android:id="@+id/Count"
-        android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="320dp"
-        android:layout_marginEnd="247dp"
-        android:layout_marginBottom="375dp"
+        android:layout_width="160dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
         android:text="@string/duration"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textAppearance="@style/boton"
+        app:layout_constraintBaseline_toBaselineOf="@+id/count"
+        app:layout_constraintBottom_toTopOf="@+id/duration_value"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="@+id/imageView7" />
 
     <TextView
         android:id="@+id/count"
-        android:layout_width="134dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="242dp"
-        android:layout_marginTop="357dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="374dp"
+        android:layout_width="160dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/month"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline4"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:textAppearance="@style/boton"
+        app:layout_constraintBottom_toTopOf="@+id/seizure_month"
+        app:layout_constraintEnd_toEndOf="@+id/imageView9"
+        app:layout_constraintHorizontal_bias="0.56"
+        app:layout_constraintStart_toStartOf="@+id/imageView9"
+        tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.15" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
@@ -278,74 +156,52 @@
         android:id="@+id/days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="186dp"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="197dp"
-        android:layout_marginBottom="515dp"
+        android:layout_marginTop="14dp"
         android:gravity="center"
-        android:text="0"
-        android:textSize="42sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:text="28/07/2024"
+        android:textColor="@color/white"
+        android:textSize="12pt"
+        app:layout_constraintEnd_toEndOf="@+id/imageView8"
+        app:layout_constraintStart_toStartOf="@+id/imageView8"
+        app:layout_constraintTop_toBottomOf="@+id/LastSeizure" />
 
     <TextView
         android:id="@+id/duration_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="69dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="257dp"
-        android:layout_marginBottom="329dp"
+        android:layout_marginBottom="21dp"
         android:text="0"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.408"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.028" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/seizure_month"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintEnd_toEndOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="@+id/imageView7" />
 
     <TextView
         android:id="@+id/seizure_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="265dp"
-        android:layout_marginTop="400dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="329dp"
+        android:layout_marginBottom="21dp"
         android:text="0"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="@+id/imageView9"
+        app:layout_constraintStart_toStartOf="@+id/imageView9" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
         android:layout_width="372dp"
         android:layout_height="197dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.589"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.79">
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toStartOf="@id/imageView7"
+        app:layout_constraintEnd_toEndOf="@id/imageView9"
+        app:layout_constraintTop_toBottomOf="@id/imageView7"/>
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="96dp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/background" />
-    </com.github.mikephil.charting.charts.BarChart>
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

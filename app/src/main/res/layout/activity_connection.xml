@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    android:padding="16dp">
+
+
+    <TextView
+        android:id="@+id/sign_in"
+        style="@style/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="114dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
+        android:text="INGRESE EL NÚMERO QUE VE EN PANTALLA A TRAVÉS DEL CASCO "
+        android:textColor="#FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:background="@drawable/rounded_text_entry"
+            android:layout_margin="8dp"/>
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:background="@drawable/rounded_text_entry"
+            android:layout_margin="8dp"/>
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:background="@drawable/rounded_text_entry"
+            android:layout_margin="8dp"/>
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:background="@drawable/rounded_text_entry"
+            android:layout_margin="8dp"/>
+
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/signUp_button"
+        android:layout_width="154dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginTop="560dp"
+        android:background="@drawable/boton1"
+        android:text="CONECTARME"
+        android:textColor="#FFFFFF"
+        />
+</RelativeLayout>

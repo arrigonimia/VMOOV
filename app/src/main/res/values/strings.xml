@@ -24,15 +24,16 @@
 
     <string name="email_reset"> Please enter your email to reset your password.</string>
 
-    <string name="days_since">
-        Days since your last seizure:
+    <string name="last_session">
+        Última sesión:
     </string>
 
     <string name="duration">
-        Average duration:
+        Duración de la última sesión:
     </string>
 
     <string name="month">
-        Average seizures per month:
+        Cantidad de sesiones por mes:
     </string>
+    <string name="title_activity_connection">ConnectionActivity</string>
 </resources>

@@ -43,6 +43,11 @@
         android:theme="@style/Theme.EPICarevFM2"
         tools:targetApi="31">
         <activity
+            android:name=".ConnectionActivity"
+            android:exported="false"
+            android:label="@string/title_activity_connection"
+            android:theme="@style/Theme.EPICarevFM2" />
+        <activity
             android:name=".PatientDisplayActivity"
             android:exported="false" />
 

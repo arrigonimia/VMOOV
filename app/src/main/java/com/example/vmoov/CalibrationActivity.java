@@ -36,7 +36,7 @@ public class CalibrationActivity extends AppCompatActivity {
 //                // Save calibration status to Firebase
 //                saveCalibrationStatusToFirebase();
 
-                Intent intent = new Intent(CalibrationActivity.this, CalibrationActivity2.class);
+                Intent intent = new Intent(CalibrationActivity.this, MetricsActivity.class);
                 startActivity(intent);
             }
         });

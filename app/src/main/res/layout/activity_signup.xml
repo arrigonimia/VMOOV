@@ -19,20 +19,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background" />
+        app:srcCompat="@drawable/fondo" />
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="70dp"
-        android:layout_height="50dp"
+        android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:background="#E6E6E6"
-        android:text="Back"
-        android:textAppearance="@style/botones_inferiores"
-        android:textColor="#000000" />
+        android:text="Volver"
+        android:textSize="11dp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/boton1"
+        android:textAppearance="@style/botones_inferiores" />
 
     <EditText
         android:id="@+id/firstname_text"
@@ -42,8 +43,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="100dp"
-        android:background="#FFFFFF"
-        android:hint="First Name" />
+        android:background="@drawable/botones_blancos"
+        android:textAppearance="@style/cuerpo"
+        android:hint="  Nombre" />
 
     <EditText
         android:id="@+id/lastname_text"
@@ -53,8 +55,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="180dp"
-        android:background="#FFFFFF"
-        android:hint="Last Name" />
+        android:background="@drawable/botones_blancos"
+        android:textAppearance="@style/cuerpo"
+        android:hint="  Apellido" />
 
     <EditText
         android:id="@+id/gender_text"
@@ -64,8 +67,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="260dp"
-        android:background="#FFFFFF"
-        android:hint="Gender" />
+        android:background="@drawable/botones_blancos"
+        android:textAppearance="@style/cuerpo"
+        android:hint="  Género" />
 
     <EditText
         android:id="@+id/email_text"
@@ -75,8 +79,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="340dp"
-        android:background="#FFFFFF"
-        android:hint="Email" />
+        android:background="@drawable/botones_blancos"
+        android:textAppearance="@style/cuerpo"
+        android:hint="  Correo electrónico" />
 
     <EditText
         android:id="@+id/pass_text"
@@ -86,8 +91,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="420dp"
-        android:background="#FFFFFF"
-        android:hint="Password" />
+        android:background="@drawable/botones_blancos"
+        android:textAppearance="@style/cuerpo"
+        android:hint="  Contraseña" />
 
     <EditText
         android:id="@+id/repass_text"
@@ -97,8 +103,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="500dp"
-        android:background="#FFFFFF"
-        android:hint="Re-enter password" />
+        android:background="@drawable/botones_blancos"
+        android:textAppearance="@style/cuerpo"
+        android:hint="  Reingresar contraseña" />
 
     <CheckBox
         android:id="@+id/checkboxUserType"
@@ -106,7 +113,7 @@
         android:layout_height="50dp"
         android:layout_marginLeft="45dp"
         android:layout_marginTop="556dp"
-        android:text="I´m a Patient" />
+        android:text="Soy paciente" />
 
     <Button
         android:id="@+id/signUp_button"
@@ -117,7 +124,7 @@
         android:layout_marginLeft="122dp"
         android:layout_marginTop="625dp"
         android:background="@drawable/boton1"
-        android:text="Sign Up"
+        android:text="Registrarme"
         android:textColor="#FFFFFF"/>
 
 </RelativeLayout>
