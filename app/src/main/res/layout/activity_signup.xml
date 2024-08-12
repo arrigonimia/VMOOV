@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Auto layout, variables, and unit scale are not yet supported -->
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/shape_with_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentTop="true"
     android:background="#E6E6E6">
 
     <ImageView
@@ -25,106 +21,143 @@
         android:id="@+id/back_button"
         android:layout_width="70dp"
         android:layout_height="35dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Volver"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="VOLVER"
         android:textSize="11dp"
         android:textColor="#FFFFFF"
-        android:background="@drawable/boton1"
-        android:textAppearance="@style/botones_inferiores" />
+        android:background="@drawable/botonvioleta"
+        android:textAppearance="@style/botones_inferiores"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/forma"
+        android:layout_width="360dp"
+        android:layout_height="552dp"
+        android:layout_marginTop="90dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/vertical" />
+
+    <!-- Agrupar los EditTexts en una cadena vertical -->
     <EditText
         android:id="@+id/firstname_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/botones_blancos"
         android:textAppearance="@style/cuerpo"
-        android:hint="  Nombre" />
+        android:textColor="@color/blue"
+        android:textColorHint="@color/blue"
+        android:hint="Nombre"
+        app:layout_constraintTop_toTopOf="@id/forma"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="26dp"
+        android:layout_marginTop="40dp"/> <!-- Eliminamos el margen superior para que coincida con la parte superior de "forma" -->
 
     <EditText
         android:id="@+id/lastname_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="180dp"
-        android:background="@drawable/botones_blancos"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/blue"
         android:textAppearance="@style/cuerpo"
-        android:hint="  Apellido" />
+        android:hint="Apellido"
+        app:layout_constraintTop_toBottomOf="@id/firstname_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/gender_text"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:id="@+id/gender_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="260dp"
-        android:background="@drawable/botones_blancos"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/blue"
         android:textAppearance="@style/cuerpo"
-        android:hint="  Género" />
+        android:hint="Género"
+        app:layout_constraintTop_toBottomOf="@id/lastname_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/email_text"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:id="@+id/email_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="340dp"
-        android:background="@drawable/botones_blancos"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/blue"
         android:textAppearance="@style/cuerpo"
-        android:hint="  Correo electrónico" />
+        android:hint="Correo electrónico"
+        app:layout_constraintTop_toBottomOf="@id/gender_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/pass_text"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:id="@+id/pass_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="420dp"
-        android:background="@drawable/botones_blancos"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/blue"
         android:textAppearance="@style/cuerpo"
-        android:hint="  Contraseña" />
+        android:hint="Contraseña"
+        app:layout_constraintTop_toBottomOf="@id/email_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/repass_text"
+        android:layout_marginTop="20dp" />
 
     <EditText
         android:id="@+id/repass_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="500dp"
-        android:background="@drawable/botones_blancos"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/blue"
         android:textAppearance="@style/cuerpo"
-        android:hint="  Reingresar contraseña" />
+        android:hint="Reingresar contraseña"
+        app:layout_constraintTop_toBottomOf="@id/pass_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp" />
 
     <CheckBox
         android:id="@+id/checkboxUserType"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="556dp"
-        android:text="Soy paciente" />
+        android:layout_marginStart="45dp"
+        android:text="Soy paciente"
+        android:textColor="@color/violet"
+        app:layout_constraintTop_toBottomOf="@id/repass_text"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/signUp_button"
         android:layout_width="154dp"
         android:layout_height="70dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="122dp"
-        android:layout_marginTop="625dp"
-        android:background="@drawable/boton1"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/botonvioleta"
+        android:gravity="center"
         android:text="Registrarme"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/checkboxUserType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</RelativeLayout>
+    <ImageView
+        android:layout_width="286dp"
+        android:layout_height="278dp"
+        android:layout_marginStart="333.8dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/checkboxUserType"
+        app:srcCompat="@drawable/manchita" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

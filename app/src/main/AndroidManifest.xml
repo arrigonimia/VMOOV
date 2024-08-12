@@ -116,6 +116,12 @@
             android:name=".MetricsActivity"
             android:exported="false" />
 
+        <activity android:name=".LogoutActivity"
+            android:exported="false"/>
+
+       <activity android:name=".SettingsActivity"
+           android:exported="false"/>
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">

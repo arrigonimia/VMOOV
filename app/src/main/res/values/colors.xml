@@ -15,6 +15,7 @@
     <color name="colorAccent">#E040FB</color>
     <color name="colorOff">#FFFFFF</color>
     <color name="colorOn">#E040FB</color>
-    <color name="pink">#CB6CE6</color>
+    <color name="blue">#3F60E2</color>
+    <color name="violet">#A36BFA</color>
 
 </resources>

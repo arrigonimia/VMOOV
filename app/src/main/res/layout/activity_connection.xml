@@ -1,43 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/fondo"
-    android:padding="16dp">
+<!-- Auto layout, variables, and unit scale are not yet supported -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shape_with_"
+    android:layout_width="684dp"
+    android:layout_height="1288dp"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:background="#E6E6E6">
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/fondo" />
+
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="70dp"
         android:layout_height="35dp"
-        android:layout_marginLeft="300dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:text="Volver"
         android:textSize="11dp"
         android:textColor="#FFFFFF"
-        android:background="@drawable/boton1"
-        />
+        android:background="@drawable/botonvioleta"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/sign_in"
+        android:id="@+id/label_above_squares"
         style="@style/titulo"
-        android:layout_width="wrap_content"
-        android:layout_height="114dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="180dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="60dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-100dp"
+        android:layout_marginBottom="56dp"
         android:gravity="center"
-        android:text="INGRESE EL NÚMERO QUE VE EN PANTALLA A TRAVÉS DEL CASCO "
-        android:textColor="#FFFFFF" />
+        android:text="Ingrese éste código desde el casco de VR"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintStart_toStartOf="@id/layout" />
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/back_button"
+        app:layout_constraintStart_toStartOf="@id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="280dp"
+        android:layout_marginStart="-295dp">
 
-        <EditText
+        <ImageView
             android:id="@+id/editText1"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -48,7 +76,7 @@
             android:background="@drawable/rounded_text_entry"
             android:layout_margin="8dp"/>
 
-        <EditText
+        <ImageView
             android:id="@+id/editText2"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -59,7 +87,7 @@
             android:background="@drawable/rounded_text_entry"
             android:layout_margin="8dp"/>
 
-        <EditText
+        <ImageView
             android:id="@+id/editText3"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -70,7 +98,7 @@
             android:background="@drawable/rounded_text_entry"
             android:layout_margin="8dp"/>
 
-        <EditText
+        <ImageView
             android:id="@+id/editText4"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -80,17 +108,48 @@
             android:textSize="24sp"
             android:background="@drawable/rounded_text_entry"
             android:layout_margin="8dp"/>
-
-
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/texto2"
+        style="@style/titulo"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-100dp"
+        android:layout_marginBottom="-196dp"
+        android:gravity="center"
+        android:text="y siga las instrucciones allí"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.232"
+        app:layout_constraintStart_toStartOf="@id/layout" />
+
     <Button
-        android:id="@+id/signUp_button"
-        android:layout_width="154dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="112dp"
-        android:layout_marginTop="560dp"
-        android:background="@drawable/boton1"
-        android:text="CONECTARME"
+        android:id="@+id/listoButton"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="144dp"
+        android:layout_marginTop="592dp"
+        android:textAllCaps="false"
+        android:background="@drawable/botonvioleta"
+        android:text="Listo"
         android:textColor="#FFFFFF"
-        />
-</RelativeLayout>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="286dp"
+        android:layout_height="278dp"
+        android:layout_marginStart="-263.8dp"
+        android:layout_marginTop="-38dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/listoButton"
+        app:srcCompat="@drawable/manchita" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
