@@ -122,6 +122,9 @@
        <activity android:name=".SettingsActivity"
            android:exported="false"/>
 
+        <activity android:name=".RegistrationSuccessActivity"
+            android:exported="false"/>
+
         <service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">

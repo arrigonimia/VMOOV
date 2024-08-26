@@ -1,6 +1,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/shape_with_"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -33,11 +34,11 @@
 
     <ImageView
         android:id="@+id/forma"
-        android:layout_width="360dp"
-        android:layout_height="552dp"
-        android:layout_marginTop="90dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="387dp"
+        android:layout_height="619dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/vertical" />
 
@@ -54,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="26dp"
-        android:layout_marginTop="40dp"/> <!-- Eliminamos el margen superior para que coincida con la parte superior de "forma" -->
+        android:layout_marginTop="40dp"/>
 
     <EditText
         android:id="@+id/lastname_text"
@@ -65,6 +66,21 @@
         android:textAppearance="@style/cuerpo"
         android:hint="Apellido"
         app:layout_constraintTop_toBottomOf="@id/firstname_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dni_text"
+        android:layout_marginTop="20dp" />
+
+    <!-- Nuevo campo para DNI -->
+    <EditText
+        android:id="@+id/dni_text"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/blue"
+        android:textAppearance="@style/cuerpo"
+        android:hint="DNI"
+        app:layout_constraintTop_toBottomOf="@id/lastname_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/gender_text"
@@ -78,7 +94,7 @@
         android:textColorHint="@color/blue"
         android:textAppearance="@style/cuerpo"
         android:hint="Género"
-        app:layout_constraintTop_toBottomOf="@id/lastname_text"
+        app:layout_constraintTop_toBottomOf="@id/dni_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/email_text"
@@ -123,23 +139,25 @@
         app:layout_constraintTop_toBottomOf="@id/pass_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        />
 
     <CheckBox
         android:id="@+id/checkboxUserType"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="45dp"
-        android:text="Soy paciente"
+        android:text="Soy profesional de salud"
         android:textColor="@color/violet"
         app:layout_constraintTop_toBottomOf="@id/repass_text"
+        android:layout_marginTop="-4dp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/signUp_button"
         android:layout_width="154dp"
         android:layout_height="70dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="-1dp"
         android:background="@drawable/botonvioleta"
         android:gravity="center"
         android:text="Registrarme"

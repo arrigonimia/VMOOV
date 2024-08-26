@@ -1,60 +1,68 @@
 package com.example.vmoov;
 
 public class Patient {
-    private String birth;
-    private String blood_type;
-    private String epiTherapy;
-    private String meds;
+    private String birthDate;
+    private String bloodType;
+    private String epilepsyTherapy;
+    private String medications;
     private String pathologies;
+    private int uniqueCode; // Nuevo atributo para almacenar el código único de 4 dígitos
 
-    // Constructors
-    public Patient(String birth, String blood_type, String epiTherapy, String meds, String pathologies) {
-        this.birth = birth;
-        this.blood_type = blood_type;
-        this.epiTherapy = epiTherapy;
-        this.meds = meds;
+    public Patient(String birthDate, String bloodType, String epilepsyTherapy, String medications, String pathologies, int uniqueCode) {
+        this.birthDate = birthDate;
+        this.bloodType = bloodType;
+        this.epilepsyTherapy = epilepsyTherapy;
+        this.medications = medications;
         this.pathologies = pathologies;
+        this.uniqueCode = uniqueCode;
     }
 
-    // Getters and Setters
+    // Getters y Setters
     public String getBirthDate() {
-        return birth;
+        return birthDate;
     }
 
-    public void setBirthDate(String firstName) {
-        this.birth = birth;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public String getblood_type() {
-        return blood_type;
+    public String getBloodType() {
+        return bloodType;
     }
 
-    public void setblood_type(String blood_type) {
-        this.blood_type = blood_type;
+    public void setBloodType(String bloodType) {
+        this.bloodType = bloodType;
     }
 
-    public String getepiTherapy() {
-        return epiTherapy;
+    public String getEpilepsyTherapy() {
+        return epilepsyTherapy;
     }
 
-    public void setepiTherapy(String epiTherapy) {
-        this.epiTherapy = epiTherapy;
+    public void setEpilepsyTherapy(String epilepsyTherapy) {
+        this.epilepsyTherapy = epilepsyTherapy;
     }
 
-    public String getmeds() {
-        return meds;
+    public String getMedications() {
+        return medications;
     }
 
-    public void setmeds(String meds) {
-        this.meds = meds;
+    public void setMedications(String medications) {
+        this.medications = medications;
     }
 
-    public String getpathologies() {
+    public String getPathologies() {
         return pathologies;
     }
 
-    public void setpathologies(String pathologies) {
+    public void setPathologies(String pathologies) {
         this.pathologies = pathologies;
     }
 
+    public int getUniqueCode() {
+        return uniqueCode;
+    }
+
+    public void setUniqueCode(int uniqueCode) {
+        this.uniqueCode = uniqueCode;
+    }
 }

@@ -25,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private EditText editText_fname;
     private EditText editText_lname;
+    private EditText editText_dni;  // Nuevo campo para DNI
     private EditText editText_gender;
     private EditText editText_email;
     private EditText editText_pass;
@@ -33,14 +34,14 @@ public class SignUpActivity extends AppCompatActivity {
     private CheckBox checkBox;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private int userType = 0; // Initialize user type to 0
+    private int userType = 0; // Inicializar el tipo de usuario a 0
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        // Initialize Firebase references
+        // Inicializar referencias de Firebase
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -54,8 +55,10 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
+        // Vincular los campos con los elementos en el layout
         editText_fname = findViewById(R.id.firstname_text);
         editText_lname = findViewById(R.id.lastname_text);
+        editText_dni = findViewById(R.id.dni_text);            // Nuevo campo para DNI
         editText_gender = findViewById(R.id.gender_text);
         editText_email = findViewById(R.id.email_text);
         editText_pass = findViewById(R.id.pass_text);
@@ -63,16 +66,16 @@ public class SignUpActivity extends AppCompatActivity {
         guardarButton = findViewById(R.id.signUp_button);
         checkBox = findViewById(R.id.checkboxUserType);
 
-        // Add an OnCheckedChangeListener to the checkbox
+        // Listener para el checkbox
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // Update the userType based on checkbox status
+                // Actualizar el tipo de usuario basado en el estado del checkbox
                 userType = isChecked ? 1 : 0;
             }
         });
 
-        // Enable or disable the sign-up button based on password validation
+        // Habilitar o deshabilitar el botón de registro basado en la validación de las contraseñas
         TextWatcher passwordWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -80,25 +83,25 @@ public class SignUpActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // Check if passwords match and meet length criteria
+                // Comprobar si las contraseñas coinciden y cumplen los criterios de longitud
                 String password = editText_pass.getText().toString();
                 String rePassword = editText_repass.getText().toString();
 
                 boolean passwordsMatch = password.equals(rePassword);
                 boolean passwordLengthValid = password.length() >= 6;
 
-                // Enable or disable the sign-up button
+                // Habilitar o deshabilitar el botón de registro
                 guardarButton.setEnabled(passwordsMatch && passwordLengthValid);
 
-                // Provide real-time feedback to the user
+                // Proveer retroalimentación en tiempo real al usuario
                 if (!passwordsMatch) {
-                    editText_repass.setError("Passwords do not match");
+                    editText_repass.setError("Las contraseñas no coinciden");
                 } else {
                     editText_repass.setError(null);
                 }
 
                 if (!passwordLengthValid) {
-                    editText_pass.setError("Password is too short (min 6 characters)");
+                    editText_pass.setError("La contraseña es demasiado débil (mínimo 6 caracteres)");
                 } else {
                     editText_pass.setError(null);
                 }
@@ -116,41 +119,45 @@ public class SignUpActivity extends AppCompatActivity {
             guardarButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String First_name = editText_fname.getText().toString();
-                    String Last_name = editText_lname.getText().toString();
-                    String Gender = editText_gender.getText().toString();
-                    String Email = editText_email.getText().toString();
-                    String Password = editText_pass.getText().toString();
-                    String Repassword = editText_repass.getText().toString();
+                    String firstName = editText_fname.getText().toString();
+                    String lastName = editText_lname.getText().toString();
+                    String dni = editText_dni.getText().toString();             // Obtener el valor del DNI
+                    String gender = editText_gender.getText().toString();
+                    String email = editText_email.getText().toString();
+                    String password = editText_pass.getText().toString();
 
-                    // Create a new user in Firebase Authentication
-                    mAuth.createUserWithEmailAndPassword(Email, Password)
-                            .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful() && Password.equals(Repassword)) {
-                                        String userId = mAuth.getCurrentUser().getUid(); // Get the UID
+                    if (password.equals(editText_repass.getText().toString())) {
+                        mAuth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            String userId = mAuth.getCurrentUser().getUid(); // Obtener el UID
 
-                                        User user = new User(First_name, Last_name, Email, Password, Gender, userType);
+                                            // Crear el objeto usuario con el DNI y otros datos
+                                            User user = new User(firstName, lastName, dni, gender, email, password, userType);
 
-                                        // Save the user data
-                                        mDatabase.child("users").child(userId).setValue(user);
+                                            // Guardar los datos del usuario en Firebase
+                                            mDatabase.child("users").child(userId).setValue(user);
 
-                                        if (userType == 1) {
-                                            // User is a patient
-                                            Intent intent = new Intent(SignUpActivity.this, PatientSignUpActivity.class);
-                                            intent.putExtra("userId", userId); // Pass the UID to the next activity
-                                            startActivity(intent);
+                                            if (userType == 0) {
+                                                // Si es paciente, ir a PatientSignUpActivity
+                                                Intent intent = new Intent(SignUpActivity.this, PatientSignUpActivity.class);
+                                                intent.putExtra("userId", userId); // Pasar el UID a la siguiente actividad
+                                                startActivity(intent);
+                                            } else {
+                                                // Si no es paciente, ir al MainActivity
+                                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                                startActivity(intent);
+                                            }
                                         } else {
-                                            // User is not a patient
-                                            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                            startActivity(intent);
+                                            Toast.makeText(SignUpActivity.this, "El registro falló. Por favor, vuelva a intentarlo.", Toast.LENGTH_SHORT).show();
                                         }
-                                    } else {
-                                        Toast.makeText(SignUpActivity.this, "Authentication failed. Please try again.", Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                            });
+                                });
+                    } else {
+                        Toast.makeText(SignUpActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

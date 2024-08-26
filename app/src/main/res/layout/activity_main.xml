@@ -20,14 +20,14 @@
 
     <ImageView
         android:id="@+id/formablanca"
-        android:layout_width="804dp"
+        android:layout_width="match_parent"
         android:layout_height="839dp"
-        android:layout_marginStart="-170dp"
-        android:layout_marginTop="-200dp"
+        android:layout_marginStart="-10dp"
+        android:layout_marginTop="-350dp"
         android:translationX="0dp"
         android:translationY="0dp"
         app:layout_constraintStart_toStartOf="@id/fondo"
-        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintTop_toBottomOf="@id/horizontal"
         app:srcCompat="@drawable/formablanca" />
 
     <ImageView
@@ -168,10 +168,10 @@
         android:layout_width="315dp"
         android:layout_height="271dp"
         android:layout_marginStart="132dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="300dp"
         android:background="@drawable/manchita"
         app:layout_constraintStart_toStartOf="@id/sign_in"
-        app:layout_constraintTop_toBottomOf="@id/sign_in" />
+        app:layout_constraintTop_toBottomOf="@id/horizontal" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -191,6 +191,13 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintGuide_percent="0.95"
         app:layout_constraintTop_toBottomOf="@+id/fondo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" /> <!-- 50% de la altura de la pantalla -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

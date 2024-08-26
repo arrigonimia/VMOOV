@@ -3,22 +3,24 @@ package com.example.vmoov;
 public class User {
     private String firstName;
     private String lastName;
+    private String dni;
+    private String gender;
     private String email;
     private String password;
-    private String gender;
-    private Integer userType;
+    private int userType;
 
-    // Constructors
-    public User(String firstName, String lastName, String email, String password, String gender, Integer userType) {
+    // Constructor
+    public User(String firstName, String lastName, String dni, String gender, String email, String password, int userType) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.dni = dni;
+        this.gender = gender;
         this.email = email;
         this.password = password;
-        this.gender = gender;
         this.userType = userType;
     }
 
-    // Getters and Setters
+    // Getters y Setters para cada atributo
     public String getFirstName() {
         return firstName;
     }
@@ -33,6 +35,22 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getEmail() {
@@ -51,21 +69,11 @@ public class User {
         this.password = password;
     }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Integer getUserType() {
+    public int getUserType() {
         return userType;
     }
 
-    public void setUserType(Integer userType) {
+    public void setUserType(int userType) {
         this.userType = userType;
     }
-
-    // Other methods, if needed
 }

@@ -8,15 +8,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 public class PatientSignUpActivity extends AppCompatActivity {
 
@@ -37,7 +36,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
 
         // Initialize Firebase references
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference(); // Updated database reference
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         editText_birth = findViewById(R.id.birth_text);
         editText_blood = findViewById(R.id.blood_text);
@@ -47,39 +46,46 @@ public class PatientSignUpActivity extends AppCompatActivity {
 
         guardarButton = findViewById(R.id.signUp_button);
 
-        if (guardarButton != null) {
-            guardarButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String Birthday_in = editText_birth.getText().toString();
-                    String Blood_in = editText_blood.getText().toString();
-                    String EpilepsyTherapy_in = editText_epitherapy.getText().toString();
-                    String Medications_in = editText_medications.getText().toString();
-                    String Pathologies_in = editText_pathologies.getText().toString();
+        guardarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Birthday_in = editText_birth.getText().toString();
+                String Blood_in = editText_blood.getText().toString();
+                String EpilepsyTherapy_in = editText_epitherapy.getText().toString();
+                String Medications_in = editText_medications.getText().toString();
+                String Pathologies_in = editText_pathologies.getText().toString();
 
-                    String userId = mAuth.getCurrentUser().getUid(); // Get the current user's UID
+                String userId = mAuth.getCurrentUser().getUid(); // Get the current user's UID
 
-                    // Create a new Patient object
-                    Patient patient = new Patient(Birthday_in, Blood_in, EpilepsyTherapy_in, Medications_in, Pathologies_in);
+                // Generate a unique 4-digit code
+                generateUniqueCode(new OnCodeGeneratedListener() {
+                    @Override
+                    public void onCodeGenerated(int uniqueCode) {
+                        // Create a new Patient object with the unique code
+                        Patient patient = new Patient(Birthday_in, Blood_in, EpilepsyTherapy_in, Medications_in, Pathologies_in, uniqueCode);
 
-                    // Save the patient data under the user's UID in the /patients node
-                    mDatabase.child("patients").child(userId).setValue(patient).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(PatientSignUpActivity.this, "Patient data saved.", Toast.LENGTH_SHORT).show();
-                                createDefaultPatientMetrics(userId);
-                                // Proceed to the main activity or any other activity
-                                Intent intent = new Intent(PatientSignUpActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            } else {
-                                Toast.makeText(PatientSignUpActivity.this, "Failed to save patient data.", Toast.LENGTH_SHORT).show();
+                        // Save the patient data under the user's UID in the /patients node
+                        mDatabase.child("patients").child(userId).setValue(patient, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                if (databaseError == null) {
+                                    Toast.makeText(PatientSignUpActivity.this, "Patient data saved.", Toast.LENGTH_SHORT).show();
+                                    createDefaultPatientMetrics(userId);
+
+                                    // Proceed to RegistrationSuccessActivity and pass the userId
+                                    Intent intent = new Intent(PatientSignUpActivity.this, RegistrationSuccessActivity.class);
+                                    intent.putExtra("userId", userId); // Pass the userId to the next activity
+                                    startActivity(intent);
+                                    finish(); // Close this activity to avoid returning to it
+                                } else {
+                                    Toast.makeText(PatientSignUpActivity.this, "Failed to save patient data.", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        }
-                    });
-                }
-            });
-        }
+                        });
+                    }
+                });
+            }
+        });
 
         Button Back = findViewById(R.id.back_button);
         Back.setOnClickListener(new View.OnClickListener() {
@@ -96,16 +102,43 @@ public class PatientSignUpActivity extends AppCompatActivity {
         PatientMetrics defaultMetrics = new PatientMetrics(0.0f, 0, "", 0.0f);
 
         // Save the default patient metrics data under the user's UID in the /patientmetrics node
-        mDatabase.child("patientmetrics").child(userId).setValue(defaultMetrics)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(PatientSignUpActivity.this, "Default patient metrics created.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(PatientSignUpActivity.this, "Failed to create default patient metrics.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        mDatabase.child("patientmetrics").child(userId).setValue(defaultMetrics, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                if (databaseError == null) {
+                    Toast.makeText(PatientSignUpActivity.this, "Default patient metrics created.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(PatientSignUpActivity.this, "Failed to create default patient metrics.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void generateUniqueCode(OnCodeGeneratedListener listener) {
+        Random random = new Random();
+        int code = random.nextInt(9000) + 1000; // Generate a 4-digit number between 1000 and 9999
+
+        mDatabase.child("patients").orderByChild("uniqueCode").equalTo(code).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // If the code already exists, generate a new one recursively
+                    generateUniqueCode(listener);
+                } else {
+                    // If the code is unique, return it through the listener
+                    listener.onCodeGenerated(code);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle any errors
+            }
+        });
+    }
+
+    // Listener interface for the unique code generation
+    interface OnCodeGeneratedListener {
+        void onCodeGenerated(int uniqueCode);
     }
 }

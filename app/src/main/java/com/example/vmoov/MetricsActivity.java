@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Button;
 
 public class MetricsActivity extends AppCompatActivity {
@@ -13,10 +14,10 @@ public class MetricsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metrics);
 
-        // Definir botones
-        Button myButton_logout = findViewById(R.id.logout_button);
+        // Definir botones como ImageButton
+        ImageButton myButton_logout = findViewById(R.id.logout_button);
         Button buttonConnect = findViewById(R.id.buttonConnect);
-        Button settingsButton = findViewById(R.id.settings_button); // Botón de Configuración
+        ImageButton buttonSettings = findViewById(R.id.buttonSettings);
 
         // Asignar acción al botón "Conectar Casco"
         buttonConnect.setOnClickListener(new View.OnClickListener() {
@@ -37,7 +38,7 @@ public class MetricsActivity extends AppCompatActivity {
         });
 
         // Asignar acción al botón "Configuración"
-        settingsButton.setOnClickListener(new View.OnClickListener() {
+        buttonSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MetricsActivity.this, SettingsActivity.class);
