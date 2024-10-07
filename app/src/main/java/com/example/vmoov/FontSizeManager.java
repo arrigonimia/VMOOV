@@ -1,5 +1,10 @@
 package com.example.vmoov;
-
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 public class FontSizeManager {
 
     private static final String PREFERENCES_FILE = "font_size_preferences";

@@ -77,9 +77,6 @@
             android:name=".CalibrationActivity"
             android:exported="false" />
         <activity
-            android:name=".CalibrationActivity2"
-            android:exported="false" />
-        <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
         <activity

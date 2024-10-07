@@ -1,6 +1,7 @@
 package com.example.vmoov;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 public class RegistrationSuccessActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
+    private static final String SHARED_PREFS = "user_prefs";  // Nombre de SharedPreferences
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,18 @@ public class RegistrationSuccessActivity extends AppCompatActivity {
 
         // Obtener el userId desde el Intent
         String userId = getIntent().getStringExtra("userId");
+
+        // Verificar si el userId es válido
+        if (userId == null || userId.isEmpty()) {
+            // Manejar el error si no se encuentra el userId
+            return;
+        }
+
+        // Guardar el userId en SharedPreferences
+        SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("userId", userId);  // Guarda el userId
+        editor.apply();
 
         // Inicializar la referencia a la base de datos
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -38,7 +52,13 @@ public class RegistrationSuccessActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     int generatedCode = dataSnapshot.getValue(Integer.class);
+
+                    // Mostrar el código en el TextView
                     codeTextView.setText("Código: " + generatedCode);
+
+                    // Guardar el uniqueCode en SharedPreferences
+                    editor.putInt("uniqueCode", generatedCode);  // Guarda el uniqueCode
+                    editor.apply();
                 } else {
                     codeTextView.setText("Error: No se pudo recuperar el código.");
                 }

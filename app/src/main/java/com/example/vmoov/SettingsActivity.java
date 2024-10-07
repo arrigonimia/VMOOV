@@ -2,7 +2,8 @@ package com.example.vmoov;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.widget.ImageButton;
+import android.view.ViewGroup;
 public class SettingsActivity extends AppCompatActivity {
 
     // Escala de fuente actual
