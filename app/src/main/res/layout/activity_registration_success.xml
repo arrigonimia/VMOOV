@@ -7,16 +7,27 @@
     android:background="@drawable/fondo"
     tools:context=".RegistrationSuccessActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="@id/success_message"
+        app:layout_constraintStart_toStartOf="@id/success_message"
+        app:layout_constraintTop_toTopOf="@id/success_message"
+
+        android:src="@drawable/formablanca"
+
+        />
+
 
     <TextView
         android:id="@+id/success_message"
         style="@style/cuerpobold"
         android:layout_width="342dp"
-        android:layout_height="278dp"
+        android:layout_height="328dp"
         android:layout_marginTop="224dp"
         android:gravity="center"
-        android:text="¡El registro se realizó con éxito!\n\nSu código único es:\n\n\n\n\n\nDeberá usarlo cuando conecte su casco. "
-        android:textColor="@color/white"
+        android:text="\n¡El registro se realizó con éxito!\n\n\nSu código único es:\n\n\n\n\nDeberá usarlo cuando conecte su casco. "
+        android:textColor="@color/blue"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,11 +39,11 @@
         android:id="@+id/generated_code_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="170dp"
         android:textStyle="bold"
         android:text="1234"
         style="@style/cuerpobold"
-        android:textColor="@color/white"
+        android:textColor="@color/blue"
         android:textSize="30sp"
         app:layout_constraintTop_toTopOf="@id/success_message"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +54,7 @@
         android:id="@+id/start_button"
         android:layout_width="180dp"
         android:layout_height="70dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="170dp"
         android:text="Comenzar"
         android:textColor="#FFFFFF"
         android:background="@drawable/botonvioleta"

@@ -13,8 +13,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" /> <!-- Ajusta este valor para mover todo hacia abajo -->
+        app:layout_constraintGuide_percent="0.1" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 
     <ImageView
         android:id="@+id/imageView0"
@@ -30,11 +36,11 @@
         android:id="@+id/zocalo"
         android:layout_width="420dp"
         android:layout_height="200dp"
-        android:layout_marginTop="-30dp"
+        android:layout_marginTop="-55dp"
         android:src="@drawable/zocalo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/barChart" />
+        app:layout_constraintTop_toBottomOf="@id/guidelineBottom" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -85,41 +91,41 @@
         android:id="@+id/home"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="15dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barChart" />
+        app:layout_constraintTop_toBottomOf="@+id/guidelineBottom" />
 
     <ImageButton
         android:id="@+id/logout_button"
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:layout_marginStart="270dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/logout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barChart" />
+        app:layout_constraintTop_toBottomOf="@+id/guidelineBottom" />
 
     <ImageButton
         android:id="@+id/buttonSettings"
         android:layout_width="44dp"
         android:layout_height="44dp"
         android:layout_marginStart="-270dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barChart" />
+        app:layout_constraintTop_toBottomOf="@+id/guidelineBottom" />
 
     <Button
         android:id="@+id/buttonConnect"
@@ -128,7 +134,7 @@
         android:layout_height="45dp"
         android:layout_marginStart="124dp"
         android:layout_marginBottom="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/botonvioleta"
         android:text="CONECTAR CASCO"
         android:textColor="@color/white"
@@ -225,11 +231,11 @@
         android:id="@+id/barChart"
         android:layout_width="372dp"
         android:layout_height="197dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/rounded_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView7" />
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineizq"

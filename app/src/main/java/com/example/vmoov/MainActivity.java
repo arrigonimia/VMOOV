@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                                                 if (dataSnapshot.exists()) {
                                                     int userType = dataSnapshot.child("userType").getValue(Integer.class);
 
-                                                    if (userType == 1) {
+                                                    if (userType == 0) {
                                                         Intent intent = new Intent(MainActivity.this, MetricsActivity.class);
                                                         startActivity(intent);
                                                     } else {
