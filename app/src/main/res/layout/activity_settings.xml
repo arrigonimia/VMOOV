@@ -19,20 +19,17 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/fondo" />
 
-    <!-- Forma blanca superpuesta -->
 
-    <!-- Manchita de decoración -->
     <ImageView
-        android:id="@+id/formablanca"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="-100dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/formablanca"
         android:scaleType="fitXY"
+        android:layout_marginTop="-300dp"
+        app:layout_constraintBottom_toBottomOf="@id/fondo"
         app:layout_constraintEnd_toEndOf="@id/fondo"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/fondo"
-        app:layout_constraintTop_toTopOf="@id/guidelineTop"
-        app:srcCompat="@drawable/formablanca" />
+        app:layout_constraintTop_toTopOf="@id/horizontalTop" />
 
     <ImageView
         android:id="@+id/manchita"
@@ -43,32 +40,22 @@
         app:layout_constraintStart_toStartOf="@id/vertical"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="fitCenter"
-        android:layout_marginTop="250dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginTop="370dp"
         app:srcCompat="@drawable/manchita" />
 
-    <!-- Directrices para organizar el layout -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintGuide_percent="0.3" />
-
-    <!-- Nombre de usuario -->
-    <TextView
-        android:id="@+id/user_name"
+        <TextView
+        android:id="@+id/titulo"
         style="@style/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:text="Configuración"
         android:textColor="@color/violet"
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+            app:layout_constraintEnd_toEndOf="@id/vertical"
+            app:layout_constraintStart_toStartOf="@id/vertical"
+            app:layout_constraintTop_toTopOf="@id/horizontalTop" />
 
     <ImageButton
         android:id="@+id/increase_font_button"
@@ -77,8 +64,9 @@
         android:src="@drawable/fontsize"
         android:background="?attr/selectableItemBackground"
         android:scaleType="centerInside"
-        app:layout_constraintTop_toBottomOf="@id/user_name"
+        app:layout_constraintTop_toBottomOf="@id/titulo"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="-50dp"
         app:layout_constraintEnd_toStartOf="@id/decrease_font_button"
         android:layout_marginTop="72dp"
         android:layout_marginEnd="8dp" />
@@ -92,6 +80,7 @@
         android:text="Aumentar Fuente"
         android:textColor="@color/blue"
         android:gravity="center"
+        android:textSize="16dp"
         app:layout_constraintTop_toBottomOf="@id/increase_font_button"
         app:layout_constraintStart_toStartOf="@id/increase_font_button"
         app:layout_constraintEnd_toEndOf="@id/increase_font_button"
@@ -105,9 +94,10 @@
         android:src="@drawable/fontsize"
         android:scaleType="centerInside"
         android:background="?attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@id/user_name"
+        app:layout_constraintTop_toBottomOf="@id/titulo"
         app:layout_constraintStart_toEndOf="@id/increase_font_button"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="-50dp"
         android:layout_marginTop="72dp"
         android:layout_marginStart="8dp" />
 
@@ -119,6 +109,7 @@
         android:text="Disminuir Fuente"
         android:textColor="@color/blue"
         android:gravity="center"
+        android:textSize="16dp"
         app:layout_constraintTop_toBottomOf="@id/decrease_font_button"
         app:layout_constraintStart_toStartOf="@id/decrease_font_button"
         app:layout_constraintEnd_toEndOf="@id/decrease_font_button"
@@ -149,6 +140,8 @@
         app:layout_constraintTop_toBottomOf="@id/edit_info_button"
         app:layout_constraintStart_toStartOf="@id/edit_info_button"
         app:layout_constraintEnd_toEndOf="@id/edit_info_button"
+        android:layout_marginStart="-50dp"
+        android:textSize="16dp"
         android:layout_marginTop="8dp" />
 
     <!-- Botón de ayuda (contactos útiles) con texto explicativo -->
@@ -171,14 +164,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ayuda"
+        android:textSize="16dp"
         android:textColor="@color/blue"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/help_button"
         app:layout_constraintStart_toStartOf="@id/help_button"
         app:layout_constraintEnd_toEndOf="@id/help_button"
+        android:layout_marginEnd="-50dp"
         android:layout_marginTop="8dp" />
 
     <Button
+        android:id="@+id/back_button"
         android:layout_width="114dp"
         android:layout_height="48dp"
         android:layout_marginBottom="85dp"
@@ -191,17 +187,25 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

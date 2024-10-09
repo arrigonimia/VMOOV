@@ -54,7 +54,7 @@ public class RegistrationSuccessActivity extends AppCompatActivity {
                     int generatedCode = dataSnapshot.getValue(Integer.class);
 
                     // Mostrar el código en el TextView
-                    codeTextView.setText("Código: " + generatedCode);
+                    codeTextView.setText("" + generatedCode);
 
                     // Guardar el uniqueCode en SharedPreferences
                     editor.putInt("uniqueCode", generatedCode);  // Guarda el uniqueCode

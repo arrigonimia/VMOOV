@@ -2,8 +2,12 @@ package com.example.vmoov;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.view.ViewGroup;
+import android.content.Intent;
+
 public class SettingsActivity extends AppCompatActivity {
 
     // Escala de fuente actual
@@ -23,6 +27,9 @@ public class SettingsActivity extends AppCompatActivity {
         ImageButton increaseFontButton = findViewById(R.id.increase_font_button);
         ImageButton decreaseFontButton = findViewById(R.id.decrease_font_button);
 
+        // Referencia al botón "Atrás"
+        Button backButton = findViewById(R.id.back_button);
+
         // Listener para aumentar la escala de fuente
         increaseFontButton.setOnClickListener(v -> {
             if (currentFontScale < maxFontScale) {
@@ -38,6 +45,16 @@ public class SettingsActivity extends AppCompatActivity {
                 currentFontScale -= 0.1f;  // Reducir en 10%
                 FontSizeManager.saveFontScale(this, currentFontScale);  // Guardar la nueva escala
                 applyFontScaleToAllLayouts();  // Aplicar la escala a todos los TextView
+            }
+        });
+
+        // Listener para el botón "Atrás" que vuelve a MetricsActivity
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SettingsActivity.this, MetricsActivity.class);
+                startActivity(intent);
+                finish();  // Finaliza SettingsActivity para que no se vuelva al presionar atrás
             }
         });
     }

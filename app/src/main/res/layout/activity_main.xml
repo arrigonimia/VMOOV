@@ -24,23 +24,23 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="@id/fondo"
-        app:layout_constraintTop_toTopOf="@id/fondo"
+        app:layout_constraintTop_toTopOf="@id/horizontalTop"
         app:layout_constraintEnd_toEndOf="@id/fondo"
         app:layout_constraintBottom_toBottomOf="@id/fondo"
         android:scaleType="fitXY"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="0dp"
         app:srcCompat="@drawable/formablanca" />
 
     <ImageView
         android:id="@+id/manchita"
         android:layout_width="290dp"
         android:layout_height="290dp"
-        app:layout_constraintTop_toTopOf="@id/horizontal"
+        app:layout_constraintTop_toTopOf="@id/horizontalBottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/vertical"
         app:layout_constraintEnd_toEndOf="parent"
         android:scaleType="fitCenter"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="-7dp"
         app:srcCompat="@drawable/manchita" />
 
     <ImageView
@@ -49,9 +49,8 @@
         android:layout_height="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fondo"
-        app:layout_constraintBottom_toTopOf="@+id/sign_in"
-        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toTopOf="@+id/horizontalTop"
+        android:layout_marginTop="90dp"
         app:srcCompat="@drawable/logovmoov" />
 
     <TextView
@@ -59,17 +58,15 @@
         style="@style/titulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="-20dp"
         android:gravity="left"
         android:text="Iniciar Sesión"
         android:textColor="@color/violet"
-        app:layout_constraintBottom_toTopOf="@+id/user_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="36dp"
-        app:layout_constraintTop_toBottomOf="@id/logo"
-        app:layout_constraintTop_toTopOf="@+id/formablanca" />
+        app:layout_constraintTop_toBottomOf="@id/horizontal" />
 
     <EditText
         android:id="@+id/user_text"
@@ -83,8 +80,7 @@
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in"
-        app:layout_constraintBottom_toTopOf="@+id/pass_text"
+        app:layout_constraintTop_toBottomOf="@+id/horizontal"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp" />
 
@@ -103,7 +99,7 @@
         app:layout_constraintBottom_toTopOf="@+id/forgot_password_button"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="28dp" />
+        android:layout_marginTop="50dp" />
 
     <Button
         android:id="@+id/forgot_password_button"
@@ -117,7 +113,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pass_text"
-        app:layout_constraintBottom_toTopOf="@+id/button_prim"
         android:gravity="right|center"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="36dp"
@@ -133,11 +128,10 @@
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forgot_password_button"
-        app:layout_constraintBottom_toTopOf="@+id/text_between_lines"
+        app:layout_constraintBottom_toTopOf="@+id/horizontal"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginBottom="-350dp" />
 
     <TextView
         android:id="@+id/text_between_lines"
@@ -198,5 +192,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="366dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
