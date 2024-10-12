@@ -2,18 +2,18 @@ package com.example.vmoov;
 
 public class Patient {
     private String birthDate;
-    private String bloodType;
-    private String epilepsyTherapy;
-    private String medications;
-    private String pathologies;
+    private String obraSocial;
+    private String numeroAfiliado;
+    private String nombrePS;
+    private String apellidoPS;
     private int uniqueCode; // Nuevo atributo para almacenar el código único de 4 dígitos
 
-    public Patient(String birthDate, String bloodType, String epilepsyTherapy, String medications, String pathologies, int uniqueCode) {
+    public Patient(String birthDate, String obraSocial, String numeroAfiliado, String nombrePS, String apellidoPS, int uniqueCode) {
         this.birthDate = birthDate;
-        this.bloodType = bloodType;
-        this.epilepsyTherapy = epilepsyTherapy;
-        this.medications = medications;
-        this.pathologies = pathologies;
+        this.obraSocial = obraSocial;
+        this.numeroAfiliado = numeroAfiliado;
+        this.nombrePS = nombrePS;
+        this.apellidoPS = apellidoPS;
         this.uniqueCode = uniqueCode;
     }
 
@@ -26,36 +26,36 @@ public class Patient {
         this.birthDate = birthDate;
     }
 
-    public String getBloodType() {
-        return bloodType;
+    public String getobraSocial() {
+        return obraSocial;
     }
 
-    public void setBloodType(String bloodType) {
-        this.bloodType = bloodType;
+    public void setobraSocial(String obraSocial) {
+        this.obraSocial = obraSocial;
     }
 
-    public String getEpilepsyTherapy() {
-        return epilepsyTherapy;
+    public String getnumeroAfiliado() {
+        return numeroAfiliado;
     }
 
-    public void setEpilepsyTherapy(String epilepsyTherapy) {
-        this.epilepsyTherapy = epilepsyTherapy;
+    public void setnumeroAfiliado(String numeroAfiliado) {
+        this.numeroAfiliado = numeroAfiliado;
     }
 
-    public String getMedications() {
-        return medications;
+    public String getnombrePS() {
+        return nombrePS;
     }
 
-    public void setMedications(String medications) {
-        this.medications = medications;
+    public void setnombrePS(String nombrePS) {
+        this.nombrePS = nombrePS;
     }
 
-    public String getPathologies() {
-        return pathologies;
+    public String getapellidoPS() {
+        return apellidoPS;
     }
 
-    public void setPathologies(String pathologies) {
-        this.pathologies = pathologies;
+    public void setapellidoPS(String apellidoPS) {
+        this.apellidoPS = apellidoPS;
     }
 
     public int getUniqueCode() {

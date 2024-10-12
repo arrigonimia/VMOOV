@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
+import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,10 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 public class MetricsActivity extends AppCompatActivity {
 
     // Definir TextViews donde se mostrarán los datos
-    private TextView seizureCountTextView;
-    private TextView seizureDurationTextView;
+    private TextView trueCountTextView;
     private TextView birthDateTextView;
-    private TextView bloodTypeTextView;
+    private TextView averageTimeTextView;
 
     // Definir referencias de Firebase
     private FirebaseAuth mAuth;
@@ -35,10 +34,9 @@ public class MetricsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_metrics);
 
         // Vincular los TextViews con el layout
-        seizureCountTextView = findViewById(R.id.days);
-        seizureDurationTextView = findViewById(R.id.duration_value);
-        birthDateTextView = findViewById(R.id.seizure_month);
-        bloodTypeTextView = findViewById(R.id.days);
+        trueCountTextView = findViewById(R.id.true_count);
+        birthDateTextView = findViewById(R.id.birth_date);
+        averageTimeTextView = findViewById(R.id.average_time);
 
         // Vincular los botones con el layout
         ImageButton myButton_logout = findViewById(R.id.logout_button);
@@ -57,13 +55,12 @@ public class MetricsActivity extends AppCompatActivity {
             // Inicializar la referencia de la base de datos para el nodo de patientmetrics
             mDatabase = FirebaseDatabase.getInstance().getReference();
 
-            // Obtener los datos del usuario desde Firebase
-            getMetricsData(userId);
+            // Obtener los datos de gameplaydata y patients
+            getGameData(userId);
             getPatientData(userId);
         } else {
             // Manejar el caso en que no hay un usuario autenticado
-            seizureCountTextView.setText("");
-            seizureDurationTextView.setText("");
+            trueCountTextView.setText("");
         }
 
         // Asignar acción al botón "Conectar Casco"
@@ -99,31 +96,75 @@ public class MetricsActivity extends AppCompatActivity {
         });
     }
 
-    private void getMetricsData(String userId) {
-        // Obtener los datos de patientmetrics para el usuario autenticado
-        DatabaseReference metricsRef = mDatabase.child("patientmetrics").child(userId);
-        metricsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void getGameData(String userId) {
+        DatabaseReference gameDataRef = mDatabase.child("patients").child(userId).child("gameplayData");
+        gameDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Obtener seizureCount y seizureDuration
-                    int seizureCount = dataSnapshot.child("seizureCount").getValue(Integer.class);
-                    int seizureDuration = dataSnapshot.child("seizureDuration").getValue(Integer.class);
+                    DataSnapshot lastGameSnapshot = null;
+                    // Iterar sobre los juegos para obtener el último
+                    for (DataSnapshot gameSnapshot : dataSnapshot.getChildren()) {
+                        lastGameSnapshot = gameSnapshot;
+                    }
 
-                    // Mostrar solo los valores en los TextViews
-                    seizureCountTextView.setText(String.valueOf(seizureCount));
-                    seizureDurationTextView.setText(String.valueOf(seizureDuration));
+                    if (lastGameSnapshot != null) {
+                        int trueCount = 0;
+                        double totalTime = 0;
+                        int stepCount = 0;
+
+                        // Acceder a los steps dentro del último juego
+                        for (DataSnapshot stepSnapshot : lastGameSnapshot.getChildren()) {
+                            for (DataSnapshot stepData : stepSnapshot.getChildren()) {
+                                // Log para verificar el valor de "result"
+                                Boolean resultValue = stepData.child("result").getValue(Boolean.class);
+                                Log.d("MetricsActivity", "Result value: " + resultValue);
+
+                                if (resultValue != null && resultValue) {
+                                    trueCount++;
+                                }
+
+                                // Log para verificar el valor de "time"
+                                Double timeValue = stepData.child("time").getValue(Double.class);
+                                Log.d("MetricsActivity", "Time value: " + timeValue);
+
+                                if (timeValue != null) {
+                                    totalTime += timeValue;
+                                    stepCount++;
+                                }
+                            }
+                        }
+
+                        // Mostrar logs para verificar resultados de conteo
+                        Log.d("MetricsActivity", "True count: " + trueCount);
+                        Log.d("MetricsActivity", "Step count: " + stepCount);
+                        Log.d("MetricsActivity", "Total time: " + totalTime);
+
+                        // Mostrar la cantidad de 'true' en el TextView correspondiente
+                        trueCountTextView.setText(String.valueOf(trueCount));
+
+                        // Calcular y mostrar el tiempo promedio (si hay steps)
+                        if (stepCount > 0) {
+                            double averageTime = totalTime / stepCount;
+                            // Redondear el valor a 2 decimales y mostrarlo en el TextView
+                            averageTimeTextView.setText(String.format("%.2f", averageTime) + " s");
+                        } else {
+                            averageTimeTextView.setText("0");
+                        }
+                    } else {
+                        trueCountTextView.setText("a");
+                        averageTimeTextView.setText("b");
+                    }
                 } else {
-                    seizureCountTextView.setText("");
-                    seizureDurationTextView.setText("");
+                    trueCountTextView.setText("c");
+                    averageTimeTextView.setText("d");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Manejar errores de Firebase
-                seizureCountTextView.setText("");
-                seizureDurationTextView.setText("");
+                trueCountTextView.setText("0");
+                averageTimeTextView.setText("0");
             }
         });
     }
@@ -135,24 +176,17 @@ public class MetricsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Obtener birthDate y bloodType
+                    // Obtener birthDate y mostrar en el TextView
                     String birthDate = dataSnapshot.child("birthDate").getValue(String.class);
-                    String bloodType = dataSnapshot.child("bloodType").getValue(String.class);
-
-                    // Mostrar solo los valores en los TextViews
                     birthDateTextView.setText(birthDate);
-                    bloodTypeTextView.setText(bloodType);
                 } else {
                     birthDateTextView.setText("");
-                    bloodTypeTextView.setText("");
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Manejar errores de Firebase
                 birthDateTextView.setText("");
-                bloodTypeTextView.setText("");
             }
         });
     }

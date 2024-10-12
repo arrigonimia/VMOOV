@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_screen"
@@ -8,81 +9,166 @@
     android:background="#E6E6E6"
     android:clipToOutline="true">
 
+    <!-- Guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="857dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineizq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelinehor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <!-- Background Image -->
     <ImageView
-        android:id="@+id/background3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/imageView0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/fondo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Zocalo -->
+    <ImageView
+        android:id="@+id/zocalo"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="-55dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/background" />
+        app:layout_constraintTop_toBottomOf="@id/guidelineBottom"
+        android:src="@drawable/zocalo" />
 
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginLeft="355dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="6dp"
-        android:background="@drawable/img_logout"
-        android:text="."
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <TextView
-        android:id="@+id/ciudad"
-        android:layout_width="578dp"
+    <!-- Home Button -->
+    <ImageView
+        android:id="@+id/boxPrincipal"
+        android:layout_width="400dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="106dp"
-        android:layout_marginTop="146dp"
-        android:gravity="top"
-        android:lineSpacingExtra="12sp"
-        android:text="@string/ciudad"
-        android:textAppearance="@style/juan_d_az"
-        android:translationY="-5.8sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@id/guidelinemed"
+        app:layout_constraintStart_toStartOf="@id/guidelinemed"
+        app:layout_constraintTop_toTopOf="@id/guidelinehor"
+        app:layout_constraintBottom_toBottomOf="@id/guidelinehor"
+        app:srcCompat="@drawable/contenedorblanco" />
 
+    <ImageButton
+        android:id="@+id/home"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/zocalo"
+        app:layout_constraintTop_toTopOf="@id/zocalo"/>
+
+    <!-- Logout Button -->
+    <ImageButton
+        android:id="@+id/buttonLogOut"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_marginStart="24dp"
+        android:src="@drawable/logout"
+        app:layout_constraintEnd_toEndOf="@id/guidelineder"
+        app:layout_constraintBottom_toBottomOf="@id/zocalo"
+        app:layout_constraintTop_toTopOf="@id/zocalo"/>
+
+    <!-- Settings Button -->
+    <ImageButton
+        android:id="@+id/buttonAddContact"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/plus"
+        app:layout_constraintStart_toStartOf="@id/guidelineizq"
+        app:layout_constraintBottom_toBottomOf="@id/zocalo"
+        app:layout_constraintTop_toTopOf="@id/zocalo" />
+    
+    <!-- User Name TextView -->
     <TextView
         android:id="@+id/user_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="107dp"
-        android:layout_marginTop="120dp"
-        android:gravity="top"
-        android:lineSpacingExtra="12sp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="10dp"
+        style="@style/titulo"
+        android:textColor="@color/violet"
         android:text="User Name"
         android:textAppearance="@style/juan_d_az"
-        android:translationY="-5.8sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/userlogo"
+        app:layout_constraintTop_toTopOf="@id/userlogo"
+        app:layout_constraintBottom_toBottomOf="@id/userlogo"/>
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/userlogo"
         android:layout_width="56dp"
         android:layout_height="52dp"
-        android:layout_marginLeft="45dp"
-        android:layout_marginTop="120dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/usuario_removebg_preview" />
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="-280dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guidelinehor"
+        app:srcCompat="@drawable/doc"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pacientes"
+        android:textSize="14dp"
+        style="@style/cuerpobold"
+        android:textStyle="bold"
+        android:textColor="@color/violet"
+        app:layout_constraintStart_toStartOf="@id/recyclerViewPatients"
+        app:layout_constraintBottom_toTopOf="@id/recyclerViewPatients"
+        android:layout_marginBottom="12dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewPatients"
-        android:layout_width="318dp"
-        android:layout_height="494dp"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="204dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="33dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="wrap_content"
+        style="@style/cuerpo"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="@id/userlogo"
+        app:layout_constraintTop_toTopOf="@id/userlogo" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelinemed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

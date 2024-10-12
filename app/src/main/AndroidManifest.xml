@@ -47,9 +47,6 @@
             android:exported="false"
             android:label="@string/title_activity_connection"
             android:theme="@style/Theme.EPICarevFM2" />
-        <activity
-            android:name=".PatientDisplayActivity"
-            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -62,22 +59,17 @@
         </provider>
 
         <activity
+            android:name=".HealthProfessionalActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ReportActivity"
             android:exported="false" />
         <activity
             android:name=".SeizureActivity"
             android:exported="false" /> <!-- Activities -->
         <activity
-            android:name=".SelectDeviceActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BiofeedbackActivity"
-            android:exported="false" />
-        <activity
             android:name=".ForgotPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NewContactActivity"
             android:exported="false" />
         <activity
             android:name=".NotificationActivity"
@@ -92,9 +84,6 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".SosActivity"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -104,13 +93,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ContactsActivity"
-            android:exported="false" />
-        <activity
             android:name=".MetricsActivity"
             android:exported="false" />
 
         <activity android:name=".LogoutActivity"
+            android:exported="false"/>
+
+        <activity android:name=".NewContactActivity"
             android:exported="false"/>
 
        <activity android:name=".SettingsActivity"

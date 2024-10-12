@@ -3,20 +3,12 @@ package com.example.vmoov;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.core.content.ContextCompat;
-import androidx.core.app.ActivityCompat;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.firebase.FirebaseApp;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,116 +25,84 @@ public class MainActivity extends AppCompatActivity {
     private EditText editText_user;
     private EditText editText_pass;
     private Button guardarButton;
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    private FusedLocationProviderClient fusedLocationClient;
-    private LocationCallback locationCallback;
-    private Location location;
     private FirebaseAuth mAuth;
-    private Button forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FirebaseApp.initializeApp(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
 
-        Button SignUp_button = findViewById(R.id.smallSignUp_button);
-
         editText_user = findViewById(R.id.user_text);
         editText_pass = findViewById(R.id.pass_text);
         guardarButton = findViewById(R.id.button_prim);
-        forgotPassword = findViewById(R.id.forgot_password_button);
 
-        if (guardarButton != null) {
-            guardarButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String Usuario_Ingresado = editText_user.getText().toString();
-                    String Password_Ingresada = editText_pass.getText().toString();
+        guardarButton.setOnClickListener(v -> {
+            String email = editText_user.getText().toString();
+            String password = editText_pass.getText().toString();
 
-                    mAuth.signInWithEmailAndPassword(Usuario_Ingresado, Password_Ingresada)
-                            .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(MainActivity.this, task -> {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String userId = user.getUid();
+
+                            // Verificar si es un paciente o profesional de salud
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+                            userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
-
-                                        userRef.addValueEventListener(new ValueEventListener() {
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        int userType = dataSnapshot.child("userType").getValue(Integer.class);
+                                        if (userType == 0) {
+                                            // Redirigir a la actividad del paciente
+                                            Intent intent = new Intent(MainActivity.this, MetricsActivity.class);
+                                            startActivity(intent);
+                                        } else {
+                                            // Redirigir a la actividad del profesional de salud
+                                            Intent intent = new Intent(MainActivity.this, NotPatientActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    } else {
+                                        // Revisar en "healthProfessionals" si no está en "users"
+                                        DatabaseReference healthRef = FirebaseDatabase.getInstance().getReference().child("healthProfessionals").child(userId);
+                                        healthRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                             @Override
-                                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot.exists()) {
-                                                    int userType = dataSnapshot.child("userType").getValue(Integer.class);
-
-                                                    if (userType == 0) {
-                                                        Intent intent = new Intent(MainActivity.this, MetricsActivity.class);
-                                                        startActivity(intent);
-                                                    } else {
-                                                        Intent intent = new Intent(MainActivity.this, NotPatientActivity.class);
-                                                        startActivity(intent);
-                                                    }
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()) {
+                                                    // Si está en healthProfessionals, redirigir a NotPatientActivity
+                                                    Intent intent = new Intent(MainActivity.this, NotPatientActivity.class);
+                                                    startActivity(intent);
+                                                } else {
+                                                    Toast.makeText(MainActivity.this, "Tipo de usuario no encontrado", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
 
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError error) {
-                                                // Handle any errors that may occur during the read operation
-                                                Toast.makeText(MainActivity.this, "Failed to read user data.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(MainActivity.this, "Error al leer datos de usuario", Toast.LENGTH_SHORT).show();
                                             }
                                         });
-                                    } else {
-                                        updateUI(null, true); // Authentication failed
                                     }
                                 }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Toast.makeText(MainActivity.this, "Error al leer datos de usuario", Toast.LENGTH_SHORT).show();
+                                }
                             });
-                }
-            });
-        }
-
-        SignUp_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "Fallo en la autenticación", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         });
 
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
-        }
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                Location location = locationResult.getLastLocation();
-                // Here you have the current location, and you can proceed to use it.
-            }
-        };
-    }
-
-    private void updateUI(FirebaseUser user, boolean authFailed) {
-        if (user != null) {
-            Intent intent = new Intent(MainActivity.this, MetricsActivity.class);
+        // Listener para registrarse
+        Button signUpButton = findViewById(R.id.smallSignUp_button);
+        signUpButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
             startActivity(intent);
-        } else {
-            if (authFailed) {
-                Toast.makeText(MainActivity.this, "Authentication failed, please try again.", Toast.LENGTH_SHORT).show();
-            }
-        }
+        });
     }
 }

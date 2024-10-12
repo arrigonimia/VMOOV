@@ -2,7 +2,6 @@ package com.example.vmoov;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.view.ViewGroup;
@@ -12,16 +11,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     // Escala de fuente actual
     private float currentFontScale;
-    private float maxFontScale = 2.0f;  // Escala máxima (aumenta el doble)
-    private float minFontScale = 0.5f;  // Escala mínima (reduce a la mitad)
+    private final float maxFontScale = 2.0f;  // Escala máxima (200%)
+    private final float minFontScale = 0.5f;  // Escala mínima (50%)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);  // Carga el layout de SettingsActivity
-
-        // Obtener la escala de fuente actual desde SharedPreferences
-        currentFontScale = FontSizeManager.getFontScale(this);
+        setContentView(R.layout.activity_settings);  // Cargar el layout de SettingsActivity
 
         // Referencias a los botones de aumentar y disminuir fuente
         ImageButton increaseFontButton = findViewById(R.id.increase_font_button);
@@ -30,41 +26,12 @@ public class SettingsActivity extends AppCompatActivity {
         // Referencia al botón "Atrás"
         Button backButton = findViewById(R.id.back_button);
 
-        // Listener para aumentar la escala de fuente
-        increaseFontButton.setOnClickListener(v -> {
-            if (currentFontScale < maxFontScale) {
-                currentFontScale += 0.1f;  // Incrementar en 10%
-                FontSizeManager.saveFontScale(this, currentFontScale);  // Guardar la nueva escala
-                applyFontScaleToAllLayouts();  // Aplicar la escala a todos los TextView
-            }
-        });
-
-        // Listener para disminuir la escala de fuente
-        decreaseFontButton.setOnClickListener(v -> {
-            if (currentFontScale > minFontScale) {
-                currentFontScale -= 0.1f;  // Reducir en 10%
-                FontSizeManager.saveFontScale(this, currentFontScale);  // Guardar la nueva escala
-                applyFontScaleToAllLayouts();  // Aplicar la escala a todos los TextView
-            }
-        });
-
         // Listener para el botón "Atrás" que vuelve a MetricsActivity
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this, MetricsActivity.class);
-                startActivity(intent);
-                finish();  // Finaliza SettingsActivity para que no se vuelva al presionar atrás
-            }
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SettingsActivity.this, MetricsActivity.class);
+            startActivity(intent);
+            finish();  // Finaliza SettingsActivity para que no se vuelva al presionar atrás
         });
     }
 
-    // Aplicar el factor de escala de fuente a todos los layouts
-    private void applyFontScaleToAllLayouts() {
-        ViewGroup rootView = findViewById(android.R.id.content);  // Vista raíz del layout actual
-        FontSizeManager.applyFontSizeToAllViews(rootView, currentFontScale);  // Aplicar escala a todos los TextView
-
-        // Recrear la actividad para reflejar los cambios de tamaño de fuente inmediatamente
-        recreate();
-    }
 }

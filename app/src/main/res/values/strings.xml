@@ -28,12 +28,12 @@
         Última sesión:
     </string>
 
-    <string name="duration">
-        Duración de la última sesión:
+    <string name="success">
+        Movimientos exitosos:
     </string>
 
-    <string name="month">
-        Cantidad de sesiones por mes:
+    <string name="time">
+        Tiempo promedio de ejecución:
     </string>
     <string name="title_activity_connection">ConnectionActivity</string>
 </resources>
