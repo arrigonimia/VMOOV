@@ -15,15 +15,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public class PatientSignUpActivity extends AppCompatActivity {
 
     private EditText editText_birth;
-    private EditText editText_blood;
-    private EditText editText_epitherapy;
-    private EditText editText_medications;
-    private EditText editText_pathologies;
+    private EditText editText_contact;
+    private EditText editText_obraS;
+    private EditText editText_numeroAfi;
     private Button guardarButton;
 
     private FirebaseAuth mAuth;
@@ -39,10 +39,9 @@ public class PatientSignUpActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         editText_birth = findViewById(R.id.birth_text);
-        editText_blood = findViewById(R.id.blood_text);
-        editText_epitherapy = findViewById(R.id.epitherapy_text);
-        editText_medications = findViewById(R.id.medications_text);
-        editText_pathologies = findViewById(R.id.pathologies_text);
+        editText_contact = findViewById(R.id.contact_text);
+        editText_obraS = findViewById(R.id.obraS_text);
+        editText_numeroAfi = findViewById(R.id.numeroAfi_text);
 
         guardarButton = findViewById(R.id.signUp_button);
 
@@ -50,10 +49,9 @@ public class PatientSignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String Birthday_in = editText_birth.getText().toString();
-                String Blood_in = editText_blood.getText().toString();
-                String EpilepsyTherapy_in = editText_epitherapy.getText().toString();
-                String Medications_in = editText_medications.getText().toString();
-                String Pathologies_in = editText_pathologies.getText().toString();
+                String Contact_in = editText_contact.getText().toString();
+                String ObraS_in = editText_obraS.getText().toString();
+                String NumeroAfi_in = editText_numeroAfi.getText().toString();
 
                 String userId = mAuth.getCurrentUser().getUid(); // Get the current user's UID
 
@@ -62,7 +60,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
                     @Override
                     public void onCodeGenerated(int uniqueCode) {
                         // Create a new Patient object with the unique code
-                        Patient patient = new Patient(Birthday_in, Blood_in, EpilepsyTherapy_in, Medications_in, Pathologies_in, uniqueCode);
+                        Patient patient = new Patient(Birthday_in, Contact_in, ObraS_in, NumeroAfi_in, uniqueCode);
 
                         // Save the patient data under the user's UID in the /patients node
                         mDatabase.child("patients").child(userId).setValue(patient, new DatabaseReference.CompletionListener() {
@@ -70,7 +68,7 @@ public class PatientSignUpActivity extends AppCompatActivity {
                             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                                 if (databaseError == null) {
                                     Toast.makeText(PatientSignUpActivity.this, "Patient data saved.", Toast.LENGTH_SHORT).show();
-                                    createDefaultPatientMetrics(userId);
+                                    createDefaultPatientMetrics(userId); // Create default patient metrics with only userId
 
                                     // Proceed to RegistrationSuccessActivity and pass the userId
                                     Intent intent = new Intent(PatientSignUpActivity.this, RegistrationSuccessActivity.class);
@@ -98,21 +96,24 @@ public class PatientSignUpActivity extends AppCompatActivity {
     }
 
     private void createDefaultPatientMetrics(String userId) {
-        // Assuming you have a PatientMetrics class with default values
-        PatientMetrics defaultMetrics = new PatientMetrics(0.0f, 0, "", 0.0f);
+        // Crear una referencia a patientmetrics con el userId como clave
+        DatabaseReference patientMetricsRef = FirebaseDatabase.getInstance().getReference("patientmetrics").child(userId);
 
-        // Save the default patient metrics data under the user's UID in the /patientmetrics node
-        mDatabase.child("patientmetrics").child(userId).setValue(defaultMetrics, new DatabaseReference.CompletionListener() {
+        // Establecer el nodo con un valor nulo, lo que genera un nodo vacío
+        patientMetricsRef.setValue(null, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 if (databaseError == null) {
-                    Toast.makeText(PatientSignUpActivity.this, "Default patient metrics created.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PatientSignUpActivity.this, "Patient metrics node created without value.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(PatientSignUpActivity.this, "Failed to create default patient metrics.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PatientSignUpActivity.this, "Failed to create patient metrics node.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+
+
 
     private void generateUniqueCode(OnCodeGeneratedListener listener) {
         Random random = new Random();

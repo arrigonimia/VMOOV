@@ -52,7 +52,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.google.firebase:firebase-messaging:23.3.1")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.itextpdf:itextg:5.5.10")

@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">EPICarevFM2</string>
+    <string name="app_name">
+        VMOOV
+    </string>
 
     <!-- strings.xml -->
     <string name="sign_in">

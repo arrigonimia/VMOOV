@@ -51,7 +51,7 @@
         style="@style/cuerpo"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="42dp"
         android:hint="Fecha de nacimiento (DDMMAAAA)"
         android:textColor="@color/blue"
         android:textColorHint="@color/blue"
@@ -61,59 +61,44 @@
         app:layout_constraintTop_toTopOf="@id/fondoblanco" />
 
     <EditText
-        android:id="@+id/blood_text"
+        android:id="@+id/contact_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="95dp"
+        android:hint="Número de telefono"
         android:textColor="@color/blue"
         android:textColorHint="@color/blue"
-        android:hint="Obra Social"
         android:textAppearance="@style/cuerpo"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/epitherapy_text"
+        app:layout_constraintStart_toStartOf="@+id/birth_text"
         app:layout_constraintTop_toTopOf="@id/birth_text" />
 
+
     <EditText
-        android:id="@+id/epitherapy_text"
+        android:id="@+id/obraS_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="90dp"
-        android:hint="Número de afiliado"
+        android:layout_marginTop="95dp"
+        android:hint="Obra Social"
+        android:textAppearance="@style/cuerpo"
         android:textColor="@color/blue"
         android:textColorHint="@color/blue"
-        android:textAppearance="@style/cuerpo"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/medications_text"
-        app:layout_constraintTop_toTopOf="@id/blood_text" />
+        app:layout_constraintStart_toStartOf="@+id/birth_text"
+        app:layout_constraintTop_toTopOf="@id/contact_text" />
 
     <EditText
-        android:id="@+id/medications_text"
+        android:id="@+id/numeroAfi_text"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_marginTop="90dp"
-        android:hint="Nombre del profesional de salud"
+        android:layout_marginTop="95dp"
+        android:hint="Número de afiliado"
         android:textAppearance="@style/cuerpo"
         android:textColor="@color/blue"
         android:textColorHint="@color/blue"
-        app:layout_constraintStart_toStartOf="@+id/pathologies_text"
-        app:layout_constraintTop_toBottomOf="@+id/epitherapy_text"
-        app:layout_constraintTop_toTopOf="@id/epitherapy_text"/>
-
-    <EditText
-        android:id="@+id/pathologies_text"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="90dp"
-        android:layout_marginEnd="324dp"
-        android:textColor="@color/blue"
-        android:textColorHint="@color/blue"
-        android:hint="Apellido del profesional de salud"
-        android:textAppearance="@style/cuerpo"
-        app:layout_constraintEnd_toEndOf="@+id/imageView10"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="@id/medications_text"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/birth_text"
+        app:layout_constraintTop_toTopOf="@id/obraS_text" />
 
     <Button
         android:id="@+id/signUp_button"

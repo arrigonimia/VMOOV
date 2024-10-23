@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardBackgroundColor="@color/colorPrimaryDark">
+        app:cardBackgroundColor="@color/violet">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,22 +26,25 @@
 
             <ImageView
                 android:id="@+id/imageView18"
-                android:layout_width="39dp"
+                android:layout_width="36dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/person_img" />
+                android:src="@drawable/user" />
 
             <TextView
                 android:id="@+id/patientNameTextView"
-                android:layout_width="266dp"
+                android:layout_width="260dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="Username"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/white"
+                style="@style/cuerpobold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.181"

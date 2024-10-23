@@ -29,6 +29,7 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
     private PatientsAdapter patientsAdapter;
     private List<String> patientNames;
     private List<String> patientIDs;
+    private TextView professionalNameTextView; // TextView para mostrar el nombre del profesional
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +44,45 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
         patientsAdapter = new PatientsAdapter(this, patientNames, this);
         recyclerViewPatients.setAdapter(patientsAdapter);
 
+        professionalNameTextView = findViewById(R.id.user_name_textview); // Referencia al TextView
+
         // Obtener el usuario actual
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String userId = currentUser.getUid();
+            fetchProfessionalName(userId); // Obtener el nombre del profesional de salud
             fetchPatientNames(userId); // Iniciar la búsqueda de los pacientes vinculados
         }
 
         setupButtons();
+    }
+
+    private void fetchProfessionalName(String userId) {
+        // Buscar en 'users' para obtener el nombre y apellido del profesional de salud
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                    String lastName = dataSnapshot.child("lastName").getValue(String.class);
+
+                    if (firstName != null && lastName != null) {
+                        String fullName = firstName + " " + lastName;
+                        professionalNameTextView.setText(fullName); // Mostrar el nombre en pantalla
+                    } else {
+                        professionalNameTextView.setText("Nombre no disponible");
+                    }
+                } else {
+                    professionalNameTextView.setText("No se encontró información del profesional");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("NotPatientActivity", "Error en la base de datos: " + databaseError.getMessage());
+            }
+        });
     }
 
     private void fetchPatientNames(String userId) {
@@ -95,9 +127,11 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
                         String fullName = firstName + " " + lastName;
                         Log.d("NotPatientActivity", "Nombre del paciente: " + fullName);
                         patientNames.add(fullName);
+                        patientIDs.add(patientId);  // Añadir también el ID del paciente a la lista
                     } else {
                         Log.d("NotPatientActivity", "Nombre no disponible para patientId: " + patientId);
                         patientNames.add("Nombre no disponible");
+                        patientIDs.add(patientId);  // Asegúrate de que el ID siempre se añada
                     }
 
                     // Notificar al adapter que los datos han cambiado
@@ -140,9 +174,19 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
 
     @Override
     public void onItemClick(int position) {
-        // Al hacer clic en un paciente, mostrar la información
-        Intent intent = new Intent(NotPatientActivity.this, PatientDisplayActivity.class);
-        intent.putExtra("userId", patientIDs.get(position));
-        startActivity(intent);
+        // Log the size of the patientIDs list and the clicked position
+        Log.d("NotPatientActivity", "Patient ID list size: " + patientIDs.size());
+        Log.d("NotPatientActivity", "Clicked position: " + position);
+
+        // Check if the list contains the requested position before accessing it
+        if (position < patientIDs.size()) {
+            // Al hacer clic en un paciente, mostrar la información
+            Intent intent = new Intent(NotPatientActivity.this, PatientDisplayActivity.class);
+            intent.putExtra("userId", patientIDs.get(position));  // Log the ID being passed
+            Log.d("NotPatientActivity", "Opening PatientDisplayActivity with userId: " + patientIDs.get(position));
+            startActivity(intent);
+        } else {
+            Log.e("NotPatientActivity", "Invalid position clicked: " + position);
+        }
     }
 }

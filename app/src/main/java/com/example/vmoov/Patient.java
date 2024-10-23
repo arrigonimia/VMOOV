@@ -2,18 +2,16 @@ package com.example.vmoov;
 
 public class Patient {
     private String birthDate;
+    private String contacto;
     private String obraSocial;
     private String numeroAfiliado;
-    private String nombrePS;
-    private String apellidoPS;
     private int uniqueCode; // Nuevo atributo para almacenar el código único de 4 dígitos
 
-    public Patient(String birthDate, String obraSocial, String numeroAfiliado, String nombrePS, String apellidoPS, int uniqueCode) {
+    public Patient(String birthDate, String contacto, String obraSocial, String numeroAfiliado, int uniqueCode) {
         this.birthDate = birthDate;
+        this.contacto = contacto;
         this.obraSocial = obraSocial;
         this.numeroAfiliado = numeroAfiliado;
-        this.nombrePS = nombrePS;
-        this.apellidoPS = apellidoPS;
         this.uniqueCode = uniqueCode;
     }
 
@@ -24,6 +22,13 @@ public class Patient {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+    public String getContacto() {
+        return contacto;
+    }
+
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
     }
 
     public String getobraSocial() {
@@ -40,22 +45,6 @@ public class Patient {
 
     public void setnumeroAfiliado(String numeroAfiliado) {
         this.numeroAfiliado = numeroAfiliado;
-    }
-
-    public String getnombrePS() {
-        return nombrePS;
-    }
-
-    public void setnombrePS(String nombrePS) {
-        this.nombrePS = nombrePS;
-    }
-
-    public String getapellidoPS() {
-        return apellidoPS;
-    }
-
-    public void setapellidoPS(String apellidoPS) {
-        this.apellidoPS = apellidoPS;
     }
 
     public int getUniqueCode() {

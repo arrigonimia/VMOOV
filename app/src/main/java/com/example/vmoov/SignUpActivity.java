@@ -77,19 +77,25 @@ public class SignUpActivity extends AppCompatActivity {
                                 // Crear el objeto usuario
                                 User user = new User(firstName, lastName, dni, gender, email, password, userType);
 
-                                // Guardar la información del usuario
-                                if (userType == 0) {
-                                    // Guardar paciente en "users"
-                                    mDatabase.child("users").child(userId).setValue(user);
-                                    // Redirigir a la actividad de pacientes
-                                    Intent intent = new Intent(SignUpActivity.this, PatientSignUpActivity.class);
-                                    intent.putExtra("userId", userId);
-                                    startActivity(intent);
+                                // Guardar la información del usuario en "users"
+                                mDatabase.child("users").child(userId).setValue(user);
+
+                                if (userType == 1) {
+                                    // Guardar solo el userId en "healthProfessionals"
+                                    mDatabase.child("healthProfessionals").child(userId).setValue(true)
+                                            .addOnCompleteListener(task1 -> {
+                                                if (task1.isSuccessful()) {
+                                                    // Redirigir a la actividad de profesionales de salud
+                                                    Intent intent = new Intent(SignUpActivity.this, NotPatientActivity.class);
+                                                    intent.putExtra("userId", userId);
+                                                    startActivity(intent);
+                                                } else {
+                                                    Log.e(TAG, "Error guardando en healthProfessionals: ", task1.getException());
+                                                }
+                                            });
                                 } else {
-                                    // Guardar profesional de salud en "healthProfessionals"
-                                    mDatabase.child("healthProfessionals").child(userId).setValue(user);
-                                    // Redirigir a la actividad de profesionales de salud
-                                    Intent intent = new Intent(SignUpActivity.this, NotPatientActivity.class);
+                                    // Si es paciente, redirigir a la actividad de pacientes
+                                    Intent intent = new Intent(SignUpActivity.this, PatientSignUpActivity.class);
                                     intent.putExtra("userId", userId);
                                     startActivity(intent);
                                 }
