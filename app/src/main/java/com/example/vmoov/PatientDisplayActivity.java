@@ -1,6 +1,9 @@
 package com.example.vmoov;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,128 +14,173 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import android.widget.Button;
-import android.view.View;
-import android.content.Intent;
-
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class PatientDisplayActivity extends AppCompatActivity {
 
-    private TextView userNameTextView;
-    private RecyclerView recyclerViewMetrics;
+    private RecyclerView recyclerView;
     private MetricsAdapter metricsAdapter;
     private List<Metric> metricsList;
+    private TextView patientNameTextView;
     private Button backButton;
+    private static final String TAG = "PatientDisplayActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_display);
 
-        backButton = findViewById(R.id.back_button);
+        TimeZone defaultTimeZone = TimeZone.getDefault();
+        Log.d("TimezoneCheck", "Default Timezone: " + defaultTimeZone.getID());
 
-        // Set onClickListener for back button
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Navigate back to NotPatientActivity
-                Intent intent = new Intent(PatientDisplayActivity.this, NotPatientActivity.class);
-                startActivity(intent);
-                finish();  // Close the current activity
-            }
+
+        patientNameTextView = findViewById(R.id.user_name);
+        recyclerView = findViewById(R.id.recyclerViewMetrics);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(PatientDisplayActivity.this, NotPatientActivity.class);
+            startActivity(intent);
+            finish();
         });
 
-        // Obtener el userId desde el Intent
-        String userId = getIntent().getStringExtra("userId");
-
-        // Inicializar el TextView
-        userNameTextView = findViewById(R.id.user_name);
-        recyclerViewMetrics = findViewById(R.id.recyclerViewMetrics);
-
-        // Configurar RecyclerView
-        recyclerViewMetrics.setLayoutManager(new LinearLayoutManager(this));
         metricsList = new ArrayList<>();
         metricsAdapter = new MetricsAdapter(metricsList);
-        recyclerViewMetrics.setAdapter(metricsAdapter);
+        recyclerView.setAdapter(metricsAdapter);
 
-        // Obtener referencia a Firebase
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference userRef = databaseReference.child("users").child(userId);
-        DatabaseReference metricsRef = databaseReference.child("patientmetrics").child(userId).child("gameplayData");
+        String patientId = getIntent().getStringExtra("userId");
+        Log.d(TAG, "Received patientId: " + patientId);
 
-        // Cargar nombre y apellido del paciente
-        loadPatientName(userRef);
-
-        // Cargar las métricas de las partidas
-        loadPatientMetrics(metricsRef);
+        if (patientId != null) {
+            fetchPatientName(patientId);
+            fetchPatientGames(patientId);
+        } else {
+            Log.e(TAG, "No patientId provided in Intent.");
+        }
     }
 
-
-
-    private void loadPatientName(DatabaseReference userRef) {
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void fetchPatientName(String patientId) {
+        DatabaseReference patientRef = FirebaseDatabase.getInstance().getReference().child("users").child(patientId);
+        patientRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     String firstName = dataSnapshot.child("firstName").getValue(String.class);
                     String lastName = dataSnapshot.child("lastName").getValue(String.class);
 
+                    Log.d(TAG, "Fetched patient name: " + firstName + " " + lastName);
                     if (firstName != null && lastName != null) {
-                        String fullName = firstName + " " + lastName;
-                        userNameTextView.setText(fullName);
+                        patientNameTextView.setText(firstName + " " + lastName);
                     } else {
-                        Log.e("PatientDisplayActivity", "First name or last name is null");
+                        patientNameTextView.setText("Nombre no disponible");
+                        Log.e(TAG, "firstName or lastName is null for patientId: " + patientId);
                     }
                 } else {
-                    Log.e("PatientDisplayActivity", "DataSnapshot does not exist");
+                    patientNameTextView.setText("No se encontró información del paciente");
+                    Log.e(TAG, "Patient data does not exist for patientId: " + patientId);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("PatientDisplayActivity", "Database error: " + databaseError.getMessage());
+                Log.e(TAG, "Error fetching patient name: " + databaseError.getMessage());
             }
         });
     }
 
-    private void loadPatientMetrics(DatabaseReference metricsRef) {
-        metricsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    private void fetchPatientGames(String patientId) {
+        DatabaseReference gamesRef = FirebaseDatabase.getInstance().getReference()
+                .child("patientmetrics").child(patientId).child("gameplaydata");
+
+        gamesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot gameSnapshot : dataSnapshot.getChildren()) {
-                    String gameDate = gameSnapshot.getKey(); // Get the date or key of the game
-                    int trueCount = 0;
-                    double gameDuration = 0;
-                    int stepCount = 0;
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot gameSnapshot : dataSnapshot.getChildren()) {
+                        for (DataSnapshot uniqueGameSnapshot : gameSnapshot.getChildren()) {
 
-                    for (DataSnapshot stepSnapshot : gameSnapshot.child("steps").getChildren()) {
-                        Boolean result = stepSnapshot.child("result").getValue(Boolean.class);
-                        Double time = stepSnapshot.child("time").getValue(Double.class);
+                            Long startTime = uniqueGameSnapshot.child("startTime").getValue(Long.class);
+                            Long endTime = uniqueGameSnapshot.child("endTime").getValue(Long.class);
 
-                        if (result != null && result) {
-                            trueCount++;
-                        }
+                            // Log the raw timestamp values
+                            Log.d(TAG, "Start Time (timestamp): " + startTime);
+                            Log.d(TAG, "End Time (timestamp): " + endTime);
 
-                        if (time != null) {
-                            gameDuration += time;
-                            stepCount++;
+                            // Log formatted dates to verify the conversion
+                            if (startTime != null) {
+                                Log.d(TAG, "Formatted Start Time: " + convertTimestampToDate(startTime));
+                            }
+                            if (endTime != null) {
+                                Log.d(TAG, "Formatted End Time: " + convertTimestampToDate(endTime));
+                            }
+
+                            int trueCount = 0;
+                            int stepCount = 0;
+                            double totalTime = 0;
+
+                            DataSnapshot stepsSnapshot = uniqueGameSnapshot.child("steps");
+                            if (stepsSnapshot.exists()) {
+                                for (DataSnapshot stepSnapshot : stepsSnapshot.getChildren()) {
+                                    Boolean result = stepSnapshot.child("result").getValue(Boolean.class);
+                                    Double time = stepSnapshot.child("time").getValue(Double.class);
+
+                                    if (result != null && result) trueCount++;
+                                    if (time != null) {
+                                        totalTime += time;
+                                        stepCount++;
+                                    }
+                                }
+                            }
+
+                            // Calcular duración de la partida usando GameDurationCalculator
+                            String gameDurationFormatted = "Duración no disponible";
+                            if (startTime != null && endTime != null) {
+                                gameDurationFormatted = GameDurationCalculator.calculateGameDuration(startTime, endTime);
+                            }
+
+                            double averageTime = (stepCount > 0) ? totalTime / stepCount : 0;
+
+                            // Crear objeto Metric y agregarlo a la lista
+                            metricsList.add(new Metric(
+                                    startTime != null ? startTime : 0,
+                                    endTime != null ? endTime : 0,
+                                    trueCount,
+                                    averageTime,
+                                    gameDurationFormatted,
+                                    stepCount
+                            ));
                         }
                     }
 
-                    double averageTime = (stepCount > 0) ? gameDuration / stepCount : 0;
-                    metricsList.add(new Metric(gameDate, trueCount, averageTime, gameDuration, stepCount));
-                }
+                    // Ordenar por `startTime` de forma descendente
+                    metricsList.sort((metric1, metric2) -> Long.compare(metric2.getStartTime(), metric1.getStartTime()));
 
-                metricsAdapter.notifyDataSetChanged(); // Notify adapter of data change
+                    metricsAdapter.notifyDataSetChanged();
+                } else {
+                    Log.e(TAG, "No gameplaydata found for patient: " + patientId);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("PatientDisplayActivity", "Database error: " + databaseError.getMessage());
+                Log.e(TAG, "Error fetching games: " + databaseError.getMessage());
             }
         });
     }
+
+
+    private String convertTimestampToDate(long timestamp) {
+        Date date = new Date(timestamp);
+        // Use correct 24-hour format with uppercase HH
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+        return sdf.format(date);
+    }
+
 
 }

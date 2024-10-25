@@ -54,7 +54,7 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
             fetchPatientNames(userId); // Iniciar la búsqueda de los pacientes vinculados
         }
 
-        setupButtons();
+        setupButtons();  // Configurar los botones
     }
 
     private void fetchProfessionalName(String userId) {
@@ -154,7 +154,7 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NotPatientActivity.this, NewContactActivity.class);
+                Intent intent = new Intent(NotPatientActivity.this, NewContactActivity.class); // Ir a NewContactActivity
                 startActivity(intent);
             }
         });
@@ -165,7 +165,7 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(NotPatientActivity.this, MainActivity.class);
+                Intent intent = new Intent(NotPatientActivity.this, MainActivity.class); // Ir a MainActivity
                 startActivity(intent);
                 finish(); // Finalizar esta actividad
             }

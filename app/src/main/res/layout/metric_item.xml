@@ -6,43 +6,53 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/dateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fecha"
-        style="@style/titulo"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/successRateTextView"
-        style="@style/cuerpobold"
+        android:id="@+id/gameDateTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Movimientos exitosos"
-        app:layout_constraintTop_toBottomOf="@id/dateTextView"
+        android:text="Fecha de Partida"
+        style="@style/cuerpobold"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/averageTimeTextView"
         android:layout_width="0dp"
+        style="@style/cuerpo"
+        android:textColor="@color/violet"
         android:layout_height="wrap_content"
-        style="@style/cuerpobold"
-        android:text="Tiempo promedio de ejecución"
-        app:layout_constraintTop_toBottomOf="@id/successRateTextView"
+        android:text="- Tiempo Promedio: 0.0 s"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/gameDateTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"/>
 
     <TextView
-        android:id="@+id/durationTextView"
+        android:id="@+id/successRateTextView"
         android:layout_width="0dp"
-        style="@style/cuerpobold"
+        style="@style/cuerpo"
+        android:textColor="@color/violet"
         android:layout_height="wrap_content"
-        android:text="Duración de la sesión"
+        android:text="- Movimientos Exitosos: 0 de 0"
+        android:textSize="13sp"
         app:layout_constraintTop_toBottomOf="@id/averageTimeTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"/>
+
+    <TextView
+        android:id="@+id/totalDurationTextView"
+        android:layout_width="0dp"
+        style="@style/cuerpo"
+        android:textColor="@color/violet"
+        android:layout_height="wrap_content"
+        android:text="- Duración Total: 0.0 s"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@id/successRateTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

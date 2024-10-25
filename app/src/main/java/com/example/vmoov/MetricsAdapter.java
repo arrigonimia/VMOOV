@@ -6,7 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MetricsAdapter extends RecyclerView.Adapter<MetricsAdapter.MetricsViewHolder> {
 
@@ -27,11 +30,17 @@ public class MetricsAdapter extends RecyclerView.Adapter<MetricsAdapter.MetricsV
     public void onBindViewHolder(@NonNull MetricsViewHolder holder, int position) {
         Metric metric = metricsList.get(position);
 
-        // Set values for each item
-        holder.dateTextView.setText("Fecha: " + metric.getDate());
-        holder.successRateTextView.setText("Movimientos exitosos: " + metric.getTrueCount() + " de " + metric.getTotalSteps());
-        holder.averageTimeTextView.setText("Tiempo promedio de ejecución: " + String.format("%.2f s", metric.getAverageTime()));
-        holder.durationTextView.setText("Duración de la sesión: " + String.format("%.2f s", metric.getDuration()));
+        // Convert start and end times to the desired format "dd/MM/yyyy HH:mm"
+        String formattedStartTime = formatDate(metric.getStartTime());
+        String formattedEndTime = formatDate(metric.getEndTime());
+
+        // Display start time and total duration
+        holder.gameDateTextView.setText("Fecha: " + formattedStartTime);
+        holder.totalDurationTextView.setText("- Duración Total: " + GameDurationCalculator.calculateGameDuration(metric.getStartTime(), metric.getEndTime()));
+
+        // Display other metrics
+        holder.averageTimeTextView.setText("- Tiempo Promedio: " + String.format("%.2f s", metric.getAverageTime()));
+        holder.successRateTextView.setText("- Movimientos Exitosos: " + metric.getTrueCount() + " de " + metric.getStepCount());
     }
 
     @Override
@@ -40,20 +49,20 @@ public class MetricsAdapter extends RecyclerView.Adapter<MetricsAdapter.MetricsV
     }
 
     public static class MetricsViewHolder extends RecyclerView.ViewHolder {
-        TextView dateTextView;
-        TextView successRateTextView;
-        TextView averageTimeTextView;
-        TextView durationTextView;
+        TextView gameDateTextView, averageTimeTextView, successRateTextView, totalDurationTextView;
 
         public MetricsViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            // Initialize the TextViews from the item layout
-            dateTextView = itemView.findViewById(R.id.dateTextView);
-            successRateTextView = itemView.findViewById(R.id.successRateTextView);
+            gameDateTextView = itemView.findViewById(R.id.gameDateTextView);
             averageTimeTextView = itemView.findViewById(R.id.averageTimeTextView);
-            durationTextView = itemView.findViewById(R.id.durationTextView);
+            successRateTextView = itemView.findViewById(R.id.successRateTextView);
+            totalDurationTextView = itemView.findViewById(R.id.totalDurationTextView);
         }
     }
-}
 
+    // Method to format `startTime` or `endTime` into a readable date in the format "dd/MM/yyyy HH:mm"
+    private String formatDate(long timestamp) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        return sdf.format(new Date(timestamp));
+    }
+}

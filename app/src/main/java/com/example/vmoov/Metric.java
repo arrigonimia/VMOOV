@@ -1,37 +1,28 @@
 package com.example.vmoov;
 
 public class Metric {
-    private String date;  // Add the date of the session
+    private long startTime;
+    private long endTime; // Añadido endTime
     private int trueCount;
     private double averageTime;
-    private double duration;
-    private int totalSteps;
+    private String gameDuration; // Formateado para mostrar horas:minutos
+    private int stepCount;
 
-    public Metric(String date, int trueCount, double averageTime, double duration, int totalSteps) {
-        this.date = date;
+    // Constructor que incluye endTime
+    public Metric(long startTime, long endTime, int trueCount, double averageTime, String gameDuration, int stepCount) {
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.trueCount = trueCount;
         this.averageTime = averageTime;
-        this.duration = duration;
-        this.totalSteps = totalSteps;
+        this.gameDuration = gameDuration;
+        this.stepCount = stepCount;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public int getTrueCount() {
-        return trueCount;
-    }
-
-    public double getAverageTime() {
-        return averageTime;
-    }
-
-    public double getDuration() {
-        return duration;
-    }
-
-    public int getTotalSteps() {
-        return totalSteps;
-    }
+    // Getters
+    public long getStartTime() { return startTime; }
+    public long getEndTime() { return endTime; } // Nuevo getter para endTime
+    public int getTrueCount() { return trueCount; }
+    public double getAverageTime() { return averageTime; }
+    public String getGameDuration() { return gameDuration; }
+    public int getStepCount() { return stepCount; }
 }

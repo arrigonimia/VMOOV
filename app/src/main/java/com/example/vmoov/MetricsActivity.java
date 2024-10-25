@@ -24,7 +24,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.SimpleDateFormat;
@@ -34,20 +33,13 @@ import java.util.List;
 
 public class MetricsActivity extends AppCompatActivity {
 
-    // Definir TextViews donde se mostrarán los datos
     private TextView trueCountTextView;
     private TextView lastSessionTextView;
     private TextView averageTimeTextView;
-
-    // Definir BarCharts para los gráficos de barras
     private BarChart barChart;
     private BarChart barChart2;
-
-    // Definir referencias de Firebase
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-
-    // Definir ImageButtons
     private ImageButton logOutButton;
     private ImageButton settingsButton;
     private ImageButton connectButton;
@@ -57,19 +49,16 @@ public class MetricsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metrics);
 
-        // Vincular los TextViews y el BarChart con el layout
         trueCountTextView = findViewById(R.id.true_count);
         lastSessionTextView = findViewById(R.id.birth_date);
         averageTimeTextView = findViewById(R.id.average_time);
         barChart = findViewById(R.id.barChart);
         barChart2 = findViewById(R.id.barChart2);
 
-        // Vincular los ImageButtons con el layout
         logOutButton = findViewById(R.id.buttonLogOut);
         settingsButton = findViewById(R.id.buttonSettings);
         connectButton = findViewById(R.id.buttonConnect);
 
-        // Inicializar FirebaseAuth y obtener el usuario actual
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
@@ -79,31 +68,22 @@ public class MetricsActivity extends AppCompatActivity {
             getGameData(userId);
         }
 
-        logOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Toast.makeText(MetricsActivity.this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MetricsActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        logOutButton.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(MetricsActivity.this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MetricsActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MetricsActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MetricsActivity.this, SettingsActivity.class);
+            startActivity(intent);
         });
 
-        connectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MetricsActivity.this, ConnectionActivity.class);
-                startActivity(intent);
-            }
+        connectButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MetricsActivity.this, ConnectionActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -114,7 +94,7 @@ public class MetricsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    long latestEndTime = 0;
+                    long latestStartTime = 0;
                     DataSnapshot lastGameSnapshot = null;
                     List<BarEntry> barEntries = new ArrayList<>();
                     List<BarEntry> barEntriesTrueCount = new ArrayList<>();
@@ -137,9 +117,9 @@ public class MetricsActivity extends AppCompatActivity {
                         int trueCount = 0;
 
                         for (DataSnapshot gameDetailSnapshot : gameSnapshot.getChildren()) {
-                            Long endTime = gameDetailSnapshot.child("endTime").getValue(Long.class);
-                            if (endTime != null && endTime > latestEndTime) {
-                                latestEndTime = endTime;
+                            Long startTime = gameDetailSnapshot.child("startTime").getValue(Long.class);
+                            if (startTime != null && startTime > latestStartTime) {
+                                latestStartTime = startTime;
                                 lastGameSnapshot = gameDetailSnapshot;
                             }
 
@@ -168,14 +148,14 @@ public class MetricsActivity extends AppCompatActivity {
                             maxValue = Math.max(maxValue, (float) averageTime);
                             gameIndex++;
 
-                            if (latestEndTime != 0) {
-                                labels.add(convertTimestampToDate(latestEndTime));
+                            if (latestStartTime != 0) {
+                                labels.add(convertTimestampToDate(latestStartTime));
                             }
                         }
                     }
 
-                    if (latestEndTime != 0) {
-                        String formattedDate = convertTimestampToDate(latestEndTime);
+                    if (latestStartTime != 0) {
+                        String formattedDate = convertTimestampToDate(latestStartTime);
                         lastSessionTextView.setText(formattedDate);
                     } else {
                         lastSessionTextView.setText("No disponible");
@@ -190,14 +170,13 @@ public class MetricsActivity extends AppCompatActivity {
                         adjustedMaxValue = 1f;
                     }
 
-                    // Configurar el gráfico de tiempo promedio
+                    // Configurar gráfico de tiempo promedio
                     BarDataSet barDataSet = new BarDataSet(barEntries, null);
                     barDataSet.setColors(new int[]{0xFFA36BFA, 0xFF5C4CF1});
                     barDataSet.setValueTextSize(14f);
                     barDataSet.setValueFormatter(new ValueFormatter() {
                         @Override
                         public String getFormattedValue(float value) {
-                            // Formatear los valores a dos decimales
                             return String.format("%.2f", value);
                         }
                     });
@@ -214,15 +193,15 @@ public class MetricsActivity extends AppCompatActivity {
                     barChart.setDrawGridBackground(true);
                     barChart.setGridBackgroundColor(0xFFFFFFFF);
                     barChart.setBackgroundColor(0xFFFFFFFF);
-                    barChart.getAxisLeft().setDrawLabels(false); // Ocultar etiquetas del eje Y
-                    barChart.getAxisLeft().setDrawGridLines(false); // Ocultar líneas del eje Y
+                    barChart.getAxisLeft().setDrawLabels(false);
+                    barChart.getAxisLeft().setDrawGridLines(false);
                     barChart.getXAxis().setDrawGridLines(false);
                     barChart2.getXAxis().setDrawGridLines(false);
-                    barChart.getAxisLeft().setDrawAxisLine(false); // Ocultar línea del eje Y
+                    barChart.getAxisLeft().setDrawAxisLine(false);
                     barChart.animateY(1500);
                     barChart.invalidate();
 
-                    // Configurar el gráfico de cantidad de trues
+                    // Configurar gráfico de cantidad de movimientos exitosos
                     BarDataSet barDataSetTrueCount = new BarDataSet(barEntriesTrueCount, null);
                     barDataSetTrueCount.setColors(new int[]{0xFFA36BFA, 0xFF5C4CF1});
                     barDataSetTrueCount.setValueTextSize(14f);
@@ -242,11 +221,11 @@ public class MetricsActivity extends AppCompatActivity {
                     barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                     barChart2.getDescription().setEnabled(false);
                     barChart2.setDrawGridBackground(true);
-                    barChart2.setGridBackgroundColor(0xFFFFFFFF); // Fondo blanco
-                    barChart2.setBackgroundColor(0xFFFFFFFF); // Borde exterior blanco
-                    barChart2.getAxisLeft().setDrawLabels(false); // Ocultar etiquetas del eje Y
-                    barChart2.getAxisLeft().setDrawGridLines(false); // Ocultar líneas del eje Y
-                    barChart2.getAxisLeft().setDrawAxisLine(false); // Ocultar línea del eje Y
+                    barChart2.setGridBackgroundColor(0xFFFFFFFF);
+                    barChart2.setBackgroundColor(0xFFFFFFFF);
+                    barChart2.getAxisLeft().setDrawLabels(false);
+                    barChart2.getAxisLeft().setDrawGridLines(false);
+                    barChart2.getAxisLeft().setDrawAxisLine(false);
                     barChart2.animateY(1500);
                     barChart2.invalidate();
                 } else {

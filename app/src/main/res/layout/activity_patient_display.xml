@@ -9,6 +9,16 @@
     android:clipToOutline="true"
     android:gravity="center">
 
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:text="Volver"
+        app:layout_constraintEnd_toEndOf="@id/guideline4"
+        app:layout_constraintBottom_toTopOf="parent"
+        android:layout_marginBottom="-56dp"
+        android:background="@drawable/botonvioleta"
+        android:textColor="@android:color/white"/>
     <ImageView
         android:id="@+id/manchita2"
         android:layout_width="290dp"
@@ -46,22 +56,13 @@
         android:textColor="@color/violet"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:text="Volver"
-        app:layout_constraintEnd_toEndOf="@id/guideline4"
-        app:layout_constraintBottom_toTopOf="parent"
-        android:layout_marginBottom="-56dp"
-        android:background="@drawable/botonvioleta"
-        android:textColor="@android:color/white"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMetrics"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="62dp"
         android:layout_marginStart="50dp"
         android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/user_name"
