@@ -22,7 +22,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="72dp">
+            android:layout_height="62dp">
 
             <ImageView
                 android:id="@+id/imageView18"
@@ -40,9 +40,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="Username"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="14dp"
                 android:textColor="@color/white"
                 style="@style/cuerpobold"
                 app:layout_constraintBottom_toBottomOf="parent"

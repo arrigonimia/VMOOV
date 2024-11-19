@@ -2,6 +2,7 @@ package com.example.vmoov;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -125,6 +126,13 @@ public class MainActivity extends AppCompatActivity {
         Button signUpButton = findViewById(R.id.smallSignUp_button);
         signUpButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+            startActivity(intent);
+        });
+
+        // Configuración del botón para redirigir a ForgotPasswordActivity
+        Button forgotPasswordButton = findViewById(R.id.forgot_password_button);
+        forgotPasswordButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         });
     }

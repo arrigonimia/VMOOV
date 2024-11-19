@@ -24,14 +24,14 @@
         Contacts
     </string>
 
-    <string name="email_reset"> Please enter your email to reset your password.</string>
+    <string name="email_reset"> Ingrese su correo electrónico para reestablecer su contraseña.</string>
 
     <string name="last_session">
         Última sesión:
     </string>
 
     <string name="success">
-        Movimientos exitosos:
+        Movimientos exitosos:\n
     </string>
 
     <string name="time">

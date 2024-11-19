@@ -44,4 +44,9 @@
         <item name="android:fontFamily">@font/verd</item>
     </style>
 
+    <style name="input" parent="cuerpobold">
+        <item name="android:backgroundTint">#26673AB7</item>
+        <item name="android:background">?android:attr/editTextBackground</item>
+    </style>
+
 </resources>

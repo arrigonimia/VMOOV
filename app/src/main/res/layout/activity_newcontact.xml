@@ -87,13 +87,13 @@
 
     <EditText
         android:id="@+id/uniqueCode_text"
-        style="@style/cuerpobold"
+        style="@style/input"
         android:layout_width="120dp"
         android:layout_height="39dp"
         android:layout_marginTop="36dp"
         android:textColor="@color/blue"
         android:textColorHint="@color/blue"
-        android:textSize="12dp"
+        android:textSize="13dp"
         android:gravity="center"
         android:hint="Código único"
         app:layout_constraintStart_toStartOf="parent"

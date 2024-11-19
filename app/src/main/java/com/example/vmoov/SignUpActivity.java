@@ -29,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editText_pass;
     private EditText editText_repass;
     private Button guardarButton;
+    private Button backButton; // Nuevo botón para volver
     private CheckBox checkBox;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -54,11 +55,13 @@ public class SignUpActivity extends AppCompatActivity {
         editText_pass = findViewById(R.id.pass_text);
         editText_repass = findViewById(R.id.repass_text);
         guardarButton = findViewById(R.id.signUp_button);
+        backButton = findViewById(R.id.back_button); // Vincular backButton en el layout
         checkBox = findViewById(R.id.checkboxUserType);
 
         // Listener para el checkbox (para seleccionar si es profesional de salud)
         checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> userType = isChecked ? 1 : 0);
 
+        // Listener para el botón de guardar
         guardarButton.setOnClickListener(v -> {
             String firstName = editText_fname.getText().toString();
             String lastName = editText_lname.getText().toString();
@@ -107,6 +110,13 @@ public class SignUpActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(SignUpActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        // Listener para el botón de regresar al MainActivity
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
         });
     }
 }
