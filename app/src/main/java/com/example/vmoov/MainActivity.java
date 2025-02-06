@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
                                             if (userType == 0) {
                                                 // Redirigir a la actividad del paciente
-                                                Intent intent = new Intent(MainActivity.this, MetricsActivity.class);
+                                                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                                                 startActivity(intent);
                                             } else {
                                                 // Redirigir a la actividad del profesional de salud

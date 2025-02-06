@@ -44,7 +44,8 @@ dependencies {
     implementation("com.google.firebase:firebase-database:20.2.2")
     implementation("com.google.firebase:firebase-auth:22.1.2")
     implementation ("androidx.core:core-ktx:1.6.0")
-    implementation ("com.squareup.picasso:picasso:2.71828");
+    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation("androidx.gridlayout:gridlayout:1.0.0");
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -53,6 +54,12 @@ dependencies {
     implementation("com.google.firebase:firebase-messaging:23.3.1")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation ("com.github.anastr:speedviewlib:1.5.5")
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation ("androidx.cardview:cardview:1.0.0")
+    implementation ("com.sun.mail:android-mail:1.6.2")
+    implementation ("com.sun.mail:android-activation:1.6.2")
+
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.itextpdf:itextg:5.5.10")

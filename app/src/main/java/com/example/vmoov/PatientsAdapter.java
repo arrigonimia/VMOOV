@@ -1,72 +1,91 @@
 package com.example.vmoov;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.PatientViewHolder> {
-
-    private final RecyclerViewInterface recyclerViewInterface;
+public class PatientsAdapter extends RecyclerView.Adapter<PatientsAdapter.ViewHolder> {
 
     private Context context;
     private List<String> patientNames;
+    private List<String> patientIDs;
 
-    public PatientsAdapter(Context context, List<String> patientNames, RecyclerViewInterface recyclerViewInterface) {
+    public PatientsAdapter(Context context, List<String> patientNames, List<String> patientIDs) {
         this.context = context;
         this.patientNames = patientNames;
-        this.recyclerViewInterface = recyclerViewInterface;
-    }
-
-    public void setPatientNames(List<String> patientNames) {
-        this.patientNames = patientNames;
-        notifyDataSetChanged();
+        this.patientIDs = patientIDs;
     }
 
     @NonNull
     @Override
-    public PatientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.patient_row, parent, false);
-        return new PatientViewHolder(view, recyclerViewInterface);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PatientViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        if (position >= patientNames.size() || position >= patientIDs.size()) {
+            return; // Previene errores por fuera de rango
+        }
+
         String patientName = patientNames.get(position);
-        holder.bind(patientName);
+        String patientId = patientIDs.get(position);
+
+        holder.patientName.setText(patientName);
+
+        // Configurar el menú desplegable de los tres puntos
+        holder.menuButton.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(context, holder.menuButton);
+            popupMenu.inflate(R.menu.patient_menu); // Asegúrate de tener este archivo XML en res/menu/
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+                Intent intent = null;
+
+                // Cambiar el switch a if-else
+                if (item.getItemId() == R.id.view_results) {
+                    intent = new Intent(context, PatientDisplayActivity.class);
+                } else if (item.getItemId() == R.id.add_prescription) {
+                    intent = new Intent(context, PrescriptionActivity.class);
+                } else if (item.getItemId() == R.id.view_patient_info) {
+                    intent = new Intent(context, PatientInfoActivity.class);
+                }
+
+                if (intent != null) {
+                    intent.putExtra("userId", patientId);
+                    context.startActivity(intent);
+                }
+                return true;
+            });
+
+            popupMenu.show();
+        });
     }
 
     @Override
     public int getItemCount() {
-        return patientNames.size();
+        return Math.min(patientNames.size(), patientIDs.size()); // Evita errores de tamaño desincronizado
     }
 
-    static class PatientViewHolder extends RecyclerView.ViewHolder {
-        private TextView patientNameTextView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView patientName;
+        ImageButton menuButton;
 
-        public PatientViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            patientNameTextView = itemView.findViewById(R.id.patientNameTextView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (recyclerViewInterface != null) {
-                        int pos = getAdapterPosition();
-                        if (pos != RecyclerView.NO_POSITION) {
-                            recyclerViewInterface.onItemClick(pos);
-                        }
-                    }
-                }
-            });
-        }
-
-        public void bind(String patientName) {
-            patientNameTextView.setText(patientName);
+            patientName = itemView.findViewById(R.id.patientNameTextView); // Verifica este ID en item_patient.xml
+            menuButton = itemView.findViewById(R.id.menuButton);
         }
     }
 }

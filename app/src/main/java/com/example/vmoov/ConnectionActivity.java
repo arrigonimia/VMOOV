@@ -60,7 +60,7 @@ public class ConnectionActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // Crear un Intent para navegar a MetricsActivity
-                    Intent intent = new Intent(ConnectionActivity.this, MetricsActivity.class);
+                    Intent intent = new Intent(ConnectionActivity.this, MenuActivity.class);
                     startActivity(intent);
                     finish(); // Cierra esta actividad para evitar que el usuario regrese a ella
                 }

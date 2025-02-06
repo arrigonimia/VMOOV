@@ -41,7 +41,7 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
 
         patientNames = new ArrayList<>();
         patientIDs = new ArrayList<>();
-        patientsAdapter = new PatientsAdapter(this, patientNames, this);
+        patientsAdapter = new PatientsAdapter(this, patientNames, patientIDs);
         recyclerViewPatients.setAdapter(patientsAdapter);
 
         professionalNameTextView = findViewById(R.id.user_name_textview); // Referencia al TextView

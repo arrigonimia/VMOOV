@@ -113,7 +113,22 @@
         <activity android:name=".RegistrationSuccessActivity"
             android:exported="false"/>
 
+        <activity android:name=".LastSessionActivity"
+            android:exported="false"/>
 
+        <activity android:name=".MenuActivity"
+            android:exported="false"/>
+
+        <activity android:name=".SummaryActivity"
+            android:exported="false"/>
+        <activity android:name=".ContactHPActivity"
+            android:exported="false"/>
+
+        <activity android:name=".PatientInfoActivity"
+            android:exported="false"/>
+
+        <activity android:name=".PrescriptionActivity"
+            android:exported="false"/>
 
     </application>
 

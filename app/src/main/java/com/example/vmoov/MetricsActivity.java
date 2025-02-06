@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +46,7 @@ public class MetricsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_metrics);
+        setContentView(R.layout.pruebas);
 
         trueCountTextView = findViewById(R.id.true_count);
         lastSessionTextView = findViewById(R.id.birth_date);
@@ -88,55 +87,60 @@ public class MetricsActivity extends AppCompatActivity {
     }
 
     private void getGameData(String userId) {
-        DatabaseReference gameDataRef = mDatabase.child("patientmetrics").child(userId).child("gameplaydata");
+        DatabaseReference gameDataRef = mDatabase.child("patientmetrics").child(userId).child("gameplaydata").child("game1");
 
         gameDataRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    List<DataSnapshot> gameList = new ArrayList<>();
+                    for (DataSnapshot gameDetailSnapshot : dataSnapshot.getChildren()) {
+                        gameList.add(gameDetailSnapshot);
+                    }
+
+                    // Ordenar la lista de juegos por startTime en orden ascendente (cronológico)
+                    gameList.sort((game1, game2) -> {
+                        Long startTime1 = game1.child("startTime").getValue(Long.class);
+                        Long startTime2 = game2.child("startTime").getValue(Long.class);
+                        if (startTime1 == null) startTime1 = 0L;
+                        if (startTime2 == null) startTime2 = 0L;
+                        return startTime1.compareTo(startTime2);
+                    });
+
                     long latestStartTime = 0;
-                    DataSnapshot lastGameSnapshot = null;
+                    DataSnapshot latestGameSnapshot = null;
                     List<BarEntry> barEntries = new ArrayList<>();
                     List<BarEntry> barEntriesTrueCount = new ArrayList<>();
                     List<String> labels = new ArrayList<>();
                     int gameIndex = 0;
                     float maxValue = 0f;
 
-                    List<DataSnapshot> gameList = new ArrayList<>();
-                    for (DataSnapshot gameSnapshot : dataSnapshot.getChildren()) {
-                        gameList.add(gameSnapshot);
-                    }
-
-                    int totalGames = gameList.size();
-                    int startIndex = Math.max(0, totalGames - 5);
-                    for (int i = startIndex; i < totalGames; i++) {
-                        DataSnapshot gameSnapshot = gameList.get(i);
-
+                    for (DataSnapshot gameDetailSnapshot : gameList) {
                         double totalTime = 0;
                         int stepCount = 0;
                         int trueCount = 0;
 
-                        for (DataSnapshot gameDetailSnapshot : gameSnapshot.getChildren()) {
-                            Long startTime = gameDetailSnapshot.child("startTime").getValue(Long.class);
-                            if (startTime != null && startTime > latestStartTime) {
-                                latestStartTime = startTime;
-                                lastGameSnapshot = gameDetailSnapshot;
-                            }
+                        // Obtener startTime
+                        Long startTime = gameDetailSnapshot.child("startTime").getValue(Long.class);
+                        if (startTime != null && startTime > latestStartTime) {
+                            latestStartTime = startTime;
+                            latestGameSnapshot = gameDetailSnapshot;
+                        }
 
-                            DataSnapshot stepsSnapshot = gameDetailSnapshot.child("steps");
-                            if (stepsSnapshot.exists()) {
-                                for (DataSnapshot stepSnapshot : stepsSnapshot.getChildren()) {
-                                    Boolean resultValue = stepSnapshot.child("result").getValue(Boolean.class);
-                                    Double timeValue = stepSnapshot.child("time").getValue(Double.class);
+                        // Procesar los pasos para el gráfico
+                        DataSnapshot stepsSnapshot = gameDetailSnapshot.child("steps");
+                        if (stepsSnapshot.exists()) {
+                            for (DataSnapshot stepSnapshot : stepsSnapshot.getChildren()) {
+                                Boolean resultValue = stepSnapshot.child("result").getValue(Boolean.class);
+                                Double timeValue = stepSnapshot.child("time").getValue(Double.class);
 
-                                    if (resultValue != null && resultValue) {
-                                        trueCount++;
-                                    }
+                                if (resultValue != null && resultValue) {
+                                    trueCount++;
+                                }
 
-                                    if (timeValue != null) {
-                                        totalTime += timeValue;
-                                        stepCount++;
-                                    }
+                                if (timeValue != null) {
+                                    totalTime += timeValue;
+                                    stepCount++;
                                 }
                             }
                         }
@@ -146,88 +150,26 @@ public class MetricsActivity extends AppCompatActivity {
                             barEntries.add(new BarEntry(gameIndex, (float) averageTime));
                             barEntriesTrueCount.add(new BarEntry(gameIndex, trueCount));
                             maxValue = Math.max(maxValue, (float) averageTime);
+                            labels.add(convertTimestampToDate(startTime));
                             gameIndex++;
-
-                            if (latestStartTime != 0) {
-                                labels.add(convertTimestampToDate(latestStartTime));
-                            }
                         }
                     }
 
+                    // Actualizar la fecha de la última sesión
                     if (latestStartTime != 0) {
-                        String formattedDate = convertTimestampToDate(latestStartTime);
-                        lastSessionTextView.setText(formattedDate);
+                        lastSessionTextView.setText(convertTimestampToDate(latestStartTime));
                     } else {
                         lastSessionTextView.setText("No disponible");
                     }
 
-                    if (lastGameSnapshot != null) {
-                        calculateGameStats(lastGameSnapshot);
+                    // Calcular métricas del juego más reciente
+                    if (latestGameSnapshot != null) {
+                        calculateGameStats(latestGameSnapshot);
                     }
 
-                    float adjustedMaxValue = maxValue * 1.1f;
-                    if (adjustedMaxValue == 0) {
-                        adjustedMaxValue = 1f;
-                    }
-
-                    // Configurar gráfico de tiempo promedio
-                    BarDataSet barDataSet = new BarDataSet(barEntries, null);
-                    barDataSet.setColors(new int[]{0xFFA36BFA, 0xFF5C4CF1});
-                    barDataSet.setValueTextSize(14f);
-                    barDataSet.setValueFormatter(new ValueFormatter() {
-                        @Override
-                        public String getFormattedValue(float value) {
-                            return String.format("%.2f", value);
-                        }
-                    });
-                    BarData barData = new BarData(barDataSet);
-                    barChart.setData(barData);
-                    barChart.getAxisLeft().setAxisMaximum(adjustedMaxValue);
-                    barChart.getAxisLeft().setAxisMinimum(0);
-                    barChart.getAxisLeft().setGranularity(0.3f);
-                    barChart.getAxisRight().setEnabled(false);
-                    barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-                    barChart.getXAxis().setGranularity(1f);
-                    barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                    barChart.getDescription().setEnabled(false);
-                    barChart.setDrawGridBackground(true);
-                    barChart.setGridBackgroundColor(0xFFFFFFFF);
-                    barChart.setBackgroundColor(0xFFFFFFFF);
-                    barChart.getAxisLeft().setDrawLabels(false);
-                    barChart.getAxisLeft().setDrawGridLines(false);
-                    barChart.getXAxis().setDrawGridLines(false);
-                    barChart2.getXAxis().setDrawGridLines(false);
-                    barChart.getAxisLeft().setDrawAxisLine(false);
-                    barChart.animateY(1500);
-                    barChart.invalidate();
-
-                    // Configurar gráfico de cantidad de movimientos exitosos
-                    BarDataSet barDataSetTrueCount = new BarDataSet(barEntriesTrueCount, null);
-                    barDataSetTrueCount.setColors(new int[]{0xFFA36BFA, 0xFF5C4CF1});
-                    barDataSetTrueCount.setValueTextSize(14f);
-                    barDataSetTrueCount.setValueFormatter(new ValueFormatter() {
-                        @Override
-                        public String getFormattedValue(float value) {
-                            return String.format("%d", (int) value);
-                        }
-                    });
-                    BarData barDataTrueCount = new BarData(barDataSetTrueCount);
-                    barChart2.setData(barDataTrueCount);
-                    barChart2.getAxisLeft().setAxisMinimum(0);
-                    barChart2.getAxisLeft().setGranularity(1f);
-                    barChart2.getAxisRight().setEnabled(false);
-                    barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-                    barChart2.getXAxis().setGranularity(1f);
-                    barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                    barChart2.getDescription().setEnabled(false);
-                    barChart2.setDrawGridBackground(true);
-                    barChart2.setGridBackgroundColor(0xFFFFFFFF);
-                    barChart2.setBackgroundColor(0xFFFFFFFF);
-                    barChart2.getAxisLeft().setDrawLabels(false);
-                    barChart2.getAxisLeft().setDrawGridLines(false);
-                    barChart2.getAxisLeft().setDrawAxisLine(false);
-                    barChart2.animateY(1500);
-                    barChart2.invalidate();
+                    // Configurar gráficos
+                    configureBarChart(barChart, barEntries, labels, maxValue);
+                    configureBarChart(barChart2, barEntriesTrueCount, labels, maxValue);
                 } else {
                     trueCountTextView.setText("No data");
                     averageTimeTextView.setText("No data");
@@ -242,12 +184,34 @@ public class MetricsActivity extends AppCompatActivity {
         });
     }
 
-    private void calculateGameStats(DataSnapshot lastGameSnapshot) {
+    private void configureBarChart(BarChart chart, List<BarEntry> entries, List<String> labels, float maxValue) {
+        BarDataSet dataSet = new BarDataSet(entries, null);
+        dataSet.setColors(new int[]{0xFFA36BFA, 0xFF5C4CF1});
+        dataSet.setValueTextSize(14f);
+        dataSet.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.format("%.2f", value);
+            }
+        });
+        BarData barData = new BarData(dataSet);
+        chart.setData(barData);
+        chart.getAxisLeft().setAxisMaximum(maxValue * 1.1f);
+        chart.getAxisLeft().setAxisMinimum(0);
+        chart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+        chart.getXAxis().setGranularity(1f);
+        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        chart.getDescription().setEnabled(false);
+        chart.animateY(1500);
+        chart.invalidate();
+    }
+
+    private void calculateGameStats(DataSnapshot latestGameSnapshot) {
         int trueCount = 0;
         double totalTime = 0;
         int stepCount = 0;
 
-        DataSnapshot stepsSnapshot = lastGameSnapshot.child("steps");
+        DataSnapshot stepsSnapshot = latestGameSnapshot.child("steps");
 
         if (stepsSnapshot.exists()) {
             for (DataSnapshot stepSnapshot : stepsSnapshot.getChildren()) {
@@ -279,7 +243,7 @@ public class MetricsActivity extends AppCompatActivity {
 
     private String convertTimestampToDate(long timestamp) {
         Date date = new Date(timestamp);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
         return sdf.format(date);
     }
 }

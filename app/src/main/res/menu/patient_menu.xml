@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/view_results"
+        android:title="Ver resultados" />
+    <item
+        android:id="@+id/add_prescription"
+        android:title="Agregar receta médica" />
+    <item
+        android:id="@+id/view_patient_info"
+        android:title="Ver datos del paciente" />
+</menu>

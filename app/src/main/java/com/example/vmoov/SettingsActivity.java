@@ -28,7 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Listener para el botón "Atrás" que vuelve a MetricsActivity
         backButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SettingsActivity.this, MetricsActivity.class);
+            Intent intent = new Intent(SettingsActivity.this, MenuActivity.class);
             startActivity(intent);
             finish();  // Finaliza SettingsActivity para que no se vuelva al presionar atrás
         });

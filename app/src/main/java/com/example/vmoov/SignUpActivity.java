@@ -1,20 +1,15 @@
 package com.example.vmoov;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,15 +20,16 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editText_lname;
     private EditText editText_dni;
     private EditText editText_gender;
+    private EditText editText_phone; // Nuevo campo para el teléfono
     private EditText editText_email;
     private EditText editText_pass;
     private EditText editText_repass;
     private Button guardarButton;
-    private Button backButton; // Nuevo botón para volver
+    private Button backButton;
     private CheckBox checkBox;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private int userType = 0; // Inicializar el tipo de usuario a 0
+    private int userType = 0;
 
     private static final String TAG = "SignUpActivity";
 
@@ -51,11 +47,12 @@ public class SignUpActivity extends AppCompatActivity {
         editText_lname = findViewById(R.id.lastname_text);
         editText_dni = findViewById(R.id.dni_text);
         editText_gender = findViewById(R.id.gender_text);
+        editText_phone = findViewById(R.id.phone_text); // Nuevo campo de teléfono
         editText_email = findViewById(R.id.email_text);
         editText_pass = findViewById(R.id.pass_text);
         editText_repass = findViewById(R.id.repass_text);
         guardarButton = findViewById(R.id.signUp_button);
-        backButton = findViewById(R.id.back_button); // Vincular backButton en el layout
+        backButton = findViewById(R.id.back_button);
         checkBox = findViewById(R.id.checkboxUserType);
 
         // Listener para el checkbox (para seleccionar si es profesional de salud)
@@ -67,6 +64,7 @@ public class SignUpActivity extends AppCompatActivity {
             String lastName = editText_lname.getText().toString();
             String dni = editText_dni.getText().toString();
             String gender = editText_gender.getText().toString();
+            String phone = editText_phone.getText().toString(); // Capturar teléfono
             String email = editText_email.getText().toString();
             String password = editText_pass.getText().toString();
 
@@ -75,10 +73,10 @@ public class SignUpActivity extends AppCompatActivity {
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, task -> {
                             if (task.isSuccessful()) {
-                                String userId = mAuth.getCurrentUser().getUid(); // Obtener UID
+                                String userId = mAuth.getCurrentUser().getUid();
 
-                                // Crear el objeto usuario
-                                User user = new User(firstName, lastName, dni, gender, email, password, userType);
+                                // Crear objeto usuario con número de teléfono
+                                User user = new User(firstName, lastName, dni, gender, phone, email, password, userType);
 
                                 // Guardar la información del usuario en "users"
                                 mDatabase.child("users").child(userId).setValue(user);
@@ -88,7 +86,6 @@ public class SignUpActivity extends AppCompatActivity {
                                     mDatabase.child("healthProfessionals").child(userId).setValue(true)
                                             .addOnCompleteListener(task1 -> {
                                                 if (task1.isSuccessful()) {
-                                                    // Redirigir a la actividad de profesionales de salud
                                                     Intent intent = new Intent(SignUpActivity.this, NotPatientActivity.class);
                                                     intent.putExtra("userId", userId);
                                                     startActivity(intent);
@@ -97,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                 }
                                             });
                                 } else {
-                                    // Si es paciente, redirigir a la actividad de pacientes
+                                    // Si es paciente, redirigir a PatientSignUpActivity
                                     Intent intent = new Intent(SignUpActivity.this, PatientSignUpActivity.class);
                                     intent.putExtra("userId", userId);
                                     startActivity(intent);

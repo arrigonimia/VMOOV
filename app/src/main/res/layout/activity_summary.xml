@@ -1,0 +1,149 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/fondo">
+
+    <!-- Zócalo violeta (sin padding) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/violet"
+        android:gravity="center">
+
+        <!-- Logo VMOOV -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Logo VMOOV"
+            android:padding="12dp"
+            android:src="@drawable/logovmoov"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <!-- Contenedor para el resto de los elementos (con padding) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Spinners en una fila -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:weightSum="2">
+
+            <Spinner
+                android:id="@+id/spinner_number"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="48dp"
+                android:elevation="4dp"
+                android:background="@drawable/spinner_background"
+                android:entries="@array/number_array"
+                android:spinnerMode="dropdown"
+                android:paddingEnd="16dp"
+                android:drawablePadding="8dp" />
+
+            <Spinner
+                android:id="@+id/spinner_type"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:elevation="4dp"
+                android:background="@drawable/spinner_background"
+                android:entries="@array/type_array"
+                android:spinnerMode="dropdown"
+                android:paddingEnd="16dp"
+                android:drawablePadding="8dp" />
+        </LinearLayout>
+
+        <!-- Primera tarjeta -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/title_chart1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tiempo promedio de ejecución del movimiento"
+                    android:textStyle="bold"
+                    android:textColor="@color/violet"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart1"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Segunda tarjeta -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/title_chart2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Movimientos exitosos"
+                    android:textColor="@color/violet"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp" />
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChart2"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botón "Volver" -->
+        <Button
+            android:id="@+id/button_prim"
+            style="@style/boton"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/botonvioleta"
+            android:gravity="center"
+            android:text="Volver"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+</LinearLayout>
