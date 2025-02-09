@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp"
+    android:layout_margin="12dp"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <!-- Nombre del Centro (Spinner) -->
+        <Spinner
+            android:id="@+id/spinnerCenterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/cuerpo"
+            android:layout_marginBottom="12dp"
+            />
+
+        <!-- Selección de días (7 botones) -->
+        <LinearLayout
+            android:id="@+id/daysContainer"
+            android:layout_width="match_parent"
+            style="@style/cuerpo"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:id="@+id/btnMon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="Lun"
+                android:gravity="center"
+                style="@style/DayButton"
+                android:background="@drawable/selector_day_button"
+                android:textColor="@color/violet"
+                android:textSize="14sp"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/btnTue"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="Ma"
+                android:gravity="center"
+                style="@style/DayButton"
+                android:background="@drawable/selector_day_button"
+                android:textColor="@color/violet"
+                android:textSize="14sp"
+                android:padding="8dp"/>
+
+            <TextView
+                android:id="@+id/btnWed"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="@style/DayButton"
+                android:text="Mie"
+                android:gravity="center"
+                android:background="@drawable/selector_day_button"
+                android:textColor="@color/violet"
+                android:textSize="14sp"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/btnThu"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="@style/DayButton"
+                android:text="Jue"
+                android:gravity="center"
+                android:background="@drawable/selector_day_button"
+                android:textColor="@color/violet"
+                android:textSize="14sp"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/btnFri"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                style="@style/DayButton"
+                android:text="Vie"
+                android:gravity="center"
+                android:background="@drawable/selector_day_button"
+                android:textColor="@color/violet"
+                android:textSize="14sp"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/btnSat"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="Sab"
+                style="@style/DayButton"
+                android:gravity="center"
+                android:background="@drawable/selector_day_button"
+                android:textColor="@color/violet"
+                android:textSize="14sp"
+                android:padding="8dp"/>
+            <TextView
+                android:id="@+id/btnSun"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:text="Dom"
+                style="@style/DayButton"
+                android:gravity="center"
+                android:background="@drawable/selector_day_button"
+                android:textColor="@color/violet"
+                android:textSize="14sp"
+                android:padding="8dp"/>
+        </LinearLayout>
+
+        <!-- Selección de horario -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Horario:"
+                style="@style/cuerpobold"
+                android:layout_marginEnd="12dp"/>
+
+            <TextView
+                android:id="@+id/startTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desde"
+                android:padding="8dp"
+                android:textSize="12sp"
+                style="@style/cuerpo"
+                android:textColor="@color/blue"
+                android:background="@color/cardview_light_background"
+                android:layout_marginStart="12dp"/>
+
+            <TextView
+                android:id="@+id/endTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hasta"
+                android:padding="8dp"
+                android:textSize="12sp"
+                style="@style/cuerpo"
+                android:textColor="@color/blue"
+                android:background="@color/cardview_shadow_end_color"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+        <!-- Botón para eliminar -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/removeCenterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/violet"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            android:elevation="4dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Eliminar Centro"
+                style="@style/cuerpobold"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:padding="12dp"/>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

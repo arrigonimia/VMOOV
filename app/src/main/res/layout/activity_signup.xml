@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/fondo" />
 
-    <!-- ScrollView con una CardView -->
+    <!-- ScrollView con una CardView para el formulario -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -26,21 +26,19 @@
         app:layout_constraintBottom_toTopOf="@id/horizontalBottom"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_gravity="center"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:gravity="center_horizontal">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
-                android:layout_gravity="center"
                 app:cardElevation="6dp"
                 android:padding="24dp"
                 android:layout_margin="16dp">
@@ -55,6 +53,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="Nombre"
+                        style="@style/cuerpo"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:padding="16dp"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
@@ -69,6 +70,9 @@
                         android:layout_height="50dp"
                         android:padding="16dp"
                         android:hint="Apellido"
+                        style="@style/cuerpo"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
@@ -82,6 +86,9 @@
                         android:layout_height="50dp"
                         android:hint="DNI"
                         android:padding="16dp"
+                        style="@style/cuerpo"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
@@ -95,6 +102,9 @@
                         android:layout_height="50dp"
                         android:hint="Género"
                         android:padding="16dp"
+                        style="@style/cuerpo"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
@@ -108,6 +118,9 @@
                         android:layout_height="50dp"
                         android:hint="Número de teléfono"
                         android:padding="16dp"
+                        style="@style/cuerpo"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
@@ -120,7 +133,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:hint="Correo electrónico"
+                        android:padding="16dp"
                         android:textAppearance="@style/input"
+                        style="@style/cuerpo"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
                         android:inputType="textEmailAddress"
@@ -131,11 +148,15 @@
                         android:id="@+id/pass_text"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:padding="16dp"
+                        style="@style/cuerpo"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:hint="Contraseña"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
-                        android:inputType="textWebPassword"
+                        android:inputType="textPersonName"
                         android:imeOptions="actionNext"
                         android:layout_marginTop="15dp"/>
 
@@ -143,12 +164,16 @@
                         android:id="@+id/repass_text"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
+                        android:padding="16dp"
+                        style="@style/cuerpo"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
                         android:hint="Reingresar contraseña"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
-                        android:inputType="textWebPassword"
-                        android:imeOptions="actionDone"
+                        android:inputType="textPersonName"
+                        android:imeOptions="actionNext"
                         android:layout_marginTop="15dp"/>
 
                     <CheckBox
@@ -165,35 +190,63 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- Botón de registro -->
-    <Button
-        android:id="@+id/signUp_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Registrarme"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-        android:background="@drawable/botonvioleta"
-        app:layout_constraintBottom_toBottomOf="@id/horizontalBottom"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="95dp"
-        android:layout_marginBottom="-10dp"/>
-
-    <!-- Botón de volver -->
-    <Button
+    <!-- CardView para el "VOLVER" -->
+    <androidx.cardview.widget.CardView
         android:id="@+id/back_button"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VOLVER"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-    android:background="@drawable/botonvioleta"
+        app:cardCornerRadius="30dp"
+        android:backgroundTint="@color/violet"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="@id/horizontalTop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="98dp"
-        android:layout_marginBottom="-20dp"/>
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="VOLVER"
+            style="@style/cuerpo"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textSize="16sp"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView para el "REGISTRARME" -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/signUp_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        android:backgroundTint="@color/violet"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/horizontalBottom"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="REGISTRARME"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            style="@style/titulo"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:textSize="16sp"/>
+    </androidx.cardview.widget.CardView>
 
     <!-- Guías -->
     <androidx.constraintlayout.widget.Guideline

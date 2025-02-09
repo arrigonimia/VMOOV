@@ -1,11 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_screen"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:clipToOutline="true">
 
+    <!-- Fondo -->
     <ImageView
         android:id="@+id/fondo"
         android:layout_width="match_parent"
@@ -15,135 +17,109 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fondo" />
+        app:srcCompat="@drawable/fondo_prueba" />
 
-    <ImageView
-        android:id="@+id/formablanca"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/formablanca"
-        android:scaleType="fitXY"
-        android:layout_marginTop="-500dp"
-        app:layout_constraintBottom_toBottomOf="@id/fondo"
-        app:layout_constraintEnd_toEndOf="@id/fondo"
-        app:layout_constraintStart_toStartOf="@id/fondo"
-        app:layout_constraintTop_toTopOf="@id/horizontal" />
-
-    <TextView
-        android:id="@+id/success_message"
-        style="@style/cuerpobold"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-144dp"
+    <!-- Zócalo con el logo -->
+    <LinearLayout
+        android:id="@+id/zocalo"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:gravity="center"
-        android:text="\n¡El registro se realizó con éxito!\n\n\n\nSu código único es:\n\n\n\n\nDeberá usarlo cuando conecte su casco. "
-        android:textColor="@color/blue"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/derecha"
-        app:layout_constraintStart_toStartOf="@id/izquierda"
-        app:layout_constraintTop_toTopOf="@id/horizontal" />
+        android:padding="16dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/generated_code_text"
-        android:layout_width="wrap_content"
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logovmoov_v"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <!-- Tarjeta de Información (Centrada) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/info_card"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
-        android:textStyle="bold"
-        android:text="1234"
-        style="@style/cuerpobold"
-        android:textColor="@color/blue"
-        android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="@id/success_message"
-        app:layout_constraintStart_toStartOf="@id/vertical"
-        app:layout_constraintEnd_toEndOf="@id/vertical"
-        android:gravity="center" />
-
-    <Button
-        android:id="@+id/start_button"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="Comenzar"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/botonvioleta"
-        android:textSize="18sp"
-        android:layout_marginStart="95dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginBottom="-28dp"
-        android:layout_marginTop="-28dp"
-        app:layout_constraintTop_toTopOf="@id/horizontalBottom2"
-        app:layout_constraintBottom_toBottomOf="@id/horizontalBottom2"
-        app:layout_constraintStart_toStartOf="@id/izquierda"
-        app:layout_constraintEnd_toEndOf="@id/derecha" />
-
-    <ImageView
-        android:id="@+id/manchita"
-        android:layout_width="290dp"
-        android:layout_height="290dp"
-        app:layout_constraintTop_toTopOf="@id/horizontalBottom"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:padding="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@id/vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="fitCenter"
-        android:layout_marginTop="-7dp"
-        app:srcCompat="@drawable/manchita" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/izquierda"
+            <TextView
+                android:id="@+id/success_message"
+                style="@style/cuerpobold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="¡El registro se realizó con éxito!\n\nSu código único es:"
+                android:textColor="@color/violet"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/generated_code_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1234"
+                style="@style/cuerpobold"
+                android:textColor="@color/blue"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/code_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Deberá usarlo cuando conecte su casco."
+                android:textColor="@color/violet"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Botón Comenzar -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/start_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:padding="12dp"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="6dp"
+        android:backgroundTint="@color/blue"
+        app:layout_constraintTop_toBottomOf="@id/info_card"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/derecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalBottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalTop2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalBottom2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-
+        <TextView
+            android:id="@+id/start_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Comenzar"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:padding="18dp"
+            android:textStyle="bold"/>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

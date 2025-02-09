@@ -2,12 +2,14 @@ package com.example.vmoov;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,7 +24,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class NewContactActivity extends AppCompatActivity {
 
     private EditText editText_uniqueCode;
-    private Button saveButton;
+    private CardView saveCard, backCard;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
 
@@ -37,9 +39,11 @@ public class NewContactActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         editText_uniqueCode = findViewById(R.id.uniqueCode_text);
-        saveButton = findViewById(R.id.save_button);
+        saveCard = findViewById(R.id.save_card);
+        backCard = findViewById(R.id.back_card);
 
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        // Evento para botón Guardar (ahora CardView)
+        saveCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String uniqueCode = editText_uniqueCode.getText().toString().trim();
@@ -53,9 +57,8 @@ public class NewContactActivity extends AppCompatActivity {
             }
         });
 
-        // Funcionalidad del botón de "Atrás"
-        Button backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        // Evento para botón Volver (ahora CardView)
+        backCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NewContactActivity.this, NotPatientActivity.class);
@@ -101,7 +104,6 @@ public class NewContactActivity extends AppCompatActivity {
             Toast.makeText(NewContactActivity.this, "El código único debe ser un número.", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     private void linkContactWithPatient(String patientId, String patientName, String uniqueCode) {
         String userId = mAuth.getCurrentUser().getUid();

@@ -7,18 +7,18 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import android.widget.Button;
 
 public class ContactHPActivity extends AppCompatActivity {
 
     private TextView nameTextView, emailTextView, phoneTextView;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-    private Button backButton;
+    private CardView backButton;
 
     private static final String TAG = "ContactHPActivity";
 
@@ -30,19 +30,16 @@ public class ContactHPActivity extends AppCompatActivity {
         nameTextView = findViewById(R.id.textViewName);
         emailTextView = findViewById(R.id.textViewEmail);
         phoneTextView = findViewById(R.id.textViewPhone);
-        backButton = findViewById(R.id.back_button);
+        backButton = findViewById(R.id.back_card);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         String currentUserId = mAuth.getCurrentUser() != null ? mAuth.getCurrentUser().getUid() : null;
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ContactHPActivity.this, MenuActivity.class);
-                startActivity(intent);
-            }
+        backButton.setOnClickListener(v -> {
+            Intent intent = new Intent(ContactHPActivity.this, MenuActivity.class);
+            startActivity(intent);
         });
 
         if (currentUserId == null) {

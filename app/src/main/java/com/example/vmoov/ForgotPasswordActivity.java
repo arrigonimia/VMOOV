@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -27,8 +29,8 @@ import com.google.firebase.auth.AuthResult;
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     private EditText emailResetText;
-    private Button resetPasswordButton;
-    private Button backButton;
+    private CardView resetPasswordButton;
+    private CardView backButton;
     private FirebaseAuth auth;
 
     @Override
@@ -39,8 +41,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         emailResetText = findViewById(R.id.email_reset_text);
-        resetPasswordButton = findViewById(R.id.reset_password_button);
-        backButton = findViewById(R.id.back_button);
+        resetPasswordButton = findViewById(R.id.reset_password_card);
+        backButton = findViewById(R.id.back_card);
 
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override

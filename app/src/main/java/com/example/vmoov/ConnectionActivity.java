@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,7 +56,7 @@ public class ConnectionActivity extends AppCompatActivity {
             });
 
             // Configurar el botón "Comenzar" para volver a MetricsActivity
-            Button startButton = findViewById(R.id.start_button);
+            CardView startButton = findViewById(R.id.start_card);
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

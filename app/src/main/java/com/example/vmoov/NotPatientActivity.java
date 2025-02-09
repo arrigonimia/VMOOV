@@ -58,7 +58,6 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
     }
 
     private void fetchProfessionalName(String userId) {
-        // Buscar en 'users' para obtener el nombre y apellido del profesional de salud
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -86,7 +85,6 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
     }
 
     private void fetchPatientNames(String userId) {
-        // Obtener los pacientes vinculados bajo el profesional de salud
         DatabaseReference healthProfessionalRef = FirebaseDatabase.getInstance().getReference()
                 .child("healthProfessionals").child(userId).child("patients");
 
@@ -95,10 +93,8 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot patientSnapshot : dataSnapshot.getChildren()) {
-                        String patientId = patientSnapshot.getKey(); // Obtener el patientId
+                        String patientId = patientSnapshot.getKey();
                         Log.d("NotPatientActivity", "Obtenido patientId: " + patientId);
-
-                        // Buscar el nombre del paciente en 'users' utilizando el patientId
                         fetchUserName(patientId);
                     }
                 } else {
@@ -114,7 +110,6 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
     }
 
     private void fetchUserName(String patientId) {
-        // Buscar en 'users' utilizando el patientId
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(patientId);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -127,14 +122,13 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
                         String fullName = firstName + " " + lastName;
                         Log.d("NotPatientActivity", "Nombre del paciente: " + fullName);
                         patientNames.add(fullName);
-                        patientIDs.add(patientId);  // Añadir también el ID del paciente a la lista
+                        patientIDs.add(patientId);
                     } else {
                         Log.d("NotPatientActivity", "Nombre no disponible para patientId: " + patientId);
                         patientNames.add("Nombre no disponible");
-                        patientIDs.add(patientId);  // Asegúrate de que el ID siempre se añada
+                        patientIDs.add(patientId);
                     }
 
-                    // Notificar al adapter que los datos han cambiado
                     patientsAdapter.notifyDataSetChanged();
                 } else {
                     Log.d("NotPatientActivity", "No se encontró el nodo del usuario para patientId: " + patientId);
@@ -149,40 +143,48 @@ public class NotPatientActivity extends AppCompatActivity implements RecyclerVie
     }
 
     private void setupButtons() {
-        // Funcionalidad del botón de agregar nuevo contacto
+        // Botón para agregar nuevo contacto
         ImageButton addContactButton = findViewById(R.id.buttonAddContact);
         addContactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NotPatientActivity.this, NewContactActivity.class); // Ir a NewContactActivity
+                Intent intent = new Intent(NotPatientActivity.this, NewContactActivity.class);
                 startActivity(intent);
             }
         });
 
-        // Funcionalidad del botón de cerrar sesión
+        // Botón para cerrar sesión
         ImageButton logOutButton = findViewById(R.id.buttonLogOut);
         logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(NotPatientActivity.this, MainActivity.class); // Ir a MainActivity
+                Intent intent = new Intent(NotPatientActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish(); // Finalizar esta actividad
+                finish();
+            }
+        });
+
+        // ✅ **Nuevo botón para ir a HealthProfessionalInfoActivity**
+        ImageButton addInfoButton = findViewById(R.id.buttonAddInfo);
+        addInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NotPatientActivity.this, HealthProfessionalInfoActivity.class);
+                intent.putExtra("source", "NotPatientActivity"); // Indicar que vienes desde NotPatientActivity
+                startActivity(intent);
             }
         });
     }
 
     @Override
     public void onItemClick(int position) {
-        // Log the size of the patientIDs list and the clicked position
         Log.d("NotPatientActivity", "Patient ID list size: " + patientIDs.size());
         Log.d("NotPatientActivity", "Clicked position: " + position);
 
-        // Check if the list contains the requested position before accessing it
         if (position < patientIDs.size()) {
-            // Al hacer clic en un paciente, mostrar la información
             Intent intent = new Intent(NotPatientActivity.this, PatientDisplayActivity.class);
-            intent.putExtra("userId", patientIDs.get(position));  // Log the ID being passed
+            intent.putExtra("userId", patientIDs.get(position));
             Log.d("NotPatientActivity", "Opening PatientDisplayActivity with userId: " + patientIDs.get(position));
             startActivity(intent);
         } else {

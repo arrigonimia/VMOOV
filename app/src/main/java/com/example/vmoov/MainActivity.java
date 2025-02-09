@@ -2,7 +2,7 @@ package com.example.vmoov;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.cardview.widget.CardView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText editText_user;
     private EditText editText_pass;
-    private Button guardarButton;
+    private CardView guardarButton;
     private FirebaseAuth mAuth;
 
     // Nombre de SharedPreferences
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         // Vinculación de elementos del layout
         editText_user = findViewById(R.id.user_text);
         editText_pass = findViewById(R.id.pass_text);
-        guardarButton = findViewById(R.id.button_prim);
+        guardarButton = findViewById(R.id.start_card);
 
         // Configuración del botón para iniciar sesión
         guardarButton.setOnClickListener(v -> {

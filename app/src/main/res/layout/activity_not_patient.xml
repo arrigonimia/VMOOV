@@ -6,6 +6,29 @@
     android:layout_height="wrap_content"
     android:clipToOutline="true">
 
+    <ImageView
+        android:id="@+id/fondo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/fondo_prueba"
+        app:layout_constraintStart_toStartOf="@id/guidelineizq"
+        app:layout_constraintEnd_toEndOf="@id/guidelineder" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@color/white"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logovmoov_v"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
     <!-- Guidelines -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineTop"
@@ -35,15 +58,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <ImageView
-        android:id="@+id/fondo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/fondo"
-        app:layout_constraintStart_toStartOf="@id/guidelineizq"
-        app:layout_constraintEnd_toEndOf="@id/guidelineder" />
-
     <!-- Zocalo -->
     <ImageView
         android:id="@+id/zocalo"
@@ -56,7 +70,7 @@
         app:layout_constraintStart_toStartOf="@id/fondo"
         app:layout_constraintTop_toBottomOf="@id/guidelineBottom"
         app:layout_constraintBottom_toBottomOf="@id/fondo"/>
-    <!-- Home Button -->
+
     <ImageView
         android:id="@+id/boxPrincipal"
         android:layout_width="0dp"
@@ -69,52 +83,74 @@
         app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
         app:srcCompat="@drawable/contenedorblanco" />
 
-    <ImageButton
-        android:id="@+id/home"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="15dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/home"
+    <!-- Contenedor de botones en 4 columnas -->
+    <GridLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:columnCount="4"
+        android:rowCount="1"
+        android:alignmentMode="alignMargins"
+        android:padding="6dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="@id/zocalo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/zocalo"
-        app:layout_constraintVertical_bias="0.352" />
-
-    <ImageButton
-        android:id="@+id/buttonLogOut"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="270dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/logout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/zocalo"
-        app:layout_constraintTop_toTopOf="@+id/zocalo"/>
+        app:layout_constraintTop_toTopOf="@id/zocalo">
 
 
-    <!-- Settings Button -->
-    <ImageButton
-        android:id="@+id/buttonAddContact"
-        android:layout_width="54dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="-270dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/plus"
-        app:layout_constraintBottom_toBottomOf="@id/zocalo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/zocalo"
-        app:layout_constraintVertical_bias="0.352"/>
+        <!-- Botón Agregar Paciente -->
+        <ImageButton
+            android:id="@+id/buttonAddContact"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="3dp"
+            android:layout_columnWeight="1"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/addpatient"
+            android:layout_gravity="fill"/>
+
+        <ImageButton
+            android:id="@+id/buttonAddInfo"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_columnWeight="1"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/addinfo"
+            android:layout_gravity="fill"/>
+
+        <!-- Botón Home -->
+        <ImageButton
+            android:id="@+id/home"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home"
+            android:padding="3dp"
+            android:layout_gravity="fill"/>
+
+        <!-- Botón Logout -->
+        <ImageButton
+            android:id="@+id/buttonLogOut"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_columnWeight="1"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logout"
+            android:layout_gravity="fill"/>
+
+        <!-- Botón Add Info -->
+
+    </GridLayout>
+
+
 
     <!-- User Name TextView -->
     <TextView

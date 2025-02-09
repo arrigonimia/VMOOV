@@ -129,7 +129,8 @@
 
         <activity android:name=".PrescriptionActivity"
             android:exported="false"/>
-
+        <activity android:name=".HealthProfessionalInfoActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>

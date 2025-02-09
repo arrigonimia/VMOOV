@@ -3,13 +3,13 @@ package com.example.vmoov;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class PrescriptionActivity extends AppCompatActivity {
 
     private EditText editTextSessions, editTextDuration, editTextSteps, editTextObservations;
-    private Button saveButton, backButton;
+    private CardView saveButton, backButton;
     private TextView patientNameTextView;
 
     private DatabaseReference mDatabase;
@@ -46,7 +46,7 @@ public class PrescriptionActivity extends AppCompatActivity {
         patientNameTextView = findViewById(R.id.patientNameTextView);
         editTextSessions = findViewById(R.id.editTextSessions);
         editTextDuration = findViewById(R.id.editTextDuration);
-        editTextSteps = findViewById(R.id.editTextSteps); // Cambiado de movements a steps
+        editTextSteps = findViewById(R.id.editTextSteps);
         editTextObservations = findViewById(R.id.editTextObservations);
         saveButton = findViewById(R.id.saveButton);
         backButton = findViewById(R.id.backButton);
@@ -103,13 +103,11 @@ public class PrescriptionActivity extends AppCompatActivity {
                 DataSnapshot snapshot = task.getResult();
                 if (snapshot.exists()) {
                     try {
-                        // Manejar correctamente los tipos numéricos
                         Long sessions = snapshot.child("sessions").getValue(Long.class);
                         Long duration = snapshot.child("duration").getValue(Long.class);
-                        Long steps = snapshot.child("steps").getValue(Long.class); // Cambiado de movements a steps
+                        Long steps = snapshot.child("steps").getValue(Long.class);
                         String observations = snapshot.child("observations").getValue(String.class);
 
-                        // Convertir números a cadenas para mostrarlos en los campos de texto
                         if (sessions != null) editTextSessions.setText(String.valueOf(sessions));
                         if (duration != null) editTextDuration.setText(String.valueOf(duration));
                         if (steps != null) editTextSteps.setText(String.valueOf(steps));
@@ -131,7 +129,7 @@ public class PrescriptionActivity extends AppCompatActivity {
         try {
             int sessions = Integer.parseInt(editTextSessions.getText().toString().trim());
             int duration = Integer.parseInt(editTextDuration.getText().toString().trim());
-            int steps = Integer.parseInt(editTextSteps.getText().toString().trim()); // Cambiado de movements a steps
+            int steps = Integer.parseInt(editTextSteps.getText().toString().trim());
             String observations = editTextObservations.getText().toString().trim();
 
             showConfirmationDialog(sessions, duration, steps, observations);
@@ -159,7 +157,7 @@ public class PrescriptionActivity extends AppCompatActivity {
 
         prescriptionRef.child("sessions").setValue(sessions);
         prescriptionRef.child("duration").setValue(duration);
-        prescriptionRef.child("steps").setValue(steps); // Cambiado de movements a steps
+        prescriptionRef.child("steps").setValue(steps);
         prescriptionRef.child("observations").setValue(observations)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

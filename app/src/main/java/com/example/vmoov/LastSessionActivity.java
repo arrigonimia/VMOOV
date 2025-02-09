@@ -2,7 +2,7 @@ package com.example.vmoov;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import androidx.cardview.widget.CardView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.github.mikephil.charting.charts.PieChart;
@@ -25,7 +25,7 @@ public class LastSessionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_session);
 
-        Button signUpButton = findViewById(R.id.button_prim);
+        CardView signUpButton = findViewById(R.id.back_card);
         signUpButton.setOnClickListener(v -> {
             Intent intent = new Intent(LastSessionActivity.this, MenuActivity.class);
             startActivity(intent);

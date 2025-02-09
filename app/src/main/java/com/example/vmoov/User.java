@@ -5,28 +5,24 @@ public class User {
     private String lastName;
     private String dni;
     private String gender;
-    private String phone; // Nuevo campo de número de teléfono
     private String email;
+    private String phone;
     private String password;
     private int userType;
 
-    // Constructor vacío requerido por Firebase
-    public User() {
-    }
-
-    // Constructor con todos los atributos
+    // Constructor
     public User(String firstName, String lastName, String dni, String gender, String phone, String email, String password, int userType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dni = dni;
         this.gender = gender;
-        this.phone = phone; // Nuevo campo
+        this.phone = phone;
         this.email = email;
         this.password = password;
         this.userType = userType;
     }
 
-    // Getters y Setters
+    // Getters y Setters para cada atributo
     public String getFirstName() {
         return firstName;
     }
@@ -58,15 +54,13 @@ public class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
-    public String getPhone() { // Getter para el número de teléfono
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) { // Setter para el número de teléfono
+    public void stePhone(String phone) {
         this.phone = phone;
     }
-
     public String getEmail() {
         return email;
     }

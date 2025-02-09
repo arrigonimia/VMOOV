@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
+    android:background="@drawable/fondo_prueba"
     tools:context=".MenuActivity">
 
     <LinearLayout
@@ -12,22 +12,21 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Zócalo violeta -->
+        <!-- Zócalo con el logo -->
         <LinearLayout
+            android:id="@+id/zocalo"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/violet"
-            android:gravity="center">
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Logo VMOOV -->
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="Logo VMOOV"
-                android:src="@drawable/logovmoov"
-                android:scaleType="fitCenter"
-                android:paddingBottom="12dp"
-                android:paddingTop="12dp" />
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:src="@drawable/logovmoov_v"
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
         <!-- Contenedor de columnas -->
