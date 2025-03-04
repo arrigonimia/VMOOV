@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MetricsActivity extends AppCompatActivity {
+public class MetricsActivity extends BaseActivity {
 
     private TextView trueCountTextView;
     private TextView lastSessionTextView;

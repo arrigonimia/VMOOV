@@ -1,13 +1,19 @@
 package com.example.vmoov;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,17 +21,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
-public class PatientSignUpActivity extends AppCompatActivity {
+public class PatientSignUpActivity extends BaseActivity {
 
-    private EditText editText_birth;
-    private EditText editText_contact;
-    private EditText editText_obraS;
-    private EditText editText_numeroAfi;
-    private Button guardarButton;
-
+    private TextView textViewBirth;
+    private Spinner spinnerObraS;
+    private TextView editTextNumeroAfi;
+    private CardView guardarCard, backCard;
+    private String firstName, lastName, dni, gender, phone, email, password;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
@@ -34,112 +41,182 @@ public class PatientSignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patientsignup);
 
-        // Initialize Firebase references
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        editText_birth = findViewById(R.id.birth_text);
-        editText_contact = findViewById(R.id.contact_text);
-        editText_obraS = findViewById(R.id.obraS_text);
-        editText_numeroAfi = findViewById(R.id.numeroAfi_text);
+        textViewBirth = findViewById(R.id.birth_text);
+        spinnerObraS = findViewById(R.id.obraS_spinner);
+        editTextNumeroAfi = findViewById(R.id.numeroAfi_text);
+        guardarCard = findViewById(R.id.register_card);
+        backCard = findViewById(R.id.back_card);
 
-        guardarButton = findViewById(R.id.signUp_button);
+        textViewBirth.setOnClickListener(v -> showDatePickerDialog());
+        setupHealthInsuranceSpinner();
 
-        guardarButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String Birthday_in = editText_birth.getText().toString();
-                String Contact_in = editText_contact.getText().toString();
-                String ObraS_in = editText_obraS.getText().toString();
-                String NumeroAfi_in = editText_numeroAfi.getText().toString();
+        // Recibir datos del intent
+        Intent intent = getIntent();
+        firstName = intent.getStringExtra("firstName");
+        lastName = intent.getStringExtra("lastName");
+        dni = intent.getStringExtra("dni");
+        gender = intent.getStringExtra("gender");
+        phone = intent.getStringExtra("phone");
+        email = intent.getStringExtra("email");
+        password = intent.getStringExtra("password");
 
-                String userId = mAuth.getCurrentUser().getUid(); // Get the current user's UID
+        guardarCard.setOnClickListener(v -> registerPatient());
 
-                // Generate a unique 4-digit code
-                generateUniqueCode(new OnCodeGeneratedListener() {
-                    @Override
-                    public void onCodeGenerated(int uniqueCode) {
-                        // Create a new Patient object with the unique code
-                        Patient patient = new Patient(Birthday_in, Contact_in, ObraS_in, NumeroAfi_in, uniqueCode);
+        backCard.setOnClickListener(v -> {
+            Intent backIntent = new Intent(PatientSignUpActivity.this, SignUpActivity.class);
+            startActivity(backIntent);
+            finish();
+        });
+    }
 
-                        // Save the patient data under the user's UID in the /patients node
-                        mDatabase.child("patients").child(userId).setValue(patient, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                if (databaseError == null) {
-                                    Toast.makeText(PatientSignUpActivity.this, "Patient data saved.", Toast.LENGTH_SHORT).show();
-                                    createDefaultPatientMetrics(userId); // Create default patient metrics with only userId
+    private void registerPatient() {
+        String birthDate = textViewBirth.getText().toString();
+        String obraS = spinnerObraS.getSelectedItem().toString();
+        String numeroAfi = editTextNumeroAfi.getText().toString();
 
-                                    // Proceed to RegistrationSuccessActivity and pass the userId
-                                    Intent intent = new Intent(PatientSignUpActivity.this, RegistrationSuccessActivity.class);
-                                    intent.putExtra("userId", userId); // Pass the userId to the next activity
-                                    startActivity(intent);
-                                    finish(); // Close this activity to avoid returning to it
-                                } else {
-                                    Toast.makeText(PatientSignUpActivity.this, "Failed to save patient data.", Toast.LENGTH_SHORT).show();
-                                }
-                            }
+        if (!validateInput(birthDate, obraS, numeroAfi)) return;
+
+        // 🔹 Crear cuenta en Firebase Authentication aquí
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(PatientSignUpActivity.this, task -> {
+                    if (task.isSuccessful()) {
+                        String userId = mAuth.getCurrentUser().getUid();
+
+                        generateUniqueCode(uniqueCode -> {
+                            // 🔹 Guardar datos en `patients`
+                            Map<String, Object> patientData = new HashMap<>();
+                            patientData.put("birthDate", birthDate);
+                            patientData.put("obraSocial", obraS);
+                            patientData.put("numeroAfiliado", numeroAfi);
+                            patientData.put("uniqueCode", uniqueCode);
+
+                            mDatabase.child("patients").child(userId).setValue(patientData);
+
+                            // 🔹 Guardar también en `users`
+                            Map<String, Object> userData = new HashMap<>();
+                            userData.put("firstName", firstName);
+                            userData.put("lastName", lastName);
+                            userData.put("dni", dni);
+                            userData.put("gender", gender);
+                            userData.put("phone", phone);
+                            userData.put("email", email);
+                            userData.put("userType", 0);
+                            userData.put("uniqueCode", uniqueCode);
+
+                            mDatabase.child("users").child(userId).setValue(userData);
+
+                            // 🔹 Redirigir a la pantalla de éxito
+                            Intent intent = new Intent(PatientSignUpActivity.this, RegistrationSuccessActivity.class);
+                            intent.putExtra("userId", userId);
+                            startActivity(intent);
+                            finish();
                         });
+                    } else {
+                        showToast("Error en el registro: " + task.getException().getMessage());
                     }
                 });
-            }
-        });
+    }
 
-        Button Back = findViewById(R.id.back_button);
-        Back.setOnClickListener(new View.OnClickListener() {
+
+    private void setupHealthInsuranceSpinner() {
+        String[] healthInsuranceArray = getResources().getStringArray(R.array.obra_social_array);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, healthInsuranceArray) {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PatientSignUpActivity.this, SignUpActivity.class);
-                startActivity(intent);
+            public boolean isEnabled(int position) {
+                return position != 0; // La opción "Seleccione una Obra Social" no es seleccionable
             }
-        });
+
+            @Override
+            public View getDropDownView(int position, View convertView, android.view.ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView textView = (TextView) view;
+
+                int hintColor = ContextCompat.getColor(getContext(), R.color.lightblue);
+                int normalColor = ContextCompat.getColor(getContext(), R.color.blue);
+
+                textView.setTextColor(position == 0 ? hintColor : normalColor);
+                return view;
+            }
+        };
+        spinnerObraS.setAdapter(adapter);
+        spinnerObraS.setSelection(0); // Establecer el hint como opción inicial
+    }
+
+    private void showDatePickerDialog() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    String formattedDate = String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear);
+                    textViewBirth.setText(formattedDate);
+                },
+                year, month, day
+        );
+        datePickerDialog.show();
+    }
+
+
+    private boolean validateInput(String birthDate, String obraS, String numeroAfi) {
+        if (birthDate.isEmpty()) {
+            showToast("Seleccione una fecha de nacimiento.");
+            return false;
+        }
+        if (spinnerObraS.getSelectedItemPosition() == 0) {
+            showToast("Seleccione una Obra Social válida.");
+            return false;
+        }
+        if (numeroAfi.isEmpty()) {
+            showToast("Ingrese el número de afiliado.");
+            return false;
+        }
+        return true;
     }
 
     private void createDefaultPatientMetrics(String userId) {
-        // Crear una referencia a patientmetrics con el userId como clave
-        DatabaseReference patientMetricsRef = FirebaseDatabase.getInstance().getReference("patientmetrics").child(userId);
+        DatabaseReference patientMetricsRef = mDatabase.child("patientmetrics").child(userId);
 
-        // Establecer el nodo con un valor nulo, lo que genera un nodo vacío
-        patientMetricsRef.setValue(null, new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                if (databaseError == null) {
-                    Toast.makeText(PatientSignUpActivity.this, "Patient metrics node created without value.", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(PatientSignUpActivity.this, "Failed to create patient metrics node.", Toast.LENGTH_SHORT).show();
-                }
+        // Usar un HashMap vacío en lugar de null para que el nodo se cree
+        patientMetricsRef.setValue(new HashMap<>(), (databaseError, databaseReference) -> {
+            if (databaseError == null) {
+                showToast("Nodo patientmetrics creado correctamente.");
+            } else {
+                showToast("Error al crear patientmetrics.");
             }
         });
     }
-
-
 
 
     private void generateUniqueCode(OnCodeGeneratedListener listener) {
         Random random = new Random();
-        int code = random.nextInt(9000) + 1000; // Generate a 4-digit number between 1000 and 9999
+        int code = random.nextInt(9000) + 1000;
 
         mDatabase.child("patients").orderByChild("uniqueCode").equalTo(code).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // If the code already exists, generate a new one recursively
                     generateUniqueCode(listener);
                 } else {
-                    // If the code is unique, return it through the listener
                     listener.onCodeGenerated(code);
                 }
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle any errors
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 
-    // Listener interface for the unique code generation
     interface OnCodeGeneratedListener {
         void onCodeGenerated(int uniqueCode);
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(PatientSignUpActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 }

@@ -3,12 +3,17 @@ package com.example.vmoov;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,12 +24,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private EditText editText_user;
     private EditText editText_pass;
+    private ImageView passwordToggle;
     private CardView guardarButton;
     private FirebaseAuth mAuth;
+
+    private boolean passwordVisible = false;
 
     // Nombre de SharedPreferences
     private static final String SHARED_PREFS = "user_prefs";
@@ -40,7 +48,11 @@ public class MainActivity extends AppCompatActivity {
         // Vinculación de elementos del layout
         editText_user = findViewById(R.id.user_text);
         editText_pass = findViewById(R.id.pass_text);
+        passwordToggle = findViewById(R.id.password_toggle);
         guardarButton = findViewById(R.id.start_card);
+
+        // Configurar visibilidad de contraseña
+        setupPasswordVisibility();
 
         // Configuración del botón para iniciar sesión
         guardarButton.setOnClickListener(v -> {
@@ -67,9 +79,9 @@ public class MainActivity extends AppCompatActivity {
                                             // Guardar userId y userType en SharedPreferences
                                             SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                                             SharedPreferences.Editor editor = preferences.edit();
-                                            editor.putString("userId", userId);  // Guardar userId
-                                            editor.putInt("userType", userType); // Guardar userType
-                                            editor.apply(); // Aplicar los cambios
+                                            editor.putString("userId", userId);
+                                            editor.putInt("userType", userType);
+                                            editor.apply();
 
                                             if (userType == 0) {
                                                 // Redirigir a la actividad del paciente
@@ -90,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
                                                         // Si está en healthProfessionals, redirigir a NotPatientActivity
                                                         SharedPreferences preferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
                                                         SharedPreferences.Editor editor = preferences.edit();
-                                                        editor.putString("userId", userId);  // Guardar userId
-                                                        editor.putInt("userType", 1); // Guardar como profesional
-                                                        editor.apply(); // Aplicar los cambios
+                                                        editor.putString("userId", userId);
+                                                        editor.putInt("userType", 1);
+                                                        editor.apply();
 
                                                         Intent intent = new Intent(MainActivity.this, NotPatientActivity.class);
                                                         startActivity(intent);
@@ -116,8 +128,7 @@ public class MainActivity extends AppCompatActivity {
                                 });
                             }
                         } else {
-                            // Mensaje en caso de falla en la autenticación
-                            Toast.makeText(MainActivity.this, "Fallo en la autenticación", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Los datos ingresados son incorrectos", Toast.LENGTH_SHORT).show();
                         }
                     });
         });
@@ -134,6 +145,21 @@ public class MainActivity extends AppCompatActivity {
         forgotPasswordButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
+        });
+    }
+
+    private void setupPasswordVisibility() {
+        passwordToggle.setOnClickListener(v -> {
+            if (passwordVisible) {
+                // Ocultar contraseña
+                editText_pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                passwordToggle.setImageResource(R.drawable.ic_visibility_off);
+            } else {
+                // Mostrar contraseña
+                editText_pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                passwordToggle.setImageResource(R.drawable.ic_visibility);
+            }
+            passwordVisible = !passwordVisible;
         });
     }
 }

@@ -3,25 +3,24 @@ package com.example.vmoov;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
-public class PatientInfoActivity extends AppCompatActivity {
+public class PatientInfoActivity extends BaseActivity {
 
-    private TextView patientInfoText;
-    private ImageButton homeButton; // CORREGIDO: Cambiado de Button a ImageButton
+    private TextView textName, textLastName, textDni, textAge, textBirthDate;
+    private TextView textGender, textHealthInsurance, textMemberNumber, textEmail, textContact;
+    private ImageButton homeButton;
     private DatabaseReference mDatabase;
-
     private static final String TAG = "PatientInfoActivity";
     private String patientId;
 
@@ -33,13 +32,23 @@ public class PatientInfoActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         patientId = getIntent().getStringExtra("userId");
 
-        patientInfoText = findViewById(R.id.patientInfoText);
-        homeButton = findViewById(R.id.home); // Asegúrate de que este ID coincide con el XML
+        // Asignamos los TextView del layout
+        textName = findViewById(R.id.textName);
+        textLastName = findViewById(R.id.textLastName);
+        textDni = findViewById(R.id.textDni);
+        textAge = findViewById(R.id.textAge);
+        textBirthDate = findViewById(R.id.textBirthDate);
+        textGender = findViewById(R.id.textGender);
+        textHealthInsurance = findViewById(R.id.textHealthInsurance);
+        textMemberNumber = findViewById(R.id.textMemberNumber);
+        textEmail = findViewById(R.id.textEmail);
+        textContact = findViewById(R.id.textContact);
+        homeButton = findViewById(R.id.home);
 
-        // Cargar y mostrar la información del paciente
+        // Cargar la información del paciente
         loadPatientInfo();
 
-        // Configurar el botón Home para volver a NotPatientActivity
+        // Botón de Home
         homeButton.setOnClickListener(v -> {
             Intent intent = new Intent(PatientInfoActivity.this, NotPatientActivity.class);
             startActivity(intent);
@@ -53,91 +62,84 @@ public class PatientInfoActivity extends AppCompatActivity {
             if (task.isSuccessful() && task.getResult() != null) {
                 DataSnapshot userSnapshot = task.getResult();
                 if (userSnapshot.exists()) {
-                    String firstName = userSnapshot.child("firstName").getValue(String.class);
-                    String lastName = userSnapshot.child("lastName").getValue(String.class);
-                    String dni = userSnapshot.child("dni").getValue(String.class);
-                    String gender = userSnapshot.child("gender").getValue(String.class);
-                    String email = userSnapshot.child("email").getValue(String.class);
-
-                    StringBuilder userInfo = new StringBuilder();
-                    userInfo.append("Nombre: ").append(firstName != null ? firstName : "No disponible").append("\n");
-                    userInfo.append("\nApellido: ").append(lastName != null ? lastName : "No disponible").append("\n");
-                    userInfo.append("\nDNI: ").append(dni != null ? dni : "No disponible").append("\n");
-                    userInfo.append("\nGénero: ").append(gender != null ? gender : "No disponible").append("\n");
-                    userInfo.append("\nCorreo Electrónico: ").append(email != null ? email : "No disponible").append("\n");
-
-                    loadAdditionalPatientInfo(userInfo);
+                    loadAdditionalPatientInfo(userSnapshot);
                 } else {
-                    Log.e(TAG, "No se encontró información del paciente en el nodo 'users'.");
-                    patientInfoText.setText("Información no disponible.");
+                    Log.e(TAG, "No se encontró información en 'users'.");
+                    Toast.makeText(this, "Información no disponible.", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Log.e(TAG, "Error al obtener datos del nodo 'users': " + task.getException().getMessage());
-                Toast.makeText(this, "Error al cargar la información del paciente.", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Error en 'users': " + task.getException().getMessage());
+                Toast.makeText(this, "Error al cargar datos del paciente.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void loadAdditionalPatientInfo(StringBuilder userInfo) {
+    private void loadAdditionalPatientInfo(DataSnapshot userSnapshot) {
         DatabaseReference patientRef = mDatabase.child("patients").child(patientId);
         patientRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && task.getResult() != null) {
                 DataSnapshot patientSnapshot = task.getResult();
                 if (patientSnapshot.exists()) {
-                    String birthDate = patientSnapshot.child("birthDate").getValue(String.class);
-                    String contact = patientSnapshot.child("contacto").getValue(String.class);
+                    // Datos de 'users'
+                    String firstName = userSnapshot.child("firstName").getValue(String.class);
+                    String lastName = userSnapshot.child("lastName").getValue(String.class);
+                    String dni = userSnapshot.child("dni").getValue(String.class);
+                    String gender = userSnapshot.child("gender").getValue(String.class);
+                    String email = userSnapshot.child("email").getValue(String.class);
+                    String contact = userSnapshot.child("phone").getValue(String.class); // 📌 Ahora se toma desde `phone`
+
+                    // Datos de 'patients'
+                    String birthDate = patientSnapshot.child("birthDate").getValue(String.class); // 📌 Ahora en formato `dd/MM/yyyy`
                     String healthInsurance = patientSnapshot.child("obraSocial").getValue(String.class);
                     String memberNumber = patientSnapshot.child("numeroAfiliado").getValue(String.class);
 
-                    if (birthDate != null && birthDate.length() == 8) {
-                        String formattedBirthDate = formatBirthDate(birthDate);
-                        userInfo.append("\nFecha de Nacimiento: ").append(formattedBirthDate).append("\n");
-
+                    // Calcular edad con el nuevo formato `dd/MM/yyyy`
+                    String ageText = "No disponible";
+                    if (birthDate != null && birthDate.matches("\\d{2}/\\d{2}/\\d{4}")) {
                         int age = calculateAge(birthDate);
-                        userInfo.append("\nEdad: ").append(age).append(" años\n");
-                    } else {
-                        userInfo.append("Fecha de Nacimiento: No disponible\n");
-                        userInfo.append("Edad: No disponible\n");
+                        ageText = age + " años";
                     }
 
-                    userInfo.append("\nContacto: ").append(contact != null ? contact : "No disponible").append("\n");
-                    userInfo.append("\nObra Social: ").append(healthInsurance != null ? healthInsurance : "No disponible").append("\n");
-                    userInfo.append("\nNúmero de Afiliado: ").append(memberNumber != null ? memberNumber : "No disponible").append("\n");
+                    // Asignar valores a cada campo en la tabla del layout
+                    textName.setText(firstName != null ? firstName : "No disponible");
+                    textLastName.setText(lastName != null ? lastName : "No disponible");
+                    textDni.setText(dni != null ? dni : "No disponible");
+                    textAge.setText(ageText);
+                    textBirthDate.setText(birthDate != null ? birthDate : "No disponible"); // 📌 Mostrar fecha sin necesidad de conversión
+                    textGender.setText(gender != null ? gender : "No disponible");
+                    textHealthInsurance.setText(healthInsurance != null ? healthInsurance : "No disponible");
+                    textMemberNumber.setText(memberNumber != null ? memberNumber : "No disponible");
+                    textEmail.setText(email != null ? email : "No disponible");
+                    textContact.setText(contact != null ? contact : "No disponible");
 
-                    patientInfoText.setText(userInfo.toString());
                 } else {
-                    Log.e(TAG, "No se encontró información del paciente en el nodo 'patients'.");
-                    patientInfoText.setText(userInfo.toString());
+                    Log.e(TAG, "No se encontró información en 'patients'.");
+                    Toast.makeText(this, "Información adicional no disponible.", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Log.e(TAG, "Error al obtener datos del nodo 'patients': " + task.getException().getMessage());
-                Toast.makeText(this, "Error al cargar la información adicional del paciente.", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Error en 'patients': " + task.getException().getMessage());
+                Toast.makeText(this, "Error al cargar datos adicionales.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private String formatBirthDate(String birthDate) {
-        String day = birthDate.substring(0, 2);
-        String month = birthDate.substring(2, 4);
-        String year = birthDate.substring(4, 8);
-        return day + "-" + month + "-" + year;
-    }
-
     private int calculateAge(String birthDate) {
-        int day = Integer.parseInt(birthDate.substring(0, 2));
-        int month = Integer.parseInt(birthDate.substring(2, 4));
-        int year = Integer.parseInt(birthDate.substring(4, 8));
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Calendar birthDay = Calendar.getInstance();
+            birthDay.setTime(sdf.parse(birthDate));
 
-        Calendar birthDay = Calendar.getInstance();
-        birthDay.set(year, month - 1, day);
+            Calendar today = Calendar.getInstance();
+            int age = today.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
 
-        Calendar today = Calendar.getInstance();
-        int age = today.get(Calendar.YEAR) - birthDay.get(Calendar.YEAR);
+            if (today.get(Calendar.DAY_OF_YEAR) < birthDay.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+            return age;
 
-        if (today.get(Calendar.DAY_OF_YEAR) < birthDay.get(Calendar.DAY_OF_YEAR)) {
-            age--;
+        } catch (ParseException e) {
+            Log.e(TAG, "Error al parsear la fecha de nacimiento: " + e.getMessage());
+            return 0;
         }
-
-        return age;
     }
 }

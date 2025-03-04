@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class RegistrationSuccessActivity extends AppCompatActivity {
+public class RegistrationSuccessActivity extends BaseActivity {
 
     private DatabaseReference mDatabase;
     private static final String SHARED_PREFS = "user_prefs";  // Nombre de SharedPreferences
@@ -71,11 +72,11 @@ public class RegistrationSuccessActivity extends AppCompatActivity {
         });
 
         // Configurar el botón para ir a MetricsActivity
-        Button startButton = findViewById(R.id.start_button);
+        CardView startButton = findViewById(R.id.start_card);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegistrationSuccessActivity.this, MetricsActivity.class);
+                Intent intent = new Intent(RegistrationSuccessActivity.this, MenuActivity.class);
                 startActivity(intent);
                 finish(); // Cierra esta actividad para que no regrese al presionar "atrás"
             }

@@ -1,266 +1,283 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToOutline="true">
+    android:background="@drawable/fondo_prueba"
+    android:clipToOutline="true"
+    android:gravity="center">
 
-    <!-- Fondo -->
-    <ImageView
-        android:id="@+id/fondo"
+
+    <!-- Zócalo superior con logo -->
+    <LinearLayout
+        android:id="@+id/zocalo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fondo" />
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!-- ScrollView con una CardView para el formulario -->
-    <ScrollView
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logovmoov_v"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+    <!-- CardView que contiene el ScrollView -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/form_card"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/horizontalTop"
-        app:layout_constraintBottom_toTopOf="@id/horizontalBottom"
+        android:layout_marginHorizontal="16dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:layout_constraintTop_toBottomOf="@id/zocalo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:fillViewport="true">
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp">
 
-        <LinearLayout
+        <!-- ScrollView dentro de la CardView -->
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
-            android:gravity="center_horizontal">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
-            <androidx.cardview.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="6dp"
-                android:padding="24dp"
-                android:layout_margin="16dp">
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:gravity="center_horizontal">
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/firstname_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="50dp"
+                    android:hint="Nombre"
+                    android:padding="16dp"
+                    android:textAppearance="@style/input"
+                    android:textColor="@color/blue"
+                    android:textColorHint="@color/blue"
+                    android:inputType="textPersonName"
+                    android:imeOptions="actionNext"
+                    android:layout_marginTop="4dp"/>
 
-                    <EditText
-                        android:id="@+id/firstname_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Nombre"
-                        style="@style/cuerpo"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:padding="16dp"
-                        android:textAppearance="@style/input"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/blue"
-                        android:inputType="textPersonName"
-                        android:imeOptions="actionNext"
-                        android:layout_marginTop="20dp"/>
+                <EditText
+                    android:id="@+id/lastname_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Apellido"
+                    android:padding="16dp"
+                    android:textAppearance="@style/input"
+                    android:textColor="@color/blue"
+                    android:textColorHint="@color/blue"
+                    android:inputType="textPersonName"
+                    android:imeOptions="actionNext"
+                    android:layout_marginTop="10dp"/>
 
-                    <EditText
-                        android:id="@+id/lastname_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:padding="16dp"
-                        android:hint="Apellido"
-                        style="@style/cuerpo"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:textAppearance="@style/input"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/blue"
-                        android:inputType="textPersonName"
-                        android:imeOptions="actionNext"
-                        android:layout_marginTop="15dp"/>
+                <EditText
+                    android:id="@+id/dni_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="DNI"
+                    android:padding="16dp"
+                    android:textAppearance="@style/input"
+                    android:textColor="@color/blue"
+                    android:textColorHint="@color/blue"
+                    android:inputType="number"
+                    android:imeOptions="actionNext"
+                    android:layout_marginTop="10dp"/>
 
-                    <EditText
-                        android:id="@+id/dni_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="DNI"
-                        android:padding="16dp"
-                        style="@style/cuerpo"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:textAppearance="@style/input"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/blue"
-                        android:inputType="number"
-                        android:imeOptions="actionNext"
-                        android:layout_marginTop="15dp"/>
+                <Spinner
+                    android:id="@+id/gender_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/spinner_background"
+                    android:padding="16dp"
+                    android:textSize="16sp"
+                    android:entries="@array/gender_array"
+                    android:layout_marginTop="10dp"/>
 
-                    <EditText
-                        android:id="@+id/gender_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Género"
-                        android:padding="16dp"
-                        style="@style/cuerpo"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:textAppearance="@style/input"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/blue"
-                        android:inputType="textCapSentences"
-                        android:imeOptions="actionNext"
-                        android:layout_marginTop="15dp"/>
 
-                    <EditText
-                        android:id="@+id/phone_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Número de teléfono"
-                        android:padding="16dp"
-                        style="@style/cuerpo"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:textAppearance="@style/input"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/blue"
-                        android:inputType="phone"
-                        android:imeOptions="actionNext"
-                        android:layout_marginTop="15dp"/>
+                <EditText
+                    android:id="@+id/phone_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Número de teléfono"
+                    android:padding="16dp"
+                    android:textAppearance="@style/input"
+                    android:textColor="@color/blue"
+                    android:textColorHint="@color/blue"
+                    android:inputType="phone"
+                    android:imeOptions="actionNext"
+                    android:layout_marginTop="10dp"/>
 
-                    <EditText
-                        android:id="@+id/email_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:hint="Correo electrónico"
-                        android:padding="16dp"
-                        android:textAppearance="@style/input"
-                        style="@style/cuerpo"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
-                        android:textColor="@color/blue"
-                        android:textColorHint="@color/blue"
-                        android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
-                        android:layout_marginTop="15dp"/>
+                <EditText
+                    android:id="@+id/email_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Correo electrónico"
+                    android:padding="16dp"
+                    android:textAppearance="@style/input"
+                    android:textColor="@color/blue"
+                    android:textColorHint="@color/blue"
+                    android:inputType="textEmailAddress"
+                    android:imeOptions="actionNext"
+                    android:layout_marginTop="10dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/pass_text"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:padding="16dp"
-                        style="@style/cuerpo"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
+                        android:layout_height="match_parent"
                         android:hint="Contraseña"
+                        android:padding="16dp"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
-                        android:inputType="textPersonName"
+                        android:inputType="textPassword"
                         android:imeOptions="actionNext"
-                        android:layout_marginTop="15dp"/>
+                        android:layout_alignParentStart="true"
+                        android:drawablePadding="10dp"
+                        android:paddingEnd="50dp"/>
+
+                    <ImageView
+                        android:id="@+id/toggle_pass"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_visibility_off"
+                        android:padding="4dp"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp">
 
                     <EditText
                         android:id="@+id/repass_text"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:padding="16dp"
-                        style="@style/cuerpo"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="12dp"
+                        android:layout_height="match_parent"
                         android:hint="Reingresar contraseña"
+                        android:padding="16dp"
                         android:textAppearance="@style/input"
                         android:textColor="@color/blue"
                         android:textColorHint="@color/blue"
-                        android:inputType="textPersonName"
-                        android:imeOptions="actionNext"
-                        android:layout_marginTop="15dp"/>
+                        android:inputType="textPassword"
+                        android:imeOptions="actionDone"
+                        android:layout_alignParentStart="true"
+                        android:drawablePadding="10dp"
+                        android:paddingEnd="50dp"/>
 
-                    <CheckBox
-                        android:id="@+id/checkboxUserType"
-                        android:layout_gravity="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="SOY PROFESIONAL DE SALUD"
-                        android:textColor="@color/violet"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="25dp"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+                    <ImageView
+                        android:id="@+id/toggle_repass"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_visibility_off"
+                        android:padding="4dp"
+                        android:clickable="true"
+                        android:focusable="true"/>
+                </RelativeLayout>
 
-    <!-- CardView para el "VOLVER" -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="30dp"
-        android:backgroundTint="@color/violet"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/horizontalTop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="VOLVER"
-            style="@style/cuerpo"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:padding="12dp"
-            android:textSize="16sp"/>
+                <CheckBox
+                    android:id="@+id/checkboxUserType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SOY PROFESIONAL DE SALUD"
+                    android:textColor="@color/violet"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
-    <!-- CardView para el "REGISTRARME" -->
+    <!-- Botón de registro -->
     <androidx.cardview.widget.CardView
         android:id="@+id/signUp_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="30dp"
-        android:backgroundTint="@color/violet"
+        app:cardCornerRadius="14dp"
+        android:backgroundTint="@color/blue"
         app:cardElevation="8dp"
-        app:layout_constraintBottom_toBottomOf="@id/horizontalBottom"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginBottom="10dp">
+        app:layout_constraintTop_toBottomOf="@id/guidelineBottom2"
+        app:layout_constraintEnd_toEndOf="@id/form_card"
+        android:layout_marginTop="0dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REGISTRARME"
+            android:text="Siguiente"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            style="@style/titulo"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            style="@style/cuerpobold"
             android:gravity="center"
             android:padding="12dp"
-            android:textSize="16sp"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp"/>
     </androidx.cardview.widget.CardView>
 
-    <!-- Guías -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalTop"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1"/>
+        app:cardCornerRadius="14dp"
+        android:backgroundTint="@color/violet"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toTopOf="@id/signUp_button"
+        app:layout_constraintStart_toStartOf="@id/form_card">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Volver"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            style="@style/cuerpobold"
+            android:gravity="center"
+            android:padding="12dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="14sp"/>
+    </androidx.cardview.widget.CardView>
+
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalBottom"
+        android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9"/>
+        app:layout_constraintGuide_percent="0.85" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

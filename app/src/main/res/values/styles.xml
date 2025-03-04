@@ -6,16 +6,16 @@
 
 
     <style name="cuerpo">
-        <item name="android:textSize">12dp</item>
-        <item name="android:letterSpacing">0.15</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.12</item>
         <item name="android:textColor">@color/blue</item>
         <item name="android:fontFamily">@font/verd</item>
         I
     </style>
 
     <style name="cuerpobold">
-        <item name="android:textSize">12dp</item>
-        <item name="android:letterSpacing">0.15</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.12</item>
         <item name="android:textColor">@color/blue</item>
         <item name="android:fontFamily">@font/verd</item>
     </style>
@@ -30,10 +30,18 @@
 
     <style name="titulo">
         <item name="android:textSize">20dp</item>
-        <item name="android:letterSpacing">0.15</item>
+        <item name="android:letterSpacing">0.12</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/verdanabold</item>
+    </style>
+
+    <style name="percentage">
+        <item name="android:textSize">20dp</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/verd</item>
     </style>
 
     <style name="boton">
@@ -61,6 +69,13 @@
         <item name="android:layout_marginVertical">2dp</item>
     </style>
 
+    <style name="TopRoundedCardView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
 
 
 </resources>

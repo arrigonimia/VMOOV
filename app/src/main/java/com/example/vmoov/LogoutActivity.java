@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LogoutActivity extends AppCompatActivity {
+public class LogoutActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

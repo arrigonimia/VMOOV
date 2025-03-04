@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_prueba"
+    android:gravity="center_horizontal"
     tools:context=".ContactHPActivity">
 
     <!-- Zócalo violeta con el logo -->
@@ -24,138 +24,182 @@
             android:scaleType="fitCenter"/>
     </LinearLayout>
 
-    <!-- Imagen circular del profesional -->
-    <ImageView
-        android:id="@+id/imageProfile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="60dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/doc"
-        android:scaleType="centerCrop"
-        android:background="@drawable/circle_background"
-        android:clipToOutline="true"/>
-
-    <!-- Card con la información del profesional -->
+    <!-- Imagen de perfil con CardView circular -->
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="16dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="55dp"
         app:cardElevation="4dp"
         app:cardBackgroundColor="@android:color/white">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageProfile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/textViewName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nombre del Profesional"
-                android:textSize="20sp"
-                android:padding="18dp"
-                android:textColor="@color/blue"
-                style="@style/titulo"
-                android:gravity="center"/>
-
-            <!-- Email con icono -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingVertical="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/email"
-                    android:layout_marginEnd="8dp"/>
-
-                <TextView
-                    android:id="@+id/textViewEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="correo@ejemplo.com"
-                    android:textSize="16sp"
-                    style="@style/cuerpobold"
-                    android:textColor="@color/violet"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingVertical="8dp"
-                android:layout_marginTop="20dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/phone"
-                    android:layout_marginEnd="8dp"/>
-
-                <TextView
-                    android:id="@+id/textViewPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1122334455"
-                    android:textSize="16sp"
-                    style="@style/cuerpobold"
-                    android:textColor="@color/violet"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingVertical="8dp"
-                android:layout_marginTop="20dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/hours"
-                    android:layout_marginEnd="8dp"/>
-
-                <TextView
-                    android:id="@+id/textViewHours"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lunes a Viernes de 8 a 18hs"
-                    android:textSize="16sp"
-                    style="@style/cuerpobold"
-                    android:textColor="@color/violet"/>
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:src="@drawable/doc"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:clipToOutline="true"/>
     </androidx.cardview.widget.CardView>
 
+    <!-- Contenedor Scrollable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <!-- Card con la información del profesional -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/textViewName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre del Profesional"
+                    android:textSize="20sp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/blue"
+                    style="@style/titulo"
+                    android:gravity="center"/>
+
+                <!-- Email con icono -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/email"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/textViewEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="correo@ejemplo.com"
+                        android:textSize="15sp"
+                        style="@style/cuerpobold"
+                        android:textColor="@color/violet"/>
+                </LinearLayout>
+
+                <!-- Teléfono con icono -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="8dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/phone"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/textViewPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No disponible"
+                        android:textSize="15sp"
+                        style="@style/cuerpobold"
+                        android:textColor="@color/violet"/>
+                </LinearLayout>
+
+                <!-- Horarios con icono -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingVertical="6dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/hours"
+                        android:layout_marginEnd="12dp"
+                        android:layout_gravity="center_vertical"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Horarios"
+                        style="@style/cuerpobold"
+                        android:textSize="15sp"
+                        android:textColor="@color/violet"/>
+                </LinearLayout>
+
+                <!-- Tabla de horarios -->
+                <TableLayout
+                    android:id="@+id/scheduleTable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1"
+                    android:paddingVertical="0dp">
+
+                    <!-- Fila de ejemplo -->
+                    <TableRow>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="No disponible"
+                            style="@style/cuerpobold"
+                            android:textSize="15sp"
+                            android:textColor="@color/violet"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black"/>
+                    </TableRow>
+                </TableLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+
+    <!-- Botón Volver siempre visible -->
     <androidx.cardview.widget.CardView
         android:id="@+id/back_card"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="20dp"
         app:cardCornerRadius="12dp"
-        android:layout_gravity="center"
+        android:layout_marginStart="90dp"
+        android:layout_marginEnd="90dp"
         app:cardElevation="6dp"
-        android:backgroundTint="@color/blue"
-        app:layout_constraintTop_toBottomOf="@id/save_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp">
+        android:backgroundTint="@color/blue">
 
         <TextView
             android:id="@+id/back_button"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="Volver"
-            android:textColor="@color/white"
+            android:textColor="@android:color/white"
             android:gravity="center"
             android:textSize="18sp"
             android:padding="16dp"

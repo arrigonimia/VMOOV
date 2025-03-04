@@ -16,7 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class PrescriptionActivity extends AppCompatActivity {
+public class PrescriptionActivity extends BaseActivity {
 
     private EditText editTextSessions, editTextDuration, editTextSteps, editTextObservations;
     private CardView saveButton, backButton;

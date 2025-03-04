@@ -5,35 +5,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_prueba"
     tools:context=".NewContactActivity">
 
-    <!-- Fondo -->
-    <ImageView
-        android:id="@+id/fondo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/fondo_prueba" />
-
-    <!-- Zócalo con el logo -->
+    <!-- Zócalo fijo en la parte superior -->
     <LinearLayout
         android:id="@+id/zocalo"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="70dp"
+        android:background="@color/white"
         android:gravity="center"
         android:padding="16dp"
-        android:background="@color/white"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:src="@drawable/logovmoov_v"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"/>
     </LinearLayout>
 
     <!-- CardView en lugar de formablanca -->
@@ -48,7 +39,8 @@
         app:cardCornerRadius="16dp"
         app:cardElevation="6dp"
         app:cardBackgroundColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/horizontalTop"
+        app:layout_constraintTop_toBottomOf="@id/horizontal"
+        app:layout_constraintBottom_toTopOf="@id/horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -158,12 +150,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

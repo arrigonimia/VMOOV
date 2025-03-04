@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class NewContactActivity extends AppCompatActivity {
+public class NewContactActivity extends BaseActivity {
 
     private EditText editText_uniqueCode;
     private CardView saveCard, backCard;

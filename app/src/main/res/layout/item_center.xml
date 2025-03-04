@@ -27,92 +27,104 @@
         <LinearLayout
             android:id="@+id/daysContainer"
             android:layout_width="match_parent"
-            style="@style/cuerpo"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            android:weightSum="7">  <!-- Asegura que los botones ocupen el mismo espacio -->
 
             <TextView
                 android:id="@+id/btnMon"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:text="Lun"
                 android:gravity="center"
                 style="@style/DayButton"
                 android:background="@drawable/selector_day_button"
                 android:textColor="@color/violet"
-                android:textSize="14sp"
-                android:padding="8dp"/>
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/btnTue"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:text="Ma"
+                android:text="Mar"
                 android:gravity="center"
                 style="@style/DayButton"
                 android:background="@drawable/selector_day_button"
                 android:textColor="@color/violet"
-                android:textSize="14sp"
-                android:padding="8dp"/>
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/btnWed"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                style="@style/DayButton"
-                android:text="Mie"
+                android:text="Mié"
                 android:gravity="center"
+                style="@style/DayButton"
                 android:background="@drawable/selector_day_button"
                 android:textColor="@color/violet"
-                android:textSize="14sp"
-                android:padding="8dp"/>
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:layout_weight="1"/>
+
             <TextView
                 android:id="@+id/btnThu"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                style="@style/DayButton"
                 android:text="Jue"
                 android:gravity="center"
+                style="@style/DayButton"
                 android:background="@drawable/selector_day_button"
                 android:textColor="@color/violet"
-                android:textSize="14sp"
-                android:padding="8dp"/>
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:layout_weight="1"/>
+
             <TextView
                 android:id="@+id/btnFri"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                style="@style/DayButton"
                 android:text="Vie"
                 android:gravity="center"
+                style="@style/DayButton"
                 android:background="@drawable/selector_day_button"
                 android:textColor="@color/violet"
-                android:textSize="14sp"
-                android:padding="8dp"/>
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:layout_weight="1"/>
+
             <TextView
                 android:id="@+id/btnSat"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:text="Sab"
-                style="@style/DayButton"
+                android:text="Sáb"
                 android:gravity="center"
+                style="@style/DayButton"
                 android:background="@drawable/selector_day_button"
                 android:textColor="@color/violet"
-                android:textSize="14sp"
-                android:padding="8dp"/>
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:layout_weight="1"/>
+
             <TextView
                 android:id="@+id/btnSun"
-                android:layout_width="40dp"
+                android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:text="Dom"
-                style="@style/DayButton"
+                android:text="Do"
                 android:gravity="center"
+                style="@style/DayButton"
                 android:background="@drawable/selector_day_button"
                 android:textColor="@color/violet"
-                android:textSize="14sp"
-                android:padding="8dp"/>
+                android:textSize="12sp"
+                android:padding="4dp"
+                android:layout_weight="1"/>
         </LinearLayout>
+
 
         <!-- Selección de horario -->
         <LinearLayout

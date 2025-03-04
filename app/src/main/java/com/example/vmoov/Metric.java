@@ -6,6 +6,8 @@ public class Metric {
     private int trueCount;
     private double averageTime;
     private String gameDuration; // Formateado para mostrar horas:minutos
+    private long gameDurationSeconds;  // Nuevo campo en segundos
+
     private int stepCount;
 
     // Constructor que incluye endTime
@@ -16,7 +18,9 @@ public class Metric {
         this.averageTime = averageTime;
         this.gameDuration = gameDuration;
         this.stepCount = stepCount;
+        this.gameDurationSeconds = (endTime - startTime) / 1000; // Calcular duración en segundos
     }
+
 
     // Getters
     public long getStartTime() { return startTime; }
@@ -24,5 +28,7 @@ public class Metric {
     public int getTrueCount() { return trueCount; }
     public double getAverageTime() { return averageTime; }
     public String getGameDuration() { return gameDuration; }
+    public long getGameDurationSeconds() { return gameDurationSeconds; }
+
     public int getStepCount() { return stepCount; }
 }

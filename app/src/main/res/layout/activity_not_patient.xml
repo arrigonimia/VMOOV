@@ -1,238 +1,181 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_screen"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:clipToOutline="true">
 
+    <!-- Fondo -->
     <ImageView
         android:id="@+id/fondo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/fondo_prueba"
-        app:layout_constraintStart_toStartOf="@id/guidelineizq"
-        app:layout_constraintEnd_toEndOf="@id/guidelineder" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- Zócalo superior con logo -->
     <LinearLayout
+        android:id="@+id/zocalo_sup"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
         android:background="@color/white"
-        android:padding="16dp">
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:layout_width="120dp"
             android:layout_height="60dp"
             android:src="@drawable/logovmoov_v"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"/>
     </LinearLayout>
 
-    <!-- Guidelines -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+    <!-- CardView principal -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/boxPrincipal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/zocalo_sup"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guidelineBottom">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Imagen del usuario -->
+            <ImageView
+                android:id="@+id/userlogo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@drawable/doc"
+                android:scaleType="centerCrop"/>
+
+            <!-- Nombre del usuario -->
+            <TextView
+                android:id="@+id/user_name_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="User Name"
+                android:textColor="@color/violet"
+                style="@style/titulo"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"/>
+
+            <!-- Título "Pacientes" -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pacientes"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                android:textColor="@color/violet"
+                style="@style/cuerpobold"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"/>
+
+            <!-- Lista de pacientes -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPatients"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Zócalo inferior con botones -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/zocalo_card"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="-16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp"
+        app:cardBackgroundColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/gridButtons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:weightSum="4"
+            android:useDefaultMargins="true"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/buttonAddContact"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/addpatient" />
+
+            <ImageButton
+                android:id="@+id/buttonAddInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/addinfo"
+                android:padding="10dp"/>
+
+            <ImageButton
+                android:id="@+id/home"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/home"
+                android:padding="10dp"/>
+
+            <ImageButton
+                android:id="@+id/buttonLogOut"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/logout"
+                android:padding="10dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- Guidelines -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineizq"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.05" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelinehor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <!-- Zocalo -->
-    <ImageView
-        android:id="@+id/zocalo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/zocalo"
-        android:foregroundGravity="center"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="@id/fondo"
-        app:layout_constraintStart_toStartOf="@id/fondo"
-        app:layout_constraintTop_toBottomOf="@id/guidelineBottom"
-        app:layout_constraintBottom_toBottomOf="@id/fondo"/>
-
-    <ImageView
-        android:id="@+id/boxPrincipal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="80dp"
-        app:layout_constraintEnd_toEndOf="@id/guidelineder"
-        app:layout_constraintStart_toStartOf="@id/guidelineizq"
-        app:layout_constraintTop_toTopOf="@id/guidelineTop"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineBottom"
-        app:srcCompat="@drawable/contenedorblanco" />
-
-    <!-- Contenedor de botones en 4 columnas -->
-    <GridLayout
-        android:id="@+id/buttonContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:columnCount="4"
-        android:rowCount="1"
-        android:alignmentMode="alignMargins"
-        android:padding="6dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/zocalo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/zocalo">
-
-
-        <!-- Botón Agregar Paciente -->
-        <ImageButton
-            android:id="@+id/buttonAddContact"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="3dp"
-            android:layout_columnWeight="1"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/addpatient"
-            android:layout_gravity="fill"/>
-
-        <ImageButton
-            android:id="@+id/buttonAddInfo"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/addinfo"
-            android:layout_gravity="fill"/>
-
-        <!-- Botón Home -->
-        <ImageButton
-            android:id="@+id/home"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_columnWeight="1"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/home"
-            android:padding="3dp"
-            android:layout_gravity="fill"/>
-
-        <!-- Botón Logout -->
-        <ImageButton
-            android:id="@+id/buttonLogOut"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_columnWeight="1"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logout"
-            android:layout_gravity="fill"/>
-
-        <!-- Botón Add Info -->
-
-    </GridLayout>
-
-
-
-    <!-- User Name TextView -->
-    <TextView
-        android:id="@+id/user_name_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:textSize="16dp"
-        style="@style/titulo"
-        android:textColor="@color/violet"
-        android:text="User Name"
-        app:layout_constraintStart_toEndOf="@id/userlogo"
-        app:layout_constraintTop_toTopOf="@id/userlogo"
-        app:layout_constraintBottom_toBottomOf="@id/userlogo"/>
-
-    <ImageView
-        android:id="@+id/userlogo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/boxPrincipal"
-        app:layout_constraintEnd_toEndOf="@id/guidelinemed"
-        app:layout_constraintTop_toTopOf="@id/guidelineTop2"
-        app:layout_constraintBottom_toTopOf="@id/guidelineTop2"
-        android:layout_marginTop="-28dp"
-        android:layout_marginBottom="-50dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginEnd="80dp"
-        app:srcCompat="@drawable/doc"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pacientes"
-        android:textSize="14dp"
-        style="@style/cuerpobold"
-        android:textStyle="bold"
-        android:textColor="@color/violet"
-        app:layout_constraintTop_toBottomOf="@id/userlogo"
-        app:layout_constraintStart_toStartOf="@id/userlogo"
-        app:layout_constraintBottom_toTopOf="@id/recyclerViewPatients"
-        android:layout_marginBottom="12dp"
-        android:layout_marginTop="22dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewPatients"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        style="@style/cuerpo"
-        android:scrollbars="vertical"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintStart_toStartOf="@id/userlogo"
-        app:layout_constraintEnd_toEndOf="@id/guidelineder"
-        app:layout_constraintTop_toTopOf="@id/guidelineTop2"
-        app:layout_constraintBottom_toBottomOf="@id/guidelineBottom2"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelinemed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.95" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineTop2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.24" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineBottom2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.85"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
