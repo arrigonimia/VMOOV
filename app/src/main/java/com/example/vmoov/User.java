@@ -58,7 +58,7 @@ public class User {
         return phone;
     }
 
-    public void stePhone(String phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     public String getEmail() {

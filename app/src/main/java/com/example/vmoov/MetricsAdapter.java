@@ -35,12 +35,12 @@ public class MetricsAdapter extends RecyclerView.Adapter<MetricsAdapter.MetricsV
         String formattedEndTime = formatDate(metric.getEndTime());
 
         // Display start time and total duration
-        holder.gameDateTextView.setText("Fecha: " + formattedStartTime);
+        holder.gameDateTextView.setText(formattedStartTime);
         holder.totalDurationTextView.setText("- Duración Total: " + GameDurationCalculator.calculateGameDuration(metric.getStartTime(), metric.getEndTime()));
 
         // Display other metrics
         holder.averageTimeTextView.setText("- Tiempo Promedio: " + String.format("%.2f s", metric.getAverageTime()));
-        holder.successRateTextView.setText("- Movimientos Exitosos: " + metric.getTrueCount() + " de " + metric.getStepCount());
+        holder.successRateTextView.setText("- Movimientos Exitosos: " + metric.getTrueCount() + "/" + metric.getStepCount());
     }
 
     @Override

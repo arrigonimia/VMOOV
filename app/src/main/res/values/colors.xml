@@ -15,7 +15,8 @@
     <color name="colorAccent">#E040FB</color>
     <color name="colorOff">#FFFFFF</color>
     <color name="colorOn">#E040FB</color>
-    <color name="blue">#3F60E2</color>
-    <color name="violet">#dfaaff</color>
+    <color name="blue">#677eff</color>
+    <color name="violet">#e1abfc</color>
+    <color name="lightviolet">#f7f4f8</color>
 
 </resources>

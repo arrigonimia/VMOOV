@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotPatientActivity extends AppCompatActivity implements RecyclerViewInterface {
+public class NotPatientActivity extends BaseActivity implements RecyclerViewInterface {
 
     private RecyclerView recyclerViewPatients;
     private PatientsAdapter patientsAdapter;

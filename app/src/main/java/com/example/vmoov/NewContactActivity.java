@@ -21,7 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class NewContactActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class NewContactActivity extends BaseActivity {
 
     private EditText editText_uniqueCode;
     private CardView saveCard, backCard;
@@ -85,7 +88,7 @@ public class NewContactActivity extends AppCompatActivity {
                             String patientName = patientSnapshot.child("nombrePS").getValue(String.class) + " " + patientSnapshot.child("apellidoPS").getValue(String.class);
 
                             // Vincular al profesional de salud con el paciente
-                            linkContactWithPatient(patientId, patientName, uniqueCode);
+                            sendContactRequest(patientId);
                         }
                     } else {
                         // No se encontró ningún paciente con el uniqueCode
@@ -104,6 +107,31 @@ public class NewContactActivity extends AppCompatActivity {
             Toast.makeText(NewContactActivity.this, "El código único debe ser un número.", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void sendContactRequest(String patientId) {
+        String professionalId = mAuth.getCurrentUser().getUid();
+        DatabaseReference requestsRef = mDatabase.child("requests");
+
+        String requestId = requestsRef.push().getKey(); // Generar un ID único para la solicitud
+
+        if (requestId != null) {
+            // Crear solicitud con IDs del profesional y el paciente
+            Map<String, Object> requestData = new HashMap<>();
+            requestData.put("professionalId", professionalId);
+            requestData.put("patientId", patientId);
+
+            requestsRef.child(requestId).setValue(requestData)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(NewContactActivity.this, "Solicitud enviada al paciente.", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Toast.makeText(NewContactActivity.this, "Error al enviar la solicitud.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
 
     private void linkContactWithPatient(String patientId, String patientName, String uniqueCode) {
         String userId = mAuth.getCurrentUser().getUid();

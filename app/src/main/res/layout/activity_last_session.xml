@@ -1,250 +1,194 @@
-<ScrollView
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/fondo_prueba"
-    tools:context=".MenuActivity">
+    tools:context=".LastSessionActivity">
 
+    <!-- 🔹 Zócalo fijo arriba -->
     <LinearLayout
+        android:id="@+id/zocalo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Zócalo violeta con el logo -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logovmoov_v"
+            android:scaleType="fitCenter"/>
+    </LinearLayout>
+
+    <!-- 🔹 CardView que contiene TODO -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/chart_card"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="24dp"
+        app:cardCornerRadius="16dp"
+        android:padding="22dp"
+        app:cardElevation="8dp"
+        app:layout_constraintTop_toBottomOf="@id/zocalo"
+        app:layout_constraintBottom_toTopOf="@id/horizontalBottom">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center"
-            android:padding="16dp"
-            android:background="@color/white">
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="60dp"
-                android:src="@drawable/logovmoov_v"
-                android:scaleType="fitCenter" />
-        </LinearLayout>
-
-    <!-- Encabezado de última partida -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="18dp">
-
-        <!-- Título -->
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Última Partida"
-            android:layout_marginTop="12dp"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/white" />
-
-        <!-- Fecha y Nombre del Juego -->
-        <TextView
-            android:id="@+id/subtitle_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:text="Game1 - 01/01/2025"
-            android:textSize="16sp"
-            android:textColor="@color/white" />
-    </LinearLayout>
-
-    <!-- Velocímetro Principal -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/main_gauge_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginLeft="12dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp">
+            android:orientation="vertical"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingHorizontal="0dp"
+            android:gravity="center">
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/main_gauge"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_centerInParent="true" />
-
-            <!-- Texto dentro del gráfico -->
+            <!-- 🔹 Encabezado dentro de la CardView -->
             <TextView
-                android:id="@+id/main_gauge_text"
+                android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="5 de 10\nsesiones realizadas"
-                android:gravity="center"
-                android:textSize="16sp"
+                android:text="Última Partida"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:textColor="@color/black" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Indicadores adicionales -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:weightSum="3">
-
-        <!-- Indicador 1 -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/indicator1_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/indicator1"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
-
-                <TextView
-                    android:id="@+id/indicator1_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="00:00"
-                    android:textColor="#5C4CF1"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Indicador 2 -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/indicator2_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/indicator2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
-
-                <TextView
-                    android:id="@+id/indicator2_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="0\n movimientos"
-                    android:textColor="#5C4CF1"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- Indicador 3 -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/indicator3_card"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="8dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:gravity="center">
-
-                <com.github.mikephil.charting.charts.PieChart
-                    android:id="@+id/indicator3"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp" />
-
-                <TextView
-                    android:id="@+id/indicator3_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="0.00 segs"
-                    android:textColor="#5C4CF1"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <!-- Frase motivacional -->
-    <TextView
-        android:id="@+id/motivational_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:text="¡Sigue así, estás mejorando cada día!"
-        android:textSize="16sp"
-        android:textColor="@color/white"
-        android:textStyle="italic" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="1" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/back_card"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            android:backgroundTint="@color/blue"
-            app:layout_constraintTop_toBottomOf="@id/reset_password_card"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+                android:layout_marginTop="2dp"
+                style="@style/titulo"
+                android:textColor="@color/violet"
+                android:gravity="center"/>
 
             <TextView
-                android:id="@+id/back_button"
+                android:id="@+id/subtitle_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01/01/2025"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                style="@style/cuerpobold"
+                android:textStyle="bold"
+                android:textColor="@color/blue"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/violet"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"/>
+
+
+            <!-- 🔹 Título y Descripción del gráfico -->
+            <TextView
+                android:id="@+id/chart_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Título del gráfico"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/blue"
+                style="@style/titulo"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:id="@+id/chart_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descripción breve del gráfico."
+                android:textSize="12sp"
+                android:gravity="center"
+                android:paddingHorizontal="14dp"
+                style="@style/cuerpo"
+                android:textColor="@color/blue"
+                android:layout_marginTop="4dp"/>
+
+            <!-- 🔹 ViewPager2 para los gráficos -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:layout_constraintTop_toBottomOf="@id/chart_description"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout"/>
+
+
+
+            <!-- 🔹 Indicador de página (puntos debajo del gráfico) -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="VOLVER"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:textSize="18sp"
-                android:padding="12dp"
-                android:textStyle="bold"/>
-        </androidx.cardview.widget.CardView>
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/lightviolet"
+                android:background="@color/lightviolet"
+                app:tabIndicatorColor="@color/blue"
+                app:tabSelectedTextColor="@color/blue"
+                app:tabTextColor="@color/violet"/>
 
+            <!-- 🔹 Frase motivacional -->
+            <TextView
+                android:id="@+id/motivational_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¡Sigue así, estás mejorando cada día!"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="10dp"
+                style="@style/cuerpobold"
+                android:textColor="@color/blue"
+                android:gravity="center"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- 🔹 Botones fijos abajo -->
+    <LinearLayout
+        android:id="@+id/botones_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Zócalo inferior con botones -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/zocalo_card"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="-12dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:id="@+id/gridButtons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:paddingBottom="20dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/home"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
-</ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/horizontalBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.93" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

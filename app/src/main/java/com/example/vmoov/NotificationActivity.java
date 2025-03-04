@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.os.Bundle;
 
-public class NotificationActivity extends AppCompatActivity {
+public class NotificationActivity extends BaseActivity {
 
     private Button yes_Button;
     TextView textView;

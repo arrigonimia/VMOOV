@@ -43,6 +43,7 @@
         android:theme="@style/Theme.VMOOV"
         tools:targetApi="31">
 
+
         <activity
             android:name=".ConnectionActivity"
             android:exported="false"
@@ -56,7 +57,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/filepaths" />
         </provider>
 
         <activity
@@ -130,6 +131,9 @@
         <activity android:name=".PrescriptionActivity"
             android:exported="false"/>
         <activity android:name=".HealthProfessionalInfoActivity"
+            android:exported="false"/>
+
+        <activity android:name=".EditInfoActivity"
             android:exported="false"/>
     </application>
 

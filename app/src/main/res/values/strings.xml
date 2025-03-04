@@ -53,4 +53,66 @@
         <item>Semanas</item>
         <item>Meses</item>
     </string-array>
+
+    <string-array name="months_array">
+        <item>Todos</item>
+        <item>Enero</item>
+        <item>Febrero</item>
+        <item>Marzo</item>
+        <item>Abril</item>
+        <item>Mayo</item>
+        <item>Junio</item>
+        <item>Julio</item>
+        <item>Agosto</item>
+        <item>Septiembre</item>
+        <item>Octubre</item>
+        <item>Noviembre</item>
+        <item>Diciembre</item>
+
+    </string-array>
+
+    <string-array name="order_array">
+        <item>Fecha (más antiguo a más nuevo)</item>
+        <item>Fecha (más nuevo a más antiguo)</item>
+        <item>Tiempo de ejecución</item>
+        <item>Duración de sesión</item>
+        <item>Cantidad de movimientos correctos</item>
+    </string-array>
+
+    <string-array name="obra_social_array">
+        <item>Seleccione obra social</item>
+        <item>OSDE</item>
+        <item>Swiss Medical</item>
+        <item>Galeno</item>
+        <item>Medicus</item>
+        <item>OSECAC</item>
+        <item>Otra</item>
+    </string-array>
+
+    <string-array name="gender_array">
+        <item>Género</item>
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>No binario</item>
+        <item>Prefiero no decirlo</item>
+    </string-array>
+
+
+    <!-- Botones -->
+    <string name="skip">Omitir</string>
+    <string name="back">Volver</string>
+    <string name="success_save">Centros guardados con éxito.</string>
+    <string name="error_add_center">Debe agregar al menos un centro.</string>
+    <string name="select_valid_center">Por favor, seleccione un centro válido.</string>
+
+
+    <!-- Centros de salud -->
+    <string-array name="center_names">
+        <item>Seleccione un centro...</item>  <!-- Opción inicial (pista) -->
+        <item>Sanatorio La Trinidad - Palermo</item>
+        <item>Sanatorio Las Lomas - Pilar</item>
+        <item>Sanatorio Las Lomas - San Isidro</item>
+
+    </string-array>
+
 </resources>

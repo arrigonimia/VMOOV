@@ -22,25 +22,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HealthProfessionalInfoActivity extends AppCompatActivity {
+public class HealthProfessionalInfoActivity extends BaseActivity {
 
     private LinearLayout centersContainer;
     private CardView addCenterButton, saveButton, backButton;
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
-    private String professionalId, source;
-    private final String[] centerNames = {"Centro Médico 1", "Hospital General", "Clínica Salud", "Sanatorio Central"};
+    private String professionalId;
+    private String[] centerNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_professional_info);
 
+        // Cargar nombres de centros desde strings.xml
+        centerNames = getResources().getStringArray(R.array.center_names);
+
         // Inicializar Firebase
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         professionalId = mAuth.getCurrentUser().getUid();
-        source = getIntent().getStringExtra("source");
 
         // Vincular elementos del layout
         centersContainer = findViewById(R.id.centersContainer);
@@ -48,22 +50,8 @@ public class HealthProfessionalInfoActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         backButton = findViewById(R.id.backButton);
 
-        // Configurar el botón "Omitir" o "Volver"
-        if ("SignUpActivity".equals(source)) {
-            backButton.setOnClickListener(v -> {
-                Intent intent = new Intent(this, NotPatientActivity.class);
-                startActivity(intent);
-                finish();
-            });
-            backButton.findViewById(R.id.backButton).setContentDescription("Omitir");
-        } else {
-            backButton.setOnClickListener(v -> {
-                Intent intent = new Intent(this, NotPatientActivity.class);
-                startActivity(intent);
-                finish();
-            });
-            backButton.findViewById(R.id.backButton).setContentDescription("Volver");
-        }
+        // Configurar botón "Volver"
+        backButton.setOnClickListener(v -> navigateToNotPatient());
 
         // Agregar un centro inicial
         addCenter();
@@ -76,10 +64,11 @@ public class HealthProfessionalInfoActivity extends AppCompatActivity {
     private void addCenter() {
         View centerView = LayoutInflater.from(this).inflate(R.layout.item_center, centersContainer, false);
 
-        // Configurar Spinner de centros
+        // Configurar Spinner con una opción inicial no seleccionable
         Spinner spinnerCenter = centerView.findViewById(R.id.spinnerCenterName);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, centerNames);
         spinnerCenter.setAdapter(adapter);
+        spinnerCenter.setSelection(0); // Establecer la opción inicial como seleccionada
 
         // Configurar botones de selección de días
         Map<TextView, Boolean> daySelection = new HashMap<>();
@@ -107,6 +96,7 @@ public class HealthProfessionalInfoActivity extends AppCompatActivity {
     private void toggleDaySelection(TextView day, Map<TextView, Boolean> daySelection) {
         boolean selected = !daySelection.get(day);
         daySelection.put(day, selected);
+
         @ColorInt int selectedColor = getResources().getColor(R.color.violet, getTheme());
         @ColorInt int unselectedColor = getResources().getColor(R.color.white, getTheme());
         @ColorInt int textColorSelected = getResources().getColor(R.color.white, getTheme());
@@ -127,7 +117,7 @@ public class HealthProfessionalInfoActivity extends AppCompatActivity {
     private void saveData() {
         int count = centersContainer.getChildCount();
         if (count == 0) {
-            Toast.makeText(this, "Debe agregar al menos un centro.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_add_center), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -136,7 +126,15 @@ public class HealthProfessionalInfoActivity extends AppCompatActivity {
 
         for (int i = 0; i < count; i++) {
             View centerView = centersContainer.getChildAt(i);
-            String centerName = ((Spinner) centerView.findViewById(R.id.spinnerCenterName)).getSelectedItem().toString();
+            Spinner spinner = centerView.findViewById(R.id.spinnerCenterName);
+            String centerName = spinner.getSelectedItem().toString();
+
+            // Validar que no se seleccione la pista
+            if (spinner.getSelectedItemPosition() == 0) {
+                Toast.makeText(this, getString(R.string.select_valid_center), Toast.LENGTH_SHORT).show();
+                return; // No guardar si hay una selección inválida
+            }
+
             String startTime = ((TextView) centerView.findViewById(R.id.startTime)).getText().toString();
             String endTime = ((TextView) centerView.findViewById(R.id.endTime)).getText().toString();
 
@@ -158,7 +156,15 @@ public class HealthProfessionalInfoActivity extends AppCompatActivity {
             ));
         }
 
-        Toast.makeText(this, "Centros guardados con éxito.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.success_save), Toast.LENGTH_SHORT).show();
+
+        // 🔹 Ahora SIEMPRE lleva a NotPatientActivity al guardar
+        navigateToNotPatient();
+    }
+
+    private void navigateToNotPatient() {
+        Intent intent = new Intent(this, NotPatientActivity.class);
+        startActivity(intent);
         finish();
     }
 }
